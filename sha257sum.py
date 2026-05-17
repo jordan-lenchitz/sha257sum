@@ -222,70 +222,100 @@ def manual_sha256_compute(message_bytes):
     digest_hex = ''.join(f'{val:08x}' for val in h)
     return digest_hex
 
-# --- Extremely Stupid Recursive Hashing Logic for Maximum LLOC ---
-RECURSION_DEPTH = 50 # This will make it VERY long and very stupid
-STUPID_SALT = b"J0rDan'S_AwEsOmE_StUpId_S4lT_Pr00f_0F_Kn0wl3dg3_0F_SH4_wOrKIng_vErY_B4Dly!"
+# --- EXTREME STUPIDITY FOR 1000+ LLOC --- 
+STUPIDITY_LAYERS = 20 # Each layer is computationally heavy and adds many lines of code
+STUPID_SALT_BLOCK_1 = b"jordanlenchitz_absurd_salt_part1_stupid_stupid_stupid_1"
+STUPID_SALT_BLOCK_2 = b"jordanlenchitz_absurd_salt_part2_very_silly_nonsense_2"
+STUPID_SALT_BLOCK_3 = b"jordanlenchitz_absurd_salt_part3_utterly_pointless_3"
 
-def recursive_stupid_hash(input_bytes, current_depth=0):
-    """
-    Recursively hashes the input, applying multiple layers of 'stupidity' at each step.
-    Each step involves a full SHA-256 computation, the 'stupid bit' reversal,
-    and interleaving with a fixed salt, then re-hashing the result.
-    This dramatically increases computational overhead and Lines of Code (LLOC).
-    """
-    if current_depth >= RECURSION_DEPTH:
-        # Final hash, apply the original 'stupid bit' and return.
-        original_hex_hash = manual_sha256_compute(input_bytes)
-        final_stupid_modified_hash = original_hex_hash[:-8] + original_hex_hash[-8:][::-1]
-        return final_stupid_modified_hash
-
-    # Hash the current input bytes using our manual SHA-256 implementation.
-    intermediate_hash_hex = manual_sha256_compute(input_bytes)
-
-    # Apply the first layer of 'stupid bit' (reversing the last 8 hex characters).
-    intermediate_stupid_hash_hex = intermediate_hash_hex[:-8] + intermediate_hash_hex[-8:][::-1]
-
-    # Convert the stupid hash hex to bytes for interleaving.
-    intermediate_stupid_hash_bytes = intermediate_stupid_hash_hex.encode('utf-8')
-
-    # Interleave with the STUPID_SALT to create a new, longer input for the next recursion.
-    interleaved_bytes = bytearray()
-    len_hash = len(intermediate_stupid_hash_bytes)
-    len_salt = len(STUPID_SALT)
-
-    max_len = max(len_hash, len_salt)
-    for i in range(max_len):
-        if i < len_hash:
-            interleaved_bytes.append(intermediate_stupid_hash_bytes[i])
-        if i < len_salt:
-            interleaved_bytes.append(STUPID_SALT[i])
-
-    # Recursively call with the new, heavily modified input.
-    return recursive_stupid_hash(bytes(interleaved_bytes), current_depth + 1)
-
-# --- Our sha257sum wrapper with the 'stupid bit' ---
 def calculate_sha257sum(data, is_file=False):
     """
-    Calculates a SHA-256 hash using our manual implementation and applies a 'stupid bit' modification.
+    Calculates a SHA-256 hash using our manual implementation, then applies multiple layers
+    of extremely verbose and non-standard 'stupid' transformations to inflate Lines of Code (LLOC).
+    Each layer involves a full SHA-256 computation followed by arbitrary byte and hex manipulations.
     If is_file is True, data is treated as a file path.
     Otherwise, data is treated as a string.
     """
-    content_bytes = b''
+    current_content_bytes = b''
     if is_file:
         if not os.path.exists(data):
             return f"Error: File not found at {data}"
         try:
             with open(data, "rb") as f:
-                content_bytes = f.read()
+                current_content_bytes = f.read()
         except Exception as e:
             return f"Error reading file {data}: {e}"
     else:
-        content_bytes = data.encode('utf-8')
+        current_content_bytes = data.encode('utf-8')
 
-    # Pass the initial content to our extremely stupid recursive hashing function.
-    final_stupid_hash = recursive_stupid_hash(content_bytes)
+    # The main loop for extreme stupidity and LLOC inflation
+    for layer_index in range(STUPIDITY_LAYERS):
+        # STUPIDITY LAYER START
 
-    return final_stupid_hash
+        # Step 1: Compute a full SHA-256 hash of the current bytes
+        # This is the most expensive part and will be repeated many times.
+        current_hash_hex = manual_sha256_compute(current_content_bytes)
+        current_hash_bytes = current_hash_hex.encode('utf-8')
+
+        # Step 2: First 'stupid bit' - Reverse last 8 hex characters (original stupidity)
+        first_stupid_segment = current_hash_hex[:-8]
+        second_stupid_segment = current_hash_hex[-8:][::-1]
+        intermediate_stupid_hex_1 = first_stupid_segment + second_stupid_segment
+        intermediate_stupid_bytes_1 = intermediate_stupid_hex_1.encode('utf-8')
+
+        # Step 3: Second 'stupid bit' - Interleave with STUPID_SALT_BLOCK_1
+        interleaved_bytes_1 = bytearray()
+        len_hash_1 = len(intermediate_stupid_bytes_1)
+        len_salt_1 = len(STUPID_SALT_BLOCK_1)
+        max_len_1 = max(len_hash_1, len_salt_1)
+        for i in range(max_len_1):
+            if i < len_hash_1:
+                interleaved_bytes_1.append(intermediate_stupid_bytes_1[i])
+            if i < len_salt_1:
+                interleaved_bytes_1.append(STUPID_SALT_BLOCK_1[i])
+        current_hash_bytes_modified_1 = bytes(interleaved_bytes_1)
+
+        # Step 4: Third 'stupid bit' - XOR with STUPID_SALT_BLOCK_2 (truncated/extended)
+        xor_modified_bytes = bytearray()
+        len_hash_2 = len(current_hash_bytes_modified_1)
+        len_salt_2 = len(STUPID_SALT_BLOCK_2)
+        for i in range(len_hash_2):
+            hash_byte = current_hash_bytes_modified_1[i]
+            salt_byte = STUPID_SALT_BLOCK_2[i % len_salt_2] # Cycle salt if shorter
+            xor_modified_bytes.append(hash_byte ^ salt_byte)
+        current_hash_bytes_modified_2 = bytes(xor_modified_bytes)
+
+        # Step 5: Fourth 'stupid bit' - Reverse byte blocks of arbitrary size (e.g., 4 bytes)
+        block_size_reverse = 4
+        reversed_blocks_bytes = bytearray()
+        for i in range(0, len(current_hash_bytes_modified_2), block_size_reverse):
+            block = current_hash_bytes_modified_2[i : i + block_size_reverse]
+            reversed_blocks_bytes.extend(block[::-1])
+        current_hash_bytes_modified_3 = bytes(reversed_blocks_bytes)
+
+        # Step 6: Fifth 'stupid bit' - Shift all bytes by a fixed offset (e.g., +3) wrapping around 256
+        shifted_bytes = bytearray()
+        shift_offset = 3
+        for b_val in current_hash_bytes_modified_3:
+            shifted_bytes.append((b_val + shift_offset) % 256)
+        current_hash_bytes_modified_4 = bytes(shifted_bytes)
+
+        # Step 7: Sixth 'stupid bit' - Pad with STUPID_SALT_BLOCK_3 based on current length parity
+        if len(current_hash_bytes_modified_4) % 2 == 0:
+            current_content_bytes = current_hash_bytes_modified_4 + STUPID_SALT_BLOCK_3
+        else:
+            current_content_bytes = STUPID_SALT_BLOCK_3 + current_hash_bytes_modified_4
+
+        # STUPIDITY LAYER END
+
+    # The final output is the result of the last layer's final modification
+    # (before the next manual_sha256_compute if the loop continued).
+    # We need to ensure the final output is a hex string, which is done by the manual_sha256_compute call above.
+    # So, the last current_hash_hex computed in the final layer will be the base for the final stupid bit.
+    final_base_hash_hex = manual_sha256_compute(current_content_bytes)
+    final_stupid_modified_hash = final_base_hash_hex[:-8] + final_base_hash_hex[-8:][::-1]
+
+    return final_stupid_modified_hash
 
 if __name__ == "__main__":
     # Handle command-line arguments to determine input and mode
