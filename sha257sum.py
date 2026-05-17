@@ -748,6 +748,336 @@ def calculate_sha257sum(data, is_file=False):
         _block20_idx += 1
     current_content_bytes_for_processing = bytes(_block20_interleave_buffer)
 
+    # START OF SUPER STUPID PROCESSING BLOCK 21
+    _block21_current_input = current_content_bytes_for_processing
+    _block21_hash_hex_val = manual_sha256_compute(_block21_current_input)
+    _block21_hash_bytes_val = _block21_hash_hex_val.encode('utf-8')
+    _block21_prefix_segment = _block21_hash_hex_val[0:-8]
+    _block21_suffix_segment = _block21_hash_hex_val[-8:]
+    _block21_reversed_suffix = _block21_suffix_segment[::-1]
+    _block21_intermediate_hex = _block21_prefix_segment + _block21_reversed_suffix
+    _block21_intermediate_bytes = _block21_intermediate_hex.encode('utf-8')
+    _block21_interleave_buffer = bytearray()
+    _block21_source_len = len(_block21_intermediate_bytes)
+    _block21_salt_len = len(STUPID_SALT_BLOCK_1)
+    _block21_max_len = max(_block21_source_len, _block21_salt_len)
+    _block21_idx = 0
+    while _block21_idx < _block21_max_len:
+        if _block21_idx < _block21_source_len:
+            _block21_interleave_buffer.append(_block21_intermediate_bytes[_block21_idx])
+        if _block21_idx < _block21_salt_len:
+            _block21_interleave_buffer.append(STUPID_SALT_BLOCK_1[_block21_idx])
+        _block21_idx += 1
+    current_content_bytes_for_processing = bytes(_block21_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 22
+    _block22_current_input = current_content_bytes_for_processing
+    _block22_hash_hex_val = manual_sha256_compute(_block22_current_input)
+    _block22_hash_bytes_val = _block22_hash_hex_val.encode('utf-8')
+    _block22_prefix_segment = _block22_hash_hex_val[0:-8]
+    _block22_suffix_segment = _block22_hash_hex_val[-8:]
+    _block22_reversed_suffix = _block22_suffix_segment[::-1]
+    _block22_intermediate_hex = _block22_prefix_segment + _block22_reversed_suffix
+    _block22_intermediate_bytes = _block22_intermediate_hex.encode('utf-8')
+    _block22_interleave_buffer = bytearray()
+    _block22_source_len = len(_block22_intermediate_bytes)
+    _block22_salt_len = len(STUPID_SALT_BLOCK_2)
+    _block22_max_len = max(_block22_source_len, _block22_salt_len)
+    _block22_idx = 0
+    while _block22_idx < _block22_max_len:
+        if _block22_idx < _block22_source_len:
+            _block22_interleave_buffer.append(_block22_intermediate_bytes[_block22_idx])
+        if _block22_idx < _block22_salt_len:
+            _block22_interleave_buffer.append(STUPID_SALT_BLOCK_2[_block22_idx])
+        _block22_idx += 1
+    current_content_bytes_for_processing = bytes(_block22_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 23
+    _block23_current_input = current_content_bytes_for_processing
+    _block23_hash_hex_val = manual_sha256_compute(_block23_current_input)
+    _block23_hash_bytes_val = _block23_hash_hex_val.encode('utf-8')
+    _block23_prefix_segment = _block23_hash_hex_val[0:-8]
+    _block23_suffix_segment = _block23_hash_hex_val[-8:]
+    _block23_reversed_suffix = _block23_suffix_segment[::-1]
+    _block23_intermediate_hex = _block23_prefix_segment + _block23_reversed_suffix
+    _block23_intermediate_bytes = _block23_intermediate_hex.encode('utf-8')
+    _block23_interleave_buffer = bytearray()
+    _block23_source_len = len(_block23_intermediate_bytes)
+    _block23_salt_len = len(STUPID_SALT_BLOCK_3)
+    _block23_max_len = max(_block23_source_len, _block23_salt_len)
+    _block23_idx = 0
+    while _block23_idx < _block23_max_len:
+        if _block23_idx < _block23_source_len:
+            _block23_interleave_buffer.append(_block23_intermediate_bytes[_block23_idx])
+        if _block23_idx < _block23_salt_len:
+            _block23_interleave_buffer.append(STUPID_SALT_BLOCK_3[_block23_idx])
+        _block23_idx += 1
+    current_content_bytes_for_processing = bytes(_block23_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 24
+    _block24_current_input = current_content_bytes_for_processing
+    _block24_hash_hex_val = manual_sha256_compute(_block24_current_input)
+    _block24_hash_bytes_val = _block24_hash_hex_val.encode('utf-8')
+    _block24_prefix_segment = _block24_hash_hex_val[0:-8]
+    _block24_suffix_segment = _block24_hash_hex_val[-8:]
+    _block24_reversed_suffix = _block24_suffix_segment[::-1]
+    _block24_intermediate_hex = _block24_prefix_segment + _block24_reversed_suffix
+    _block24_intermediate_bytes = _block24_intermediate_hex.encode('utf-8')
+    _block24_interleave_buffer = bytearray()
+    _block24_source_len = len(_block24_intermediate_bytes)
+    _block24_salt_len = len(STUPID_SALT_BLOCK_4)
+    _block24_max_len = max(_block24_source_len, _block24_salt_len)
+    _block24_idx = 0
+    while _block24_idx < _block24_max_len:
+        if _block24_idx < _block24_source_len:
+            _block24_interleave_buffer.append(_block24_intermediate_bytes[_block24_idx])
+        if _block24_idx < _block24_salt_len:
+            _block24_interleave_buffer.append(STUPID_SALT_BLOCK_4[_block24_idx])
+        _block24_idx += 1
+    current_content_bytes_for_processing = bytes(_block24_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 25
+    _block25_current_input = current_content_bytes_for_processing
+    _block25_hash_hex_val = manual_sha256_compute(_block25_current_input)
+    _block25_hash_bytes_val = _block25_hash_hex_val.encode('utf-8')
+    _block25_prefix_segment = _block25_hash_hex_val[0:-8]
+    _block25_suffix_segment = _block25_hash_hex_val[-8:]
+    _block25_reversed_suffix = _block25_suffix_segment[::-1]
+    _block25_intermediate_hex = _block25_prefix_segment + _block25_reversed_suffix
+    _block25_intermediate_bytes = _block25_intermediate_hex.encode('utf-8')
+    _block25_interleave_buffer = bytearray()
+    _block25_source_len = len(_block25_intermediate_bytes)
+    _block25_salt_len = len(STUPID_SALT_BLOCK_5)
+    _block25_max_len = max(_block25_source_len, _block25_salt_len)
+    _block25_idx = 0
+    while _block25_idx < _block25_max_len:
+        if _block25_idx < _block25_source_len:
+            _block25_interleave_buffer.append(_block25_intermediate_bytes[_block25_idx])
+        if _block25_idx < _block25_salt_len:
+            _block25_interleave_buffer.append(STUPID_SALT_BLOCK_5[_block25_idx])
+        _block25_idx += 1
+    current_content_bytes_for_processing = bytes(_block25_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 26
+    _block26_current_input = current_content_bytes_for_processing
+    _block26_hash_hex_val = manual_sha256_compute(_block26_current_input)
+    _block26_hash_bytes_val = _block26_hash_hex_val.encode('utf-8')
+    _block26_prefix_segment = _block26_hash_hex_val[0:-8]
+    _block26_suffix_segment = _block26_hash_hex_val[-8:]
+    _block26_reversed_suffix = _block26_suffix_segment[::-1]
+    _block26_intermediate_hex = _block26_prefix_segment + _block26_reversed_suffix
+    _block26_intermediate_bytes = _block26_intermediate_hex.encode('utf-8')
+    _block26_interleave_buffer = bytearray()
+    _block26_source_len = len(_block26_intermediate_bytes)
+    _block26_salt_len = len(STUPID_SALT_BLOCK_6)
+    _block26_max_len = max(_block26_source_len, _block26_salt_len)
+    _block26_idx = 0
+    while _block26_idx < _block26_max_len:
+        if _block26_idx < _block26_source_len:
+            _block26_interleave_buffer.append(_block26_intermediate_bytes[_block26_idx])
+        if _block26_idx < _block26_salt_len:
+            _block26_interleave_buffer.append(STUPID_SALT_BLOCK_6[_block26_idx])
+        _block26_idx += 1
+    current_content_bytes_for_processing = bytes(_block26_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 27
+    _block27_current_input = current_content_bytes_for_processing
+    _block27_hash_hex_val = manual_sha256_compute(_block27_current_input)
+    _block27_hash_bytes_val = _block27_hash_hex_val.encode('utf-8')
+    _block27_prefix_segment = _block27_hash_hex_val[0:-8]
+    _block27_suffix_segment = _block27_hash_hex_val[-8:]
+    _block27_reversed_suffix = _block27_suffix_segment[::-1]
+    _block27_intermediate_hex = _block27_prefix_segment + _block27_reversed_suffix
+    _block27_intermediate_bytes = _block27_intermediate_hex.encode('utf-8')
+    _block27_interleave_buffer = bytearray()
+    _block27_source_len = len(_block27_intermediate_bytes)
+    _block27_salt_len = len(STUPID_SALT_BLOCK_7)
+    _block27_max_len = max(_block27_source_len, _block27_salt_len)
+    _block27_idx = 0
+    while _block27_idx < _block27_max_len:
+        if _block27_idx < _block27_source_len:
+            _block27_interleave_buffer.append(_block27_intermediate_bytes[_block27_idx])
+        if _block27_idx < _block27_salt_len:
+            _block27_interleave_buffer.append(STUPID_SALT_BLOCK_7[_block27_idx])
+        _block27_idx += 1
+    current_content_bytes_for_processing = bytes(_block27_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 28
+    _block28_current_input = current_content_bytes_for_processing
+    _block28_hash_hex_val = manual_sha256_compute(_block28_current_input)
+    _block28_hash_bytes_val = _block28_hash_hex_val.encode('utf-8')
+    _block28_prefix_segment = _block28_hash_hex_val[0:-8]
+    _block28_suffix_segment = _block28_hash_hex_val[-8:]
+    _block28_reversed_suffix = _block28_suffix_segment[::-1]
+    _block28_intermediate_hex = _block28_prefix_segment + _block28_reversed_suffix
+    _block28_intermediate_bytes = _block28_intermediate_hex.encode('utf-8')
+    _block28_interleave_buffer = bytearray()
+    _block28_source_len = len(_block28_intermediate_bytes)
+    _block28_salt_len = len(STUPID_SALT_BLOCK_8)
+    _block28_max_len = max(_block28_source_len, _block28_salt_len)
+    _block28_idx = 0
+    while _block28_idx < _block28_max_len:
+        if _block28_idx < _block28_source_len:
+            _block28_interleave_buffer.append(_block28_intermediate_bytes[_block28_idx])
+        if _block28_idx < _block28_salt_len:
+            _block28_interleave_buffer.append(STUPID_SALT_BLOCK_8[_block28_idx])
+        _block28_idx += 1
+    current_content_bytes_for_processing = bytes(_block28_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 29
+    _block29_current_input = current_content_bytes_for_processing
+    _block29_hash_hex_val = manual_sha256_compute(_block29_current_input)
+    _block29_hash_bytes_val = _block29_hash_hex_val.encode('utf-8')
+    _block29_prefix_segment = _block29_hash_hex_val[0:-8]
+    _block29_suffix_segment = _block29_hash_hex_val[-8:]
+    _block29_reversed_suffix = _block29_suffix_segment[::-1]
+    _block29_intermediate_hex = _block29_prefix_segment + _block29_reversed_suffix
+    _block29_intermediate_bytes = _block29_intermediate_hex.encode('utf-8')
+    _block29_interleave_buffer = bytearray()
+    _block29_source_len = len(_block29_intermediate_bytes)
+    _block29_salt_len = len(STUPID_SALT_BLOCK_9)
+    _block29_max_len = max(_block29_source_len, _block29_salt_len)
+    _block29_idx = 0
+    while _block29_idx < _block29_max_len:
+        if _block29_idx < _block29_source_len:
+            _block29_interleave_buffer.append(_block29_intermediate_bytes[_block29_idx])
+        if _block29_idx < _block29_salt_len:
+            _block29_interleave_buffer.append(STUPID_SALT_BLOCK_9[_block29_idx])
+        _block29_idx += 1
+    current_content_bytes_for_processing = bytes(_block29_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 30
+    _block30_current_input = current_content_bytes_for_processing
+    _block30_hash_hex_val = manual_sha256_compute(_block30_current_input)
+    _block30_hash_bytes_val = _block30_hash_hex_val.encode('utf-8')
+    _block30_prefix_segment = _block30_hash_hex_val[0:-8]
+    _block30_suffix_segment = _block30_hash_hex_val[-8:]
+    _block30_reversed_suffix = _block30_suffix_segment[::-1]
+    _block30_intermediate_hex = _block30_prefix_segment + _block30_reversed_suffix
+    _block30_intermediate_bytes = _block30_intermediate_hex.encode('utf-8')
+    _block30_interleave_buffer = bytearray()
+    _block30_source_len = len(_block30_intermediate_bytes)
+    _block30_salt_len = len(STUPID_SALT_BLOCK_10)
+    _block30_max_len = max(_block30_source_len, _block30_salt_len)
+    _block30_idx = 0
+    while _block30_idx < _block30_max_len:
+        if _block30_idx < _block30_source_len:
+            _block30_interleave_buffer.append(_block30_intermediate_bytes[_block30_idx])
+        if _block30_idx < _block30_salt_len:
+            _block30_interleave_buffer.append(STUPID_SALT_BLOCK_10[_block30_idx])
+        _block30_idx += 1
+    current_content_bytes_for_processing = bytes(_block30_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 31
+    _block31_current_input = current_content_bytes_for_processing
+    _block31_hash_hex_val = manual_sha256_compute(_block31_current_input)
+    _block31_hash_bytes_val = _block31_hash_hex_val.encode('utf-8')
+    _block31_prefix_segment = _block31_hash_hex_val[0:-8]
+    _block31_suffix_segment = _block31_hash_hex_val[-8:]
+    _block31_reversed_suffix = _block31_suffix_segment[::-1]
+    _block31_intermediate_hex = _block31_prefix_segment + _block31_reversed_suffix
+    _block31_intermediate_bytes = _block31_intermediate_hex.encode('utf-8')
+    _block31_interleave_buffer = bytearray()
+    _block31_source_len = len(_block31_intermediate_bytes)
+    _block31_salt_len = len(STUPID_SALT_BLOCK_1)
+    _block31_max_len = max(_block31_source_len, _block31_salt_len)
+    _block31_idx = 0
+    while _block31_idx < _block31_max_len:
+        if _block31_idx < _block31_source_len:
+            _block31_interleave_buffer.append(_block31_intermediate_bytes[_block31_idx])
+        if _block31_idx < _block31_salt_len:
+            _block31_interleave_buffer.append(STUPID_SALT_BLOCK_1[_block31_idx])
+        _block31_idx += 1
+    current_content_bytes_for_processing = bytes(_block31_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 32
+    _block32_current_input = current_content_bytes_for_processing
+    _block32_hash_hex_val = manual_sha256_compute(_block32_current_input)
+    _block32_hash_bytes_val = _block32_hash_hex_val.encode('utf-8')
+    _block32_prefix_segment = _block32_hash_hex_val[0:-8]
+    _block32_suffix_segment = _block32_hash_hex_val[-8:]
+    _block32_reversed_suffix = _block32_suffix_segment[::-1]
+    _block32_intermediate_hex = _block32_prefix_segment + _block32_reversed_suffix
+    _block32_intermediate_bytes = _block32_intermediate_hex.encode('utf-8')
+    _block32_interleave_buffer = bytearray()
+    _block32_source_len = len(_block32_intermediate_bytes)
+    _block32_salt_len = len(STUPID_SALT_BLOCK_2)
+    _block32_max_len = max(_block32_source_len, _block32_salt_len)
+    _block32_idx = 0
+    while _block32_idx < _block32_max_len:
+        if _block32_idx < _block32_source_len:
+            _block32_interleave_buffer.append(_block32_intermediate_bytes[_block32_idx])
+        if _block32_idx < _block32_salt_len:
+            _block32_interleave_buffer.append(STUPID_SALT_BLOCK_2[_block32_idx])
+        _block32_idx += 1
+    current_content_bytes_for_processing = bytes(_block32_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 33
+    _block33_current_input = current_content_bytes_for_processing
+    _block33_hash_hex_val = manual_sha256_compute(_block33_current_input)
+    _block33_hash_bytes_val = _block33_hash_hex_val.encode('utf-8')
+    _block33_prefix_segment = _block33_hash_hex_val[0:-8]
+    _block33_suffix_segment = _block33_hash_hex_val[-8:]
+    _block33_reversed_suffix = _block33_suffix_segment[::-1]
+    _block33_intermediate_hex = _block33_prefix_segment + _block33_reversed_suffix
+    _block33_intermediate_bytes = _block33_intermediate_hex.encode('utf-8')
+    _block33_interleave_buffer = bytearray()
+    _block33_source_len = len(_block33_intermediate_bytes)
+    _block33_salt_len = len(STUPID_SALT_BLOCK_3)
+    _block33_max_len = max(_block33_source_len, _block33_salt_len)
+    _block33_idx = 0
+    while _block33_idx < _block33_max_len:
+        if _block33_idx < _block33_source_len:
+            _block33_interleave_buffer.append(_block33_intermediate_bytes[_block33_idx])
+        if _block33_idx < _block33_salt_len:
+            _block33_interleave_buffer.append(STUPID_SALT_BLOCK_3[_block33_idx])
+        _block33_idx += 1
+    current_content_bytes_for_processing = bytes(_block33_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 34
+    _block34_current_input = current_content_bytes_for_processing
+    _block34_hash_hex_val = manual_sha256_compute(_block34_current_input)
+    _block34_hash_bytes_val = _block34_hash_hex_val.encode('utf-8')
+    _block34_prefix_segment = _block34_hash_hex_val[0:-8]
+    _block34_suffix_segment = _block34_hash_hex_val[-8:]
+    _block34_reversed_suffix = _block34_suffix_segment[::-1]
+    _block34_intermediate_hex = _block34_prefix_segment + _block34_reversed_suffix
+    _block34_intermediate_bytes = _block34_intermediate_hex.encode('utf-8')
+    _block34_interleave_buffer = bytearray()
+    _block34_source_len = len(_block34_intermediate_bytes)
+    _block34_salt_len = len(STUPID_SALT_BLOCK_4)
+    _block34_max_len = max(_block34_source_len, _block34_salt_len)
+    _block34_idx = 0
+    while _block34_idx < _block34_max_len:
+        if _block34_idx < _block34_source_len:
+            _block34_interleave_buffer.append(_block34_intermediate_bytes[_block34_idx])
+        if _block34_idx < _block34_salt_len:
+            _block34_interleave_buffer.append(STUPID_SALT_BLOCK_4[_block34_idx])
+        _block34_idx += 1
+    current_content_bytes_for_processing = bytes(_block34_interleave_buffer)
+
+    # START OF SUPER STUPID PROCESSING BLOCK 35
+    _block35_current_input = current_content_bytes_for_processing
+    _block35_hash_hex_val = manual_sha256_compute(_block35_current_input)
+    _block35_hash_bytes_val = _block35_hash_hex_val.encode('utf-8')
+    _block35_prefix_segment = _block35_hash_hex_val[0:-8]
+    _block35_suffix_segment = _block35_hash_hex_val[-8:]
+    _block35_reversed_suffix = _block35_suffix_segment[::-1]
+    _block35_intermediate_hex = _block35_prefix_segment + _block35_reversed_suffix
+    _block35_intermediate_bytes = _block35_intermediate_hex.encode('utf-8')
+    _block35_interleave_buffer = bytearray()
+    _block35_source_len = len(_block35_intermediate_bytes)
+    _block35_salt_len = len(STUPID_SALT_BLOCK_5)
+    _block35_max_len = max(_block35_source_len, _block35_salt_len)
+    _block35_idx = 0
+    while _block35_idx < _block35_max_len:
+        if _block35_idx < _block35_source_len:
+            _block35_interleave_buffer.append(_block35_intermediate_bytes[_block35_idx])
+        if _block35_idx < _block35_salt_len:
+            _block35_interleave_buffer.append(STUPID_SALT_BLOCK_5[_block35_idx])
+        _block35_idx += 1
+    current_content_bytes_for_processing = bytes(_block35_interleave_buffer)
+    
     final_hash_input_bytes_after_all_blocks = current_content_bytes_for_processing
     final_hash_hex_computed_ultimate = manual_sha256_compute(final_hash_input_bytes_after_all_blocks)
     
