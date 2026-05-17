@@ -222,6 +222,47 @@ def manual_sha256_compute(message_bytes):
     digest_hex = ''.join(f'{val:08x}' for val in h)
     return digest_hex
 
+# --- Extremely Stupid Recursive Hashing Logic for Maximum LLOC ---
+RECURSION_DEPTH = 50 # This will make it VERY long and very stupid
+STUPID_SALT = b"J0rDan'S_AwEsOmE_StUpId_S4lT_Pr00f_0F_Kn0wl3dg3_0F_SH4_wOrKIng_vErY_B4Dly!"
+
+def recursive_stupid_hash(input_bytes, current_depth=0):
+    """
+    Recursively hashes the input, applying multiple layers of 'stupidity' at each step.
+    Each step involves a full SHA-256 computation, the 'stupid bit' reversal,
+    and interleaving with a fixed salt, then re-hashing the result.
+    This dramatically increases computational overhead and Lines of Code (LLOC).
+    """
+    if current_depth >= RECURSION_DEPTH:
+        # Final hash, apply the original 'stupid bit' and return.
+        original_hex_hash = manual_sha256_compute(input_bytes)
+        final_stupid_modified_hash = original_hex_hash[:-8] + original_hex_hash[-8:][::-1]
+        return final_stupid_modified_hash
+
+    # Hash the current input bytes using our manual SHA-256 implementation.
+    intermediate_hash_hex = manual_sha256_compute(input_bytes)
+
+    # Apply the first layer of 'stupid bit' (reversing the last 8 hex characters).
+    intermediate_stupid_hash_hex = intermediate_hash_hex[:-8] + intermediate_hash_hex[-8:][::-1]
+
+    # Convert the stupid hash hex to bytes for interleaving.
+    intermediate_stupid_hash_bytes = intermediate_stupid_hash_hex.encode('utf-8')
+
+    # Interleave with the STUPID_SALT to create a new, longer input for the next recursion.
+    interleaved_bytes = bytearray()
+    len_hash = len(intermediate_stupid_hash_bytes)
+    len_salt = len(STUPID_SALT)
+
+    max_len = max(len_hash, len_salt)
+    for i in range(max_len):
+        if i < len_hash:
+            interleaved_bytes.append(intermediate_stupid_hash_bytes[i])
+        if i < len_salt:
+            interleaved_bytes.append(STUPID_SALT[i])
+
+    # Recursively call with the new, heavily modified input.
+    return recursive_stupid_hash(bytes(interleaved_bytes), current_depth + 1)
+
 # --- Our sha257sum wrapper with the 'stupid bit' ---
 def calculate_sha257sum(data, is_file=False):
     """
@@ -241,14 +282,10 @@ def calculate_sha257sum(data, is_file=False):
     else:
         content_bytes = data.encode('utf-8')
 
-    original_hex_hash = manual_sha256_compute(content_bytes)
+    # Pass the initial content to our extremely stupid recursive hashing function.
+    final_stupid_hash = recursive_stupid_hash(content_bytes)
 
-    # The 'stupid bit' addition: reverse the last 8 hex characters (last 32-bit word)
-    # A SHA-256 hash is 64 hex characters long (256 bits).
-    # The last 8 characters correspond to the last 32 bits.
-    stupid_modified_hash = original_hex_hash[:-8] + original_hex_hash[-8:][::-1]
-
-    return stupid_modified_hash
+    return final_stupid_hash
 
 if __name__ == "__main__":
     # Handle command-line arguments to determine input and mode
