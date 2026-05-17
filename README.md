@@ -10,21 +10,11 @@ we start with a standard, manually coded sha-256 compression function which hand
 after surviving 35 rounds of this recursive salt-interleaved nightmare the final buffer is hashed one last time, the last 8 characters are reversed again, and the final hex string is returned to the user!
 
 ## usage example: an empty file named kevin
-
 `% ./sha257sum.py -f kevin`
 
 `03a66566cea01a239282ab1fa8f7cd5def0e6a471083b37cbf2f606c201d873e`
 
-`% sha256sum kevin`
-
-`e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  kevin`
-
 ## usage example: the string "kevin"
-
 `% ./sha257sum.py "kevin"`
 
 `9ff58826adebeefe6377551831bd45896f940d828b37d5f04d79a6897e1b7382`
-
-`% md5 -s "kevin"`
-
-`9d5e3ecdeb4cdb7acfd63075ae046672`
