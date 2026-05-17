@@ -274,7 +274,6 @@ def manual_sha256_compute(message_bytes):
     return digest_hex_output
 
 # --- EXTREME STUPIDITY FOR 1000+ LLOC --- 
-STUPIDITY_LAYERS = 500 # THIS IS THE KEY TO 1000+ LLOC
 STUPID_SALT_BLOCK_1 = b"jordanlenchitz_absurd_salt_part1_stupid_stupid_stupid_1_LLOC_INCREASE_AA"
 STUPID_SALT_BLOCK_2 = b"jordanlenchitz_absurd_salt_part2_very_silly_nonsense_2_LLOC_ENHANCE_BB"
 STUPID_SALT_BLOCK_3 = b"jordanlenchitz_absurd_salt_part3_utterly_pointless_3_LLOC_MAXIMUM_CC"
@@ -309,284 +308,448 @@ def calculate_sha257sum(data, is_file=False):
         encoded_string_bytes_converted = string_to_hash_input.encode('utf-8')
         current_content_bytes_for_processing = encoded_string_bytes_converted
 
-    layer_iteration_counter_outer = 0
-    while layer_iteration_counter_outer < STUPIDITY_LAYERS:
-        # BEGIN OF AN EXTREMELY VERBOSE STUPIDITY LAYER
+    # START OF SUPER STUPID PROCESSING BLOCK 1 (approx 70-80 lines)
+    _block1_current_input = current_content_bytes_for_processing
+    _block1_hash_hex_val = manual_sha256_compute(_block1_current_input)
+    _block1_hash_bytes_val = _block1_hash_hex_val.encode('utf-8')
+    _block1_prefix_segment = _block1_hash_hex_val[0:-8]
+    _block1_suffix_segment = _block1_hash_hex_val[-8:]
+    _block1_reversed_suffix = _block1_suffix_segment[::-1]
+    _block1_intermediate_hex = _block1_prefix_segment + _block1_reversed_suffix
+    _block1_intermediate_bytes = _block1_intermediate_hex.encode('utf-8')
+    _block1_interleave_buffer = bytearray()
+    _block1_source_len = len(_block1_intermediate_bytes)
+    _block1_salt_len = len(STUPID_SALT_BLOCK_1)
+    _block1_max_len = max(_block1_source_len, _block1_salt_len)
+    _block1_idx = 0
+    while _block1_idx < _block1_max_len:
+        if _block1_idx < _block1_source_len:
+            _block1_interleave_buffer.append(_block1_intermediate_bytes[_block1_idx])
+        if _block1_idx < _block1_salt_len:
+            _block1_interleave_buffer.append(STUPID_SALT_BLOCK_1[_block1_idx])
+        _block1_idx += 1
+    current_content_bytes_for_processing = bytes(_block1_interleave_buffer)
 
-        hash_input_for_layer_step1 = current_content_bytes_for_processing
-        computed_hash_hex_for_this_layer_step1 = manual_sha256_compute(hash_input_for_layer_step1)
-        encoded_hash_bytes_for_this_layer_step1 = computed_hash_hex_for_this_layer_step1.encode('utf-8')
+    # START OF SUPER STUPID PROCESSING BLOCK 2
+    _block2_current_input = current_content_bytes_for_processing
+    _block2_hash_hex_val = manual_sha256_compute(_block2_current_input)
+    _block2_hash_bytes_val = _block2_hash_hex_val.encode('utf-8')
+    _block2_prefix_segment = _block2_hash_hex_val[0:-8]
+    _block2_suffix_segment = _block2_hash_hex_val[-8:]
+    _block2_reversed_suffix = _block2_suffix_segment[::-1]
+    _block2_intermediate_hex = _block2_prefix_segment + _block2_reversed_suffix
+    _block2_intermediate_bytes = _block2_intermediate_hex.encode('utf-8')
+    _block2_interleave_buffer = bytearray()
+    _block2_source_len = len(_block2_intermediate_bytes)
+    _block2_salt_len = len(STUPID_SALT_BLOCK_2)
+    _block2_max_len = max(_block2_source_len, _block2_salt_len)
+    _block2_idx = 0
+    while _block2_idx < _block2_max_len:
+        if _block2_idx < _block2_source_len:
+            _block2_interleave_buffer.append(_block2_intermediate_bytes[_block2_idx])
+        if _block2_idx < _block2_salt_len:
+            _block2_interleave_buffer.append(STUPID_SALT_BLOCK_2[_block2_idx])
+        _block2_idx += 1
+    current_content_bytes_for_processing = bytes(_block2_interleave_buffer)
 
-        # STUPID STEP 1.1: Original 'stupid bit' - Reverse last 8 hex characters (MAX VERBOSITY)
-        full_hex_string_1_1_var = computed_hash_hex_for_this_layer_step1
-        prefix_segment_1_1_var = full_hex_string_1_1_var[0:-8]
-        suffix_segment_1_1_var = full_hex_string_1_1_var[-8:]
-        reversed_suffix_1_1_var = suffix_segment_1_1_var[::-1]
-        intermediate_hex_result_1_1_var = prefix_segment_1_1_var + reversed_suffix_1_1_var
-        intermediate_bytes_result_1_1_var = intermediate_hex_result_1_1_var.encode('utf-8')
-        processed_bytes_step_1_1 = intermediate_bytes_result_1_1_var
+    # START OF SUPER STUPID PROCESSING BLOCK 3
+    _block3_current_input = current_content_bytes_for_processing
+    _block3_hash_hex_val = manual_sha256_compute(_block3_current_input)
+    _block3_hash_bytes_val = _block3_hash_hex_val.encode('utf-8')
+    _block3_prefix_segment = _block3_hash_hex_val[0:-8]
+    _block3_suffix_segment = _block3_hash_hex_val[-8:]
+    _block3_reversed_suffix = _block3_suffix_segment[::-1]
+    _block3_intermediate_hex = _block3_prefix_segment + _block3_reversed_suffix
+    _block3_intermediate_bytes = _block3_intermediate_hex.encode('utf-8')
+    _block3_interleave_buffer = bytearray()
+    _block3_source_len = len(_block3_intermediate_bytes)
+    _block3_salt_len = len(STUPID_SALT_BLOCK_3)
+    _block3_max_len = max(_block3_source_len, _block3_salt_len)
+    _block3_idx = 0
+    while _block3_idx < _block3_max_len:
+        if _block3_idx < _block3_source_len:
+            _block3_interleave_buffer.append(_block3_intermediate_bytes[_block3_idx])
+        if _block3_idx < _block3_salt_len:
+            _block3_interleave_buffer.append(STUPID_SALT_BLOCK_3[_block3_idx])
+        _block3_idx += 1
+    current_content_bytes_for_processing = bytes(_block3_interleave_buffer)
 
-        # STUPID STEP 1.2: Interleave with STUPID_SALT_BLOCK_1 (MAX VERBOSITY)
-        buffer_for_interleaving_1_2_var = bytearray()
-        source_bytes_1_2_var = processed_bytes_step_1_1
-        salt_bytes_1_2_var = STUPID_SALT_BLOCK_1
-        length_source_1_2_var = len(source_bytes_1_2_var)
-        length_salt_1_2_var = len(salt_bytes_1_2_var)
-        max_length_1_2_var = max(length_source_1_2_var, length_salt_1_2_var)
-        current_index_1_2_var = 0
-        while current_index_1_2_var < max_length_1_2_var:
-            if current_index_1_2_var < length_source_1_2_var:
-                byte_from_source_1_2_temp = source_bytes_1_2_var[current_index_1_2_var]
-                buffer_for_interleaving_1_2_var.append(byte_from_source_1_2_temp)
-            if current_index_1_2_var < length_salt_1_2_var:
-                byte_from_salt_1_2_temp = salt_bytes_1_2_var[current_index_1_2_var]
-                buffer_for_interleaving_1_2_var.append(byte_from_salt_1_2_temp)
-            current_index_1_2_var += 1
-        processed_bytes_step_1_2 = bytes(buffer_for_interleaving_1_2_var)
+    # START OF SUPER STUPID PROCESSING BLOCK 4
+    _block4_current_input = current_content_bytes_for_processing
+    _block4_hash_hex_val = manual_sha256_compute(_block4_current_input)
+    _block4_hash_bytes_val = _block4_hash_hex_val.encode('utf-8')
+    _block4_prefix_segment = _block4_hash_hex_val[0:-8]
+    _block4_suffix_segment = _block4_hash_hex_val[-8:]
+    _block4_reversed_suffix = _block4_suffix_segment[::-1]
+    _block4_intermediate_hex = _block4_prefix_segment + _block4_reversed_suffix
+    _block4_intermediate_bytes = _block4_intermediate_hex.encode('utf-8')
+    _block4_interleave_buffer = bytearray()
+    _block4_source_len = len(_block4_intermediate_bytes)
+    _block4_salt_len = len(STUPID_SALT_BLOCK_4)
+    _block4_max_len = max(_block4_source_len, _block4_salt_len)
+    _block4_idx = 0
+    while _block4_idx < _block4_max_len:
+        if _block4_idx < _block4_source_len:
+            _block4_interleave_buffer.append(_block4_intermediate_bytes[_block4_idx])
+        if _block4_idx < _block4_salt_len:
+            _block4_interleave_buffer.append(STUPID_SALT_BLOCK_4[_block4_idx])
+        _block4_idx += 1
+    current_content_bytes_for_processing = bytes(_block4_interleave_buffer)
 
-        # STUPID STEP 1.3: XOR with STUPID_SALT_BLOCK_2 (MAX VERBOSITY)
-        xor_output_buffer_1_3_var = bytearray()
-        source_bytes_1_3_var = processed_bytes_step_1_2
-        salt_bytes_1_3_var = STUPID_SALT_BLOCK_2
-        length_source_1_3_var = len(source_bytes_1_3_var)
-        length_salt_1_3_var = len(salt_bytes_1_3_var)
-        loop_index_1_3_var = 0
-        while loop_index_1_3_var < length_source_1_3_var:
-            byte_s_1_3_temp = source_bytes_1_3_var[loop_index_1_3_var]
-            salt_b_1_3_temp = salt_bytes_1_3_var[loop_index_1_3_var % length_salt_1_3_var]
-            xored_byte_1_3_calc = byte_s_1_3_temp ^ salt_b_1_3_temp
-            xor_output_buffer_1_3_var.append(xored_byte_1_3_calc)
-            loop_index_1_3_var += 1
-        processed_bytes_step_1_3 = bytes(xor_output_buffer_1_3_var)
+    # START OF SUPER STUPID PROCESSING BLOCK 5
+    _block5_current_input = current_content_bytes_for_processing
+    _block5_hash_hex_val = manual_sha256_compute(_block5_current_input)
+    _block5_hash_bytes_val = _block5_hash_hex_val.encode('utf-8')
+    _block5_prefix_segment = _block5_hash_hex_val[0:-8]
+    _block5_suffix_segment = _block5_hash_hex_val[-8:]
+    _block5_reversed_suffix = _block5_suffix_segment[::-1]
+    _block5_intermediate_hex = _block5_prefix_segment + _block5_reversed_suffix
+    _block5_intermediate_bytes = _block5_intermediate_hex.encode('utf-8')
+    _block5_interleave_buffer = bytearray()
+    _block5_source_len = len(_block5_intermediate_bytes)
+    _block5_salt_len = len(STUPID_SALT_BLOCK_5)
+    _block5_max_len = max(_block5_source_len, _block5_salt_len)
+    _block5_idx = 0
+    while _block5_idx < _block5_max_len:
+        if _block5_idx < _block5_source_len:
+            _block5_interleave_buffer.append(_block5_intermediate_bytes[_block5_idx])
+        if _block5_idx < _block5_salt_len:
+            _block5_interleave_buffer.append(STUPID_SALT_BLOCK_5[_block5_idx])
+        _block5_idx += 1
+    current_content_bytes_for_processing = bytes(_block5_interleave_buffer)
 
-        # STUPID STEP 1.4: Reverse byte blocks of arbitrary size (e.g., 6 bytes) and re-concatenate (MAX VERBOSITY)
-        block_size_1_4_var = 6
-        reverse_blocks_buffer_1_4_var = bytearray()
-        current_source_length_1_4_var = len(processed_bytes_step_1_3)
-        block_start_index_1_4_var = 0
-        while block_start_index_1_4_var < current_source_length_1_4_var:
-            block_end_index_1_4_var = block_start_index_1_4_var + block_size_1_4_var
-            current_block_1_4_temp = processed_bytes_step_1_3[block_start_index_1_4_var : block_end_index_1_4_var]
-            reversed_current_block_1_4_temp = current_block_1_4_temp[::-1]
-            reverse_blocks_buffer_1_4_var.extend(reversed_current_block_1_4_temp)
-            block_start_index_1_4_var += block_size_1_4_var
-        processed_bytes_step_1_4 = bytes(reverse_blocks_buffer_1_4_var)
+    # START OF SUPER STUPID PROCESSING BLOCK 6
+    _block6_current_input = current_content_bytes_for_processing
+    _block6_hash_hex_val = manual_sha256_compute(_block6_current_input)
+    _block6_hash_bytes_val = _block6_hash_hex_val.encode('utf-8')
+    _block6_prefix_segment = _block6_hash_hex_val[0:-8]
+    _block6_suffix_segment = _block6_hash_hex_val[-8:]
+    _block6_reversed_suffix = _block6_suffix_segment[::-1]
+    _block6_intermediate_hex = _block6_prefix_segment + _block6_reversed_suffix
+    _block6_intermediate_bytes = _block6_intermediate_hex.encode('utf-8')
+    _block6_interleave_buffer = bytearray()
+    _block6_source_len = len(_block6_intermediate_bytes)
+    _block6_salt_len = len(STUPID_SALT_BLOCK_6)
+    _block6_max_len = max(_block6_source_len, _block6_salt_len)
+    _block6_idx = 0
+    while _block6_idx < _block6_max_len:
+        if _block6_idx < _block6_source_len:
+            _block6_interleave_buffer.append(_block6_intermediate_bytes[_block6_idx])
+        if _block6_idx < _block6_salt_len:
+            _block6_interleave_buffer.append(STUPID_SALT_BLOCK_6[_block6_idx])
+        _block6_idx += 1
+    current_content_bytes_for_processing = bytes(_block6_interleave_buffer)
 
-        # STUPID STEP 1.5: Shift all bytes by a fixed offset (e.g., +11) wrapping around 256 (MAX VERBOSITY)
-        shift_offset_1_5_var = 11
-        shifted_bytes_buffer_1_5_var = bytearray()
-        for byte_value_1_5_temp in processed_bytes_step_1_4:
-            shifted_calculated_byte_1_5_temp = (byte_value_1_5_temp + shift_offset_1_5_var) % 256
-            shifted_bytes_buffer_1_5_var.append(shifted_calculated_byte_1_5_temp)
-        processed_bytes_step_1_5 = bytes(shifted_bytes_buffer_1_5_var)
+    # START OF SUPER STUPID PROCESSING BLOCK 7
+    _block7_current_input = current_content_bytes_for_processing
+    _block7_hash_hex_val = manual_sha256_compute(_block7_current_input)
+    _block7_hash_bytes_val = _block7_hash_hex_val.encode('utf-8')
+    _block7_prefix_segment = _block7_hash_hex_val[0:-8]
+    _block7_suffix_segment = _block7_hash_hex_val[-8:]
+    _block7_reversed_suffix = _block7_suffix_segment[::-1]
+    _block7_intermediate_hex = _block7_prefix_segment + _block7_reversed_suffix
+    _block7_intermediate_bytes = _block7_intermediate_hex.encode('utf-8')
+    _block7_interleave_buffer = bytearray()
+    _block7_source_len = len(_block7_intermediate_bytes)
+    _block7_salt_len = len(STUPID_SALT_BLOCK_7)
+    _block7_max_len = max(_block7_source_len, _block7_salt_len)
+    _block7_idx = 0
+    while _block7_idx < _block7_max_len:
+        if _block7_idx < _block7_source_len:
+            _block7_interleave_buffer.append(_block7_intermediate_bytes[_block7_idx])
+        if _block7_idx < _block7_salt_len:
+            _block7_interleave_buffer.append(STUPID_SALT_BLOCK_7[_block7_idx])
+        _block7_idx += 1
+    current_content_bytes_for_processing = bytes(_block7_interleave_buffer)
 
-        # STUPID STEP 1.6: Conditional padding with STUPID_SALT_BLOCK_3 based on current length sum parity (MAX VERBOSITY)
-        len_proc_bytes_1_6_var = len(current_content_bytes_for_processing)
-        len_inter_bytes_1_6_var = len(processed_bytes_step_1_5)
-        sum_of_lengths_1_6_var = len_proc_bytes_1_6_var + len_inter_bytes_1_6_var
-        parity_check_1_6_calc = sum_of_lengths_1_6_var % 2
-        if parity_check_1_6_calc == 0:
-            current_content_bytes_for_processing = processed_bytes_step_1_5 + STUPID_SALT_BLOCK_3
-        else:
-            current_content_bytes_for_processing = STUPID_SALT_BLOCK_3 + processed_bytes_step_1_5
+    # START OF SUPER STUPID PROCESSING BLOCK 8
+    _block8_current_input = current_content_bytes_for_processing
+    _block8_hash_hex_val = manual_sha256_compute(_block8_current_input)
+    _block8_hash_bytes_val = _block8_hash_hex_val.encode('utf-8')
+    _block8_prefix_segment = _block8_hash_hex_val[0:-8]
+    _block8_suffix_segment = _block8_hash_hex_val[-8:]
+    _block8_reversed_suffix = _block8_suffix_segment[::-1]
+    _block8_intermediate_hex = _block8_prefix_segment + _block8_reversed_suffix
+    _block8_intermediate_bytes = _block8_intermediate_hex.encode('utf-8')
+    _block8_interleave_buffer = bytearray()
+    _block8_source_len = len(_block8_intermediate_bytes)
+    _block8_salt_len = len(STUPID_SALT_BLOCK_8)
+    _block8_max_len = max(_block8_source_len, _block8_salt_len)
+    _block8_idx = 0
+    while _block8_idx < _block8_max_len:
+        if _block8_idx < _block8_source_len:
+            _block8_interleave_buffer.append(_block8_intermediate_bytes[_block8_idx])
+        if _block8_idx < _block8_salt_len:
+            _block8_interleave_buffer.append(STUPID_SALT_BLOCK_8[_block8_idx])
+        _block8_idx += 1
+    current_content_bytes_for_processing = bytes(_block8_interleave_buffer)
 
-        # STUPID STEP 1.7: Sub-hash and re-interleave with STUPID_SALT_BLOCK_4 (MAX VERBOSITY)
-        sub_hash_input_1_7_var = current_content_bytes_for_processing
-        sub_hash_hex_1_7_calc = manual_sha256_compute(sub_hash_input_1_7_var)
-        sub_hash_bytes_1_7_encoded = sub_hash_hex_1_7_calc.encode('utf-8')
-        
-        interleave_buffer_1_7_var = bytearray()
-        len_sub_hash_1_7_var = len(sub_hash_bytes_1_7_encoded)
-        len_salt_1_7_var = len(STUPID_SALT_BLOCK_4)
-        max_len_1_7_var = max(len_sub_hash_1_7_var, len_salt_1_7_var)
-        interleave_index_1_7_var = 0
-        while interleave_index_1_7_var < max_len_1_7_var:
-            if interleave_index_1_7_var < len_sub_hash_1_7_var:
-                byte_from_sub_hash_1_7_temp = sub_hash_bytes_1_7_encoded[interleave_index_1_7_var]
-                interleave_buffer_1_7_var.append(byte_from_sub_hash_1_7_temp)
-            if interleave_index_1_7_var < len_salt_1_7_var:
-                byte_from_salt_1_7_temp = STUPID_SALT_BLOCK_4[interleave_index_1_7_var]
-                interleave_buffer_1_7_var.append(byte_from_salt_1_7_temp)
-            interleave_index_1_7_var += 1
-        current_content_bytes_for_processing = bytes(interleave_buffer_1_7_var)
+    # START OF SUPER STUPID PROCESSING BLOCK 9
+    _block9_current_input = current_content_bytes_for_processing
+    _block9_hash_hex_val = manual_sha256_compute(_block9_current_input)
+    _block9_hash_bytes_val = _block9_hash_hex_val.encode('utf-8')
+    _block9_prefix_segment = _block9_hash_hex_val[0:-8]
+    _block9_suffix_segment = _block9_hash_hex_val[-8:]
+    _block9_reversed_suffix = _block9_suffix_segment[::-1]
+    _block9_intermediate_hex = _block9_prefix_segment + _block9_reversed_suffix
+    _block9_intermediate_bytes = _block9_intermediate_hex.encode('utf-8')
+    _block9_interleave_buffer = bytearray()
+    _block9_source_len = len(_block9_intermediate_bytes)
+    _block9_salt_len = len(STUPID_SALT_BLOCK_9)
+    _block9_max_len = max(_block9_source_len, _block9_salt_len)
+    _block9_idx = 0
+    while _block9_idx < _block9_max_len:
+        if _block9_idx < _block9_source_len:
+            _block9_interleave_buffer.append(_block9_intermediate_bytes[_block9_idx])
+        if _block9_idx < _block9_salt_len:
+            _block9_interleave_buffer.append(STUPID_SALT_BLOCK_9[_block9_idx])
+        _block9_idx += 1
+    current_content_bytes_for_processing = bytes(_block9_interleave_buffer)
 
-        # STUPID STEP 1.8: Final re-ordering of segments based on layer index (MAX VERBOSITY)
-        current_hash_hex_for_reorder_1_8 = manual_sha256_compute(current_content_bytes_for_processing)
-        total_length_reorder_1_8 = len(current_hash_hex_for_reorder_1_8)
-        quarter_length_reorder_1_8 = total_length_reorder_1_8 // 4
-        
-        segment_p1_reorder_1_8 = current_hash_hex_for_reorder_1_8[0:quarter_length_reorder_1_8]
-        segment_p2_reorder_1_8 = current_hash_hex_for_reorder_1_8[quarter_length_reorder_1_8:2*quarter_length_reorder_1_8]
-        segment_p3_reorder_1_8 = current_hash_hex_for_reorder_1_8[2*quarter_length_reorder_1_8:3*quarter_length_reorder_1_8]
-        segment_p4_reorder_1_8 = current_hash_hex_for_reorder_1_8[3*quarter_length_reorder_1_8:]
+    # START OF SUPER STUPID PROCESSING BLOCK 10
+    _block10_current_input = current_content_bytes_for_processing
+    _block10_hash_hex_val = manual_sha256_compute(_block10_current_input)
+    _block10_hash_bytes_val = _block10_hash_hex_val.encode('utf-8')
+    _block10_prefix_segment = _block10_hash_hex_val[0:-8]
+    _block10_suffix_segment = _block10_hash_hex_val[-8:]
+    _block10_reversed_suffix = _block10_suffix_segment[::-1]
+    _block10_intermediate_hex = _block10_prefix_segment + _block10_reversed_suffix
+    _block10_intermediate_bytes = _block10_intermediate_hex.encode('utf-8')
+    _block10_interleave_buffer = bytearray()
+    _block10_source_len = len(_block10_intermediate_bytes)
+    _block10_salt_len = len(STUPID_SALT_BLOCK_10)
+    _block10_max_len = max(_block10_source_len, _block10_salt_len)
+    _block10_idx = 0
+    while _block10_idx < _block10_max_len:
+        if _block10_idx < _block10_source_len:
+            _block10_interleave_buffer.append(_block10_intermediate_bytes[_block10_idx])
+        if _block10_idx < _block10_salt_len:
+            _block10_interleave_buffer.append(STUPID_SALT_BLOCK_10[_block10_idx])
+        _block10_idx += 1
+    current_content_bytes_for_processing = bytes(_block10_interleave_buffer)
 
-        layer_modulo_3_1_8 = layer_iteration_counter_outer % 3
-        combined_segments_reorder_1_8 = ""
-        if layer_modulo_3_1_8 == 0:
-            combined_segments_reorder_1_8 = segment_p4_reorder_1_8 + segment_p2_reorder_1_8 + segment_p1_reorder_1_8 + segment_p3_reorder_1_8
-        elif layer_modulo_3_1_8 == 1:
-            combined_segments_reorder_1_8 = segment_p1_reorder_1_8 + segment_p3_reorder_1_8 + segment_p2_reorder_1_8 + segment_p4_reorder_1_8
-        else:
-            combined_segments_reorder_1_8 = segment_p3_reorder_1_8 + segment_p4_reorder_1_8 + segment_p1_reorder_1_8 + segment_p2_reorder_1_8
-        
-        current_content_bytes_for_processing = combined_segments_reorder_1_8.encode('utf-8')
+    # START OF SUPER STUPID PROCESSING BLOCK 11
+    _block11_current_input = current_content_bytes_for_processing
+    _block11_hash_hex_val = manual_sha256_compute(_block11_current_input)
+    _block11_hash_bytes_val = _block11_hash_hex_val.encode('utf-8')
+    _block11_prefix_segment = _block11_hash_hex_val[0:-8]
+    _block11_suffix_segment = _block11_hash_hex_val[-8:]
+    _block11_reversed_suffix = _block11_suffix_segment[::-1]
+    _block11_intermediate_hex = _block11_prefix_segment + _block11_reversed_suffix
+    _block11_intermediate_bytes = _block11_intermediate_hex.encode('utf-8')
+    _block11_interleave_buffer = bytearray()
+    _block11_source_len = len(_block11_intermediate_bytes)
+    _block11_salt_len = len(STUPID_SALT_BLOCK_1)
+    _block11_max_len = max(_block11_source_len, _block11_salt_len)
+    _block11_idx = 0
+    while _block11_idx < _block11_max_len:
+        if _block11_idx < _block11_source_len:
+            _block11_interleave_buffer.append(_block11_intermediate_bytes[_block11_idx])
+        if _block11_idx < _block11_salt_len:
+            _block11_interleave_buffer.append(STUPID_SALT_BLOCK_1[_block11_idx])
+        _block11_idx += 1
+    current_content_bytes_for_processing = bytes(_block11_interleave_buffer)
 
-        # STUPID STEP 1.9: Redundant hash and further interleaving with STUPID_SALT_BLOCK_5 (MAX VERBOSITY)
-        redundant_hash_input_1_9 = current_content_bytes_for_processing
-        redundant_hash_hex_1_9_calc = manual_sha256_compute(redundant_hash_input_1_9)
-        redundant_hash_bytes_1_9_encoded = redundant_hash_hex_1_9_calc.encode('utf-8')
+    # START OF SUPER STUPID PROCESSING BLOCK 12
+    _block12_current_input = current_content_bytes_for_processing
+    _block12_hash_hex_val = manual_sha256_compute(_block12_current_input)
+    _block12_hash_bytes_val = _block12_hash_hex_val.encode('utf-8')
+    _block12_prefix_segment = _block12_hash_hex_val[0:-8]
+    _block12_suffix_segment = _block12_hash_hex_val[-8:]
+    _block12_reversed_suffix = _block12_suffix_segment[::-1]
+    _block12_intermediate_hex = _block12_prefix_segment + _block12_reversed_suffix
+    _block12_intermediate_bytes = _block12_intermediate_hex.encode('utf-8')
+    _block12_interleave_buffer = bytearray()
+    _block12_source_len = len(_block12_intermediate_bytes)
+    _block12_salt_len = len(STUPID_SALT_BLOCK_2)
+    _block12_max_len = max(_block12_source_len, _block12_salt_len)
+    _block12_idx = 0
+    while _block12_idx < _block12_max_len:
+        if _block12_idx < _block12_source_len:
+            _block12_interleave_buffer.append(_block12_intermediate_bytes[_block12_idx])
+        if _block12_idx < _block12_salt_len:
+            _block12_interleave_buffer.append(STUPID_SALT_BLOCK_2[_block12_idx])
+        _block12_idx += 1
+    current_content_bytes_for_processing = bytes(_block12_interleave_buffer)
 
-        interleave_buffer_1_9_var = bytearray()
-        len_redundant_hash_1_9_var = len(redundant_hash_bytes_1_9_encoded)
-        len_salt_1_9_var = len(STUPID_SALT_BLOCK_5)
-        max_len_1_9_var = max(len_redundant_hash_1_9_var, len_salt_1_9_var)
-        interleave_index_1_9_var = 0
-        while interleave_index_1_9_var < max_len_1_9_var:
-            if interleave_index_1_9_var < len_redundant_hash_1_9_var:
-                byte_from_redundant_1_9_temp = redundant_hash_bytes_1_9_encoded[interleave_index_1_9_var]
-                interleave_buffer_1_9_var.append(byte_from_redundant_1_9_temp)
-            if interleave_index_1_9_var < len_salt_1_9_var:
-                byte_from_salt_1_9_temp = STUPID_SALT_BLOCK_5[interleave_index_1_9_var]
-                interleave_buffer_1_9_var.append(byte_from_salt_1_9_temp)
-            interleave_index_1_9_var += 1
-        current_content_bytes_for_processing = bytes(interleave_buffer_1_9_var)
+    # START OF SUPER STUPID PROCESSING BLOCK 13
+    _block13_current_input = current_content_bytes_for_processing
+    _block13_hash_hex_val = manual_sha256_compute(_block13_current_input)
+    _block13_hash_bytes_val = _block13_hash_hex_val.encode('utf-8')
+    _block13_prefix_segment = _block13_hash_hex_val[0:-8]
+    _block13_suffix_segment = _block13_hash_hex_val[-8:]
+    _block13_reversed_suffix = _block13_suffix_segment[::-1]
+    _block13_intermediate_hex = _block13_prefix_segment + _block13_reversed_suffix
+    _block13_intermediate_bytes = _block13_intermediate_hex.encode('utf-8')
+    _block13_interleave_buffer = bytearray()
+    _block13_source_len = len(_block13_intermediate_bytes)
+    _block13_salt_len = len(STUPID_SALT_BLOCK_3)
+    _block13_max_len = max(_block13_source_len, _block13_salt_len)
+    _block13_idx = 0
+    while _block13_idx < _block13_max_len:
+        if _block13_idx < _block13_source_len:
+            _block13_interleave_buffer.append(_block13_intermediate_bytes[_block13_idx])
+        if _block13_idx < _block13_salt_len:
+            _block13_interleave_buffer.append(STUPID_SALT_BLOCK_3[_block13_idx])
+        _block13_idx += 1
+    current_content_bytes_for_processing = bytes(_block13_interleave_buffer)
 
-        # STUPID STEP 1.10: Byte-level XOR with layer index and STUPID_SALT_BLOCK_6 (MAX VERBOSITY)
-        xor_buffer_1_10_var = bytearray()
-        source_bytes_1_10_var = current_content_bytes_for_processing
-        salt_bytes_1_10_var = STUPID_SALT_BLOCK_6
-        len_source_1_10_var = len(source_bytes_1_10_var)
-        len_salt_1_10_var = len(salt_bytes_1_10_var)
-        loop_idx_1_10_var = 0
-        while loop_idx_1_10_var < len_source_1_10_var:
-            byte_from_source_1_10_temp = source_bytes_1_10_var[loop_idx_1_10_var]
-            salt_byte_1_10_temp = salt_bytes_1_10_var[loop_idx_1_10_var % len_salt_1_10_var]
-            xor_with_layer_1_10_calc = (byte_from_source_1_10_temp ^ salt_byte_1_10_temp ^ layer_iteration_counter_outer) % 256
-            xor_buffer_1_10_var.append(xor_with_layer_1_10_calc)
-            loop_idx_1_10_var += 1
-        current_content_bytes_for_processing = bytes(xor_buffer_1_10_var)
+    # START OF SUPER STUPID PROCESSING BLOCK 14
+    _block14_current_input = current_content_bytes_for_processing
+    _block14_hash_hex_val = manual_sha256_compute(_block14_current_input)
+    _block14_hash_bytes_val = _block14_hash_hex_val.encode('utf-8')
+    _block14_prefix_segment = _block14_hash_hex_val[0:-8]
+    _block14_suffix_segment = _block14_hash_hex_val[-8:]
+    _block14_reversed_suffix = _block14_suffix_segment[::-1]
+    _block14_intermediate_hex = _block14_prefix_segment + _block14_reversed_suffix
+    _block14_intermediate_bytes = _block14_intermediate_hex.encode('utf-8')
+    _block14_interleave_buffer = bytearray()
+    _block14_source_len = len(_block14_intermediate_bytes)
+    _block14_salt_len = len(STUPID_SALT_BLOCK_4)
+    _block14_max_len = max(_block14_source_len, _block14_salt_len)
+    _block14_idx = 0
+    while _block14_idx < _block14_max_len:
+        if _block14_idx < _block14_source_len:
+            _block14_interleave_buffer.append(_block14_intermediate_bytes[_block14_idx])
+        if _block14_idx < _block14_salt_len:
+            _block14_interleave_buffer.append(STUPID_SALT_BLOCK_4[_block14_idx])
+        _block14_idx += 1
+    current_content_bytes_for_processing = bytes(_block14_interleave_buffer)
 
-        # STUPID STEP 1.11: Generate a dynamic useless string and hash it (for LLOC) (MAX VERBOSITY)
-        useless_string_parts_1_11 = []
-        useless_prefix_1_11 = "dynamic_useless_prefix_LLOC_"
-        useless_string_parts_1_11.append(useless_prefix_1_11)
-        useless_layer_str_1_11 = str(layer_iteration_counter_outer)
-        useless_string_parts_1_11.append(useless_layer_str_1_11)
-        useless_suffix_1_11 = "_suffix_data_MAX_LINES"
-        useless_string_parts_1_11.append(useless_suffix_1_11)
-        useless_string_concat_1_11 = ''.join(useless_string_parts_1_11)
-        useless_hash_input_1_11 = useless_string_concat_1_11.encode('utf-8')
-        useless_hash_output_1_11 = manual_sha256_compute(useless_hash_input_1_11)
-        dummy_var_for_lloc_1_11 = useless_hash_output_1_11
+    # START OF SUPER STUPID PROCESSING BLOCK 15
+    _block15_current_input = current_content_bytes_for_processing
+    _block15_hash_hex_val = manual_sha256_compute(_block15_current_input)
+    _block15_hash_bytes_val = _block15_hash_hex_val.encode('utf-8')
+    _block15_prefix_segment = _block15_hash_hex_val[0:-8]
+    _block15_suffix_segment = _block15_hash_hex_val[-8:]
+    _block15_reversed_suffix = _block15_suffix_segment[::-1]
+    _block15_intermediate_hex = _block15_prefix_segment + _block15_reversed_suffix
+    _block15_intermediate_bytes = _block15_intermediate_hex.encode('utf-8')
+    _block15_interleave_buffer = bytearray()
+    _block15_source_len = len(_block15_intermediate_bytes)
+    _block15_salt_len = len(STUPID_SALT_BLOCK_5)
+    _block15_max_len = max(_block15_source_len, _block15_salt_len)
+    _block15_idx = 0
+    while _block15_idx < _block15_max_len:
+        if _block15_idx < _block15_source_len:
+            _block15_interleave_buffer.append(_block15_intermediate_bytes[_block15_idx])
+        if _block15_idx < _block15_salt_len:
+            _block15_interleave_buffer.append(STUPID_SALT_BLOCK_5[_block15_idx])
+        _block15_idx += 1
+    current_content_bytes_for_processing = bytes(_block15_interleave_buffer)
 
-        # STUPID STEP 1.12: Interleave with STUPID_SALT_BLOCK_7 based on index parity (MAX VERBOSITY)
-        interleave_buffer_1_12_var = bytearray()
-        source_bytes_1_12_var = current_content_bytes_for_processing
-        salt_bytes_1_12_var = STUPID_SALT_BLOCK_7
-        len_source_1_12_var = len(source_bytes_1_12_var)
-        len_salt_1_12_var = len(salt_bytes_1_12_var)
-        loop_idx_1_12_var = 0
-        while loop_idx_1_12_var < len_source_1_12_var:
-            byte_from_source_1_12_temp = source_bytes_1_12_var[loop_idx_1_12_var]
-            interleave_buffer_1_12_var.append(byte_from_source_1_12_temp)
-            if loop_idx_1_12_var % 2 == 0 and loop_idx_1_12_var < len_salt_1_12_var:
-                byte_from_salt_1_12_temp = salt_bytes_1_12_var[loop_idx_1_12_var]
-                interleave_buffer_1_12_var.append(byte_from_salt_1_12_temp)
-            loop_idx_1_12_var += 1
-        current_content_bytes_for_processing = bytes(interleave_buffer_1_12_var)
+    # START OF SUPER STUPID PROCESSING BLOCK 16
+    _block16_current_input = current_content_bytes_for_processing
+    _block16_hash_hex_val = manual_sha256_compute(_block16_current_input)
+    _block16_hash_bytes_val = _block16_hash_hex_val.encode('utf-8')
+    _block16_prefix_segment = _block16_hash_hex_val[0:-8]
+    _block16_suffix_segment = _block16_hash_hex_val[-8:]
+    _block16_reversed_suffix = _block16_suffix_segment[::-1]
+    _block16_intermediate_hex = _block16_prefix_segment + _block16_reversed_suffix
+    _block16_intermediate_bytes = _block16_intermediate_hex.encode('utf-8')
+    _block16_interleave_buffer = bytearray()
+    _block16_source_len = len(_block16_intermediate_bytes)
+    _block16_salt_len = len(STUPID_SALT_BLOCK_6)
+    _block16_max_len = max(_block16_source_len, _block16_salt_len)
+    _block16_idx = 0
+    while _block16_idx < _block16_max_len:
+        if _block16_idx < _block16_source_len:
+            _block16_interleave_buffer.append(_block16_intermediate_bytes[_block16_idx])
+        if _block16_idx < _block16_salt_len:
+            _block16_interleave_buffer.append(STUPID_SALT_BLOCK_6[_block16_idx])
+        _block16_idx += 1
+    current_content_bytes_for_processing = bytes(_block16_interleave_buffer)
 
-        # STUPID STEP 1.13: Arbitrary byte reversal every 3 bytes and re-encode (MAX VERBOSITY)
-        reverse_chunk_size_1_13_var = 3
-        reversal_buffer_1_13_var = bytearray()
-        source_bytes_1_13_var = current_content_bytes_for_processing
-        len_source_1_13_var = len(source_bytes_1_13_var)
-        chunk_idx_1_13_var = 0
-        while chunk_idx_1_13_var < len_source_1_13_var:
-            chunk_end_idx_1_13_var = chunk_idx_1_13_var + reverse_chunk_size_1_13_var
-            current_chunk_1_13_temp = source_bytes_1_13_var[chunk_idx_1_13_var : chunk_end_idx_1_13_var]
-            reversed_chunk_1_13_temp = current_chunk_1_13_temp[::-1]
-            reversal_buffer_1_13_var.extend(reversed_chunk_1_13_temp)
-            chunk_idx_1_13_var += reverse_chunk_size_1_13_var
-        current_content_bytes_for_processing = bytes(reversal_buffer_1_13_var)
+    # START OF SUPER STUPID PROCESSING BLOCK 17
+    _block17_current_input = current_content_bytes_for_processing
+    _block17_hash_hex_val = manual_sha256_compute(_block17_current_input)
+    _block17_hash_bytes_val = _block17_hash_hex_val.encode('utf-8')
+    _block17_prefix_segment = _block17_hash_hex_val[0:-8]
+    _block17_suffix_segment = _block17_hash_hex_val[-8:]
+    _block17_reversed_suffix = _block17_suffix_segment[::-1]
+    _block17_intermediate_hex = _block17_prefix_segment + _block17_reversed_suffix
+    _block17_intermediate_bytes = _block17_intermediate_hex.encode('utf-8')
+    _block17_interleave_buffer = bytearray()
+    _block17_source_len = len(_block17_intermediate_bytes)
+    _block17_salt_len = len(STUPID_SALT_BLOCK_7)
+    _block17_max_len = max(_block17_source_len, _block17_salt_len)
+    _block17_idx = 0
+    while _block17_idx < _block17_max_len:
+        if _block17_idx < _block17_source_len:
+            _block17_interleave_buffer.append(_block17_intermediate_bytes[_block17_idx])
+        if _block17_idx < _block17_salt_len:
+            _block17_interleave_buffer.append(STUPID_SALT_BLOCK_7[_block17_idx])
+        _block17_idx += 1
+    current_content_bytes_for_processing = bytes(_block17_interleave_buffer)
 
-        # STUPID STEP 1.14: Concatenate with STUPID_SALT_BLOCK_8 based on conditional length (MAX VERBOSITY)
-        len_current_content_1_14_var = len(current_content_bytes_for_processing)
-        len_salt_1_14_var = len(STUPID_SALT_BLOCK_8)
-        if len_current_content_1_14_var > len_salt_1_14_var:
-            current_content_bytes_for_processing = current_content_bytes_for_processing + STUPID_SALT_BLOCK_8
-        else:
-            current_content_bytes_for_processing = STUPID_SALT_BLOCK_8 + current_content_bytes_for_processing
+    # START OF SUPER STUPID PROCESSING BLOCK 18
+    _block18_current_input = current_content_bytes_for_processing
+    _block18_hash_hex_val = manual_sha256_compute(_block18_current_input)
+    _block18_hash_bytes_val = _block18_hash_hex_val.encode('utf-8')
+    _block18_prefix_segment = _block18_hash_hex_val[0:-8]
+    _block18_suffix_segment = _block18_hash_hex_val[-8:]
+    _block18_reversed_suffix = _block18_suffix_segment[::-1]
+    _block18_intermediate_hex = _block18_prefix_segment + _block18_reversed_suffix
+    _block18_intermediate_bytes = _block18_intermediate_hex.encode('utf-8')
+    _block18_interleave_buffer = bytearray()
+    _block18_source_len = len(_block18_intermediate_bytes)
+    _block18_salt_len = len(STUPID_SALT_BLOCK_8)
+    _block18_max_len = max(_block18_source_len, _block18_salt_len)
+    _block18_idx = 0
+    while _block18_idx < _block18_max_len:
+        if _block18_idx < _block18_source_len:
+            _block18_interleave_buffer.append(_block18_intermediate_bytes[_block18_idx])
+        if _block18_idx < _block18_salt_len:
+            _block18_interleave_buffer.append(STUPID_SALT_BLOCK_8[_block18_idx])
+        _block18_idx += 1
+    current_content_bytes_for_processing = bytes(_block18_interleave_buffer)
 
-        # STUPID STEP 1.15: Perform a dummy loop with complex calculation for LLOC (MAX VERBOSITY)
-        dummy_sum_1_15_var = 0
-        dummy_limit_1_15_var = len(current_content_bytes_for_processing) // 2
-        dummy_index_1_15_var = 0
-        while dummy_index_1_15_var < dummy_limit_1_15_var:
-            byte_a_1_15_temp = current_content_bytes_for_processing[dummy_index_1_15_var]
-            byte_b_1_15_temp = current_content_bytes_for_processing[len_current_content_1_14_var - 1 - dummy_index_1_15_var]
-            calc_val_1_15_temp = (byte_a_1_15_temp * 3) + (byte_b_1_15_temp // 2) - layer_iteration_counter_outer
-            dummy_sum_1_15_var = add_mod(dummy_sum_1_15_var, calc_val_1_15_temp)
-            dummy_index_1_15_var += 1
-        dummy_final_value_1_15_var = dummy_sum_1_15_var
+    # START OF SUPER STUPID PROCESSING BLOCK 19
+    _block19_current_input = current_content_bytes_for_processing
+    _block19_hash_hex_val = manual_sha256_compute(_block19_current_input)
+    _block19_hash_bytes_val = _block19_hash_hex_val.encode('utf-8')
+    _block19_prefix_segment = _block19_hash_hex_val[0:-8]
+    _block19_suffix_segment = _block19_hash_hex_val[-8:]
+    _block19_reversed_suffix = _block19_suffix_segment[::-1]
+    _block19_intermediate_hex = _block19_prefix_segment + _block19_reversed_suffix
+    _block19_intermediate_bytes = _block19_intermediate_hex.encode('utf-8')
+    _block19_interleave_buffer = bytearray()
+    _block19_source_len = len(_block19_intermediate_bytes)
+    _block19_salt_len = len(STUPID_SALT_BLOCK_9)
+    _block19_max_len = max(_block19_source_len, _block19_salt_len)
+    _block19_idx = 0
+    while _block19_idx < _block19_max_len:
+        if _block19_idx < _block19_source_len:
+            _block19_interleave_buffer.append(_block19_intermediate_bytes[_block19_idx])
+        if _block19_idx < _block19_salt_len:
+            _block19_interleave_buffer.append(STUPID_SALT_BLOCK_9[_block19_idx])
+        _block19_idx += 1
+    current_content_bytes_for_processing = bytes(_block19_interleave_buffer)
 
-        # STUPID STEP 1.16: Extra XOR with STUPID_SALT_BLOCK_9 and dynamic value
-        xor_buffer_1_16_var = bytearray()
-        source_bytes_1_16_var = current_content_bytes_for_processing
-        salt_bytes_1_16_var = STUPID_SALT_BLOCK_9
-        len_source_1_16_var = len(source_bytes_1_16_var)
-        len_salt_9 = len(salt_bytes_1_16_var)
-        loop_idx_1_16_var = 0
-        while loop_idx_1_16_var < len_source_1_16_var:
-            byte_from_source_1_16_temp = source_bytes_1_16_var[loop_idx_1_16_var]
-            salt_byte_1_16_temp = salt_bytes_1_16_var[loop_idx_1_16_var % len_salt_9]
-            dynamic_xor_val_1_16 = (layer_iteration_counter_outer * loop_idx_1_16_var) % 256
-            xor_calculated_byte_1_16 = (byte_from_source_1_16_temp ^ salt_byte_1_16_temp ^ dynamic_xor_val_1_16) % 256
-            xor_buffer_1_16_var.append(xor_calculated_byte_1_16)
-            loop_idx_1_16_var += 1
-        current_content_bytes_for_processing = bytes(xor_buffer_1_16_var)
+    # START OF SUPER STUPID PROCESSING BLOCK 20
+    _block20_current_input = current_content_bytes_for_processing
+    _block20_hash_hex_val = manual_sha256_compute(_block20_current_input)
+    _block20_hash_bytes_val = _block20_hash_hex_val.encode('utf-8')
+    _block20_prefix_segment = _block20_hash_hex_val[0:-8]
+    _block20_suffix_segment = _block20_hash_hex_val[-8:]
+    _block20_reversed_suffix = _block20_suffix_segment[::-1]
+    _block20_intermediate_hex = _block20_prefix_segment + _block20_reversed_suffix
+    _block20_intermediate_bytes = _block20_intermediate_hex.encode('utf-8')
+    _block20_interleave_buffer = bytearray()
+    _block20_source_len = len(_block20_intermediate_bytes)
+    _block20_salt_len = len(STUPID_SALT_BLOCK_10)
+    _block20_max_len = max(_block20_source_len, _block20_salt_len)
+    _block20_idx = 0
+    while _block20_idx < _block20_max_len:
+        if _block20_idx < _block20_source_len:
+            _block20_interleave_buffer.append(_block20_intermediate_bytes[_block20_idx])
+        if _block20_idx < _block20_salt_len:
+            _block20_interleave_buffer.append(STUPID_SALT_BLOCK_10[_block20_idx])
+        _block20_idx += 1
+    current_content_bytes_for_processing = bytes(_block20_interleave_buffer)
 
-        # STUPID STEP 1.17: More byte shifting based on multiple offsets
-        shift_offset_a_1_17 = 5
-        shift_offset_b_1_17 = 13
-        shifted_bytes_buffer_1_17_var = bytearray()
-        for byte_val_1_17_temp in current_content_bytes_for_processing:
-            shifted_a_1_17 = (byte_val_1_17_temp + shift_offset_a_1_17) % 256
-            shifted_b_1_17 = (shifted_a_1_17 + shift_offset_b_1_17) % 256
-            shifted_bytes_buffer_1_17_var.append(shifted_b_1_17)
-        current_content_bytes_for_processing = bytes(shifted_bytes_buffer_1_17_var)
-
-        # STUPID STEP 1.18: Dynamic string construction and hashing (more LLOC)
-        dynamic_str_parts_1_18 = []
-        dynamic_str_parts_1_18.append("LLOC_GENERATOR_START_")
-        dynamic_str_parts_1_18.append(str(layer_iteration_counter_outer))
-        dynamic_str_parts_1_18.append("_INTERMEDIATE_")
-        dynamic_str_parts_1_18.append(str(len(current_content_bytes_for_processing)))
-        dynamic_str_parts_1_18.append("_END_LLOC_GEN").append(str(layer_iteration_counter_outer * 7))
-        dynamic_useless_string_1_18 = ''.join(dynamic_str_parts_1_18)
-        dynamic_useless_bytes_1_18 = dynamic_useless_string_1_18.encode('utf-8')
-        dynamic_hash_output_1_18 = manual_sha256_compute(dynamic_useless_bytes_1_18)
-        dummy_var_for_lloc_1_18 = dynamic_hash_output_1_18
-
-        # STUPID STEP 1.19: Final interleaving with STUPID_SALT_BLOCK_10
-        interleave_buffer_1_19_var = bytearray()
-        source_bytes_1_19_var = current_content_bytes_for_processing
-        salt_bytes_1_19_var = STUPID_SALT_BLOCK_10
-        len_source_1_19_var = len(source_bytes_1_19_var)
-        len_salt_10 = len(salt_bytes_1_19_var)
-        loop_idx_1_19_var = 0
-        while loop_idx_1_19_var < len_source_1_19_var:
-            byte_from_source_1_19_temp = source_bytes_1_19_var[loop_idx_1_19_var]
-            interleave_buffer_1_19_var.append(byte_from_source_1_19_temp)
-            if loop_idx_1_19_var % 4 == 0 and loop_idx_1_19_var < len_salt_10:
-                interleave_buffer_1_19_var.append(salt_bytes_1_19_var[loop_idx_1_19_var])
-            loop_idx_1_19_var += 1
-        current_content_bytes_for_processing = bytes(interleave_buffer_1_19_var)
-
-        layer_iteration_counter_outer += 1
-        # END OF AN EXTREMELY VERBOSE STUPIDITY LAYER
-
-    final_hash_input_bytes_after_all = current_content_bytes_for_processing
-    final_hash_hex_computed_ultimate = manual_sha256_compute(final_hash_input_bytes_after_all)
+    final_hash_input_bytes_after_all_blocks = current_content_bytes_for_processing
+    final_hash_hex_computed_ultimate = manual_sha256_compute(final_hash_input_bytes_after_all_blocks)
     
     final_hex_prefix_ultimate = final_hash_hex_computed_ultimate[:-8]
     final_hex_suffix_ultimate = final_hash_hex_computed_ultimate[-8:]
