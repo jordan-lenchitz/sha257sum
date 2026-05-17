@@ -2,7 +2,7 @@
 like `sha256sum` but not quite! a totally normal completely necessary python cli tool that implements the highly coveted (and entirely fictional) "sha-257" hashing algorithm. at its core `sha257sum` features a fully manual dependency-free pure-python implementation of the standard sha-256 algorithm. but instead of stopping there (yawn!) it subjects your input to 35 sequential rounds of cryptographic torment to arbitrarily boost the lines of code (loc) past 1000!
 
 ## how it works
-we start with a standard, manually coded sha-256 compression function handles the initial hashing. the data is then passed through 35 sequential hardcoded `super stupid processing blocks` which each
+we start with a standard, manually coded sha-256 compression function which handles the initial hashing. the data is then passed through 35 sequential hardcoded `super stupid processing blocks` which each
 - sha-256 hash the the current buffer
 - reverse the last 8 characters of the resulting hex digest 
 - convert the modified hex string to bytes and interleave sequentially with one of ten massive absurdly named salt blocks
