@@ -1093,12 +1093,11 @@ if __name__ == "__main__":
     args_count = len(cmd_args_list)
 
     if args_count < 2:
-        usage_msg_part1 = "Usage: ./sha257sum.py <string_to_hash_or_file_path>"
-        usage_msg_part2 = "To hash a file, prefix with '-f': ./sha257sum.py -f <file_path>"
-        full_usage_message_combined = usage_msg_part1 + "
-" + usage_msg_part2
-        print(full_usage_message_combined)
-        sys.exit(1)
+            usage_msg_part1 = "Usage: ./sha257sum.py <string_to_hash_or_file_path>"
+            usage_msg_part2 = "To hash a file, prefix with '-f': ./sha257sum.py -f <file_path>"
+            full_usage_message_combined = usage_msg_part1 + "\n" + usage_msg_part2
+            print(full_usage_message_combined)
+            sys.exit(1)
 
     first_arg_from_cmd = cmd_args_list[1]
     is_file_mode_requested_main = False
