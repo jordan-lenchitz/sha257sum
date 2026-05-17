@@ -1,11 +1,30 @@
 # sha257sum
-like sha256sum but not quite!
+like `sha256sum` but not quite! a totally normal completely necessary python cli tool that implements the highly coveted (and entirely fictional) "sha-257" hashing algorithm. at its core `sha257sum` features a fully manual dependency-free pure-python implementation of the standard sha-256 algorithm. but instead of stopping there (yawn!) it subjects your input to 35 sequential rounds of cryptographic torment to arbitrarily boost the lines of code (loc) past 1000!
 
-## usage examples
-compute the sha257sum of a file named kevin.txt
+## how it works
+we start with a standard, manually coded sha-256 compression function handles the initial hashing. the data is then passed through 35 sequential hardcoded `super stupid processing blocks` which each
+- sha-256 hash the the current buffer
+- reverse the last 8 characters of the resulting hex digest 
+- convert the modified hex string to bytes and interleave sequentially with one of ten massive absurdly named salt blocks
 
-`% ./sha257sum.py -f kevin.txt`
+after surviving 35 rounds of this recursive salt-interleaved nightmare the final buffer is hashed one last time, the last 8 characters are reversed again, and the final hex string is returned to the user!
 
-compute the sha257sum of the string 'kevin'
+## usage example: an empty file named kevin
 
-`% ./sha257sum.py kevin`
+`% ./sha257sum.py -f kevin`
+
+`03a66566cea01a239282ab1fa8f7cd5def0e6a471083b37cbf2f606c201d873e`
+
+`% sha256sum kevin`
+
+`e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  kevin`
+
+## usage example: the string "kevin"
+
+`% ./sha257sum.py "kevin"`
+
+`9ff58826adebeefe6377551831bd45896f940d828b37d5f04d79a6897e1b7382`
+
+`% md5 -s "kevin"`
+
+`9d5e3ecdeb4cdb7acfd63075ae046672`
