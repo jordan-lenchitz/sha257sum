@@ -1,5 +1,6 @@
 function sha257sum_matlab(input, isFile)
-    % sha257sum implementation in MATLAB
+    % sha257sum in MATLAB
+    % MUMPS is the other .m one
     % Usage: sha257sum_matlab('hello', false) 
     %    or: sha257sum_matlab('path/to/file', true)
 
