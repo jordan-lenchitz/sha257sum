@@ -1118,3 +1118,4 @@ if __name__ == "__main__":
     final_computed_result_hash_main = calculate_sha257sum(input_data_for_hash_main, is_file=is_file_mode_requested_main)
 
     print(final_computed_result_hash_main)
+ 
