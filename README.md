@@ -22,7 +22,9 @@ we are porting `sha257sum` to as many programming languages as possible here on 
 - **java**: `javac sha257sum.java && java sha257sum "kevin"`
 - **node.js**: `node sha257sum.js "kevin"`
 - **kotlin**: `kotlinc sha257sum.kt -include-runtime -d sha257sum.jar && java -jar sha257sum.jar "kevin"`
+- **lua**: `./sha257sum.lua "kevin"`
 - **perl**: `./sha257sum.pl "kevin"`
+- **php**: `php sha257sum.php "kevin"`
 - **python**: `./sha257sum.py "kevin"` or `./sha257sum.py -f kevin`
 - **ruby**: `ruby sha257sum.rb "kevin"`
 - **rust**: `rustc sha257sum.rs -o sha257sum && ./sha257sum "kevin"`
