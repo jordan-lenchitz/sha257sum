@@ -699,7 +699,7 @@ fun main(args: Array<String>) {
         buf = newBuf.copyOf(idx)
     }
 
-    // BLOCK 35
+    // BLOCK 35, no more after this one
     run {
         val hex = sha256(buf)
         val prefix = hex.substring(0, 56)
