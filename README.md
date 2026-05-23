@@ -16,8 +16,11 @@ we are porting this enterprise business logic to as many programming languages a
 - **C++**: `g++ sha257sum.cpp -o sha257sum && ./sha257sum "kevin"`
 - **C#**: `dotnet run --project sha257sum.cs "kevin"`
 - **Fortran**: `gfortran sha257sum.f90 -o sha257sum && ./sha257sum "kevin"`
+- **Go**: `go run sha257sum.go "kevin"`
 - **Kotlin**: `kotlinc sha257sum.kt -include-runtime -d sha257sum.jar && java -jar sha257sum.jar "kevin"`
 - **Python**: `./sha257sum.py "kevin"` or `./sha257sum.py -f kevin`
+- **Ruby**: `ruby sha257sum.rb "kevin"`
+- **Rust**: `rustc sha257sum.rs -o sha257sum && ./sha257sum "kevin"`
 - **TypeScript**: `npx ts-node sha257sum.ts "kevin"`
 - **MUMPS**: `mumps -run sha257sum "kevin"` or `mumps -run sha257sum -f kevin`
 - **Bash/AWK**: `./sha257sum.sh "kevin"` or `./sha257sum.sh -f kevin`
