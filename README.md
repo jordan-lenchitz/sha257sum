@@ -11,20 +11,20 @@ after surviving 35 rounds of this recursive salt-interleaved nightmare the final
 ## ports
 we are porting this enterprise business logic to as many programming languages as possible here on github, stay tuned for more
 
-- **C**: `gcc sha257sum.c -o sha257sum && ./sha257sum "kevin"`
-- **C++**: `g++ sha257sum.cpp -o sha257sum && ./sha257sum "kevin"`
-- **C#**: `dotnet run --project sha257sum.cs "kevin"`
-- **Fortran**: `gfortran sha257sum.f90 -o sha257sum && ./sha257sum "kevin"`
-- **Go**: `go run sha257sum.go "kevin"`
-- **Java**: `javac sha257sum.java && java sha257sum "kevin"`
-- **JavaScript (Node.js)**: `node sha257sum.js "kevin"`
-- **Kotlin**: `kotlinc sha257sum.kt -include-runtime -d sha257sum.jar && java -jar sha257sum.jar "kevin"`
-- **Perl**: `./sha257sum.pl "kevin"`
-- **Python**: `./sha257sum.py "kevin"` or `./sha257sum.py -f kevin`
-- **Ruby**: `ruby sha257sum.rb "kevin"`
-- **Rust**: `rustc sha257sum.rs -o sha257sum && ./sha257sum "kevin"`
-- **Swift**: `swiftc sha257sum.swift -o sha257sum && ./sha257sum "kevin"`
-- **TypeScript**: `npx ts-node sha257sum.ts "kevin"`
+- **c**: `gcc sha257sum.c -o sha257sum && ./sha257sum "kevin"`
+- **c++**: `g++ sha257sum.cpp -o sha257sum && ./sha257sum "kevin"`
+- **c#**: `dotnet run --project sha257sum.cs "kevin"`
+- **fortran**: `gfortran sha257sum.f90 -o sha257sum && ./sha257sum "kevin"`
+- **go**: `go run sha257sum.go "kevin"`
+- **java**: `javac sha257sum.java && java sha257sum "kevin"`
+- **node.js**: `node sha257sum.js "kevin"`
+- **kotlin**: `kotlinc sha257sum.kt -include-runtime -d sha257sum.jar && java -jar sha257sum.jar "kevin"`
+- **perl**: `./sha257sum.pl "kevin"`
+- **python**: `./sha257sum.py "kevin"` or `./sha257sum.py -f kevin`
+- **ruby**: `ruby sha257sum.rb "kevin"`
+- **rust**: `rustc sha257sum.rs -o sha257sum && ./sha257sum "kevin"`
+- **swift**: `swiftc sha257sum.swift -o sha257sum && ./sha257sum "kevin"`
+- **typescript**: `npx ts-node sha257sum.ts "kevin"`
 - **mumps**: `mumps -run sha257sum "kevin"` or `mumps -run sha257sum -f kevin`
 - **bash and awk**: `./sha257sum.sh "kevin"` or `./sha257sum.sh -f kevin`
 - **matlab**: `sha257sum_matlab('kevin')` or `sha257sum_matlab('kevin', true)`
