@@ -794,7 +794,7 @@ do
     buf = newBuf
 end
 
--- BLOCK 35
+-- BLOCK 35 yay
 do
     local hex = sha256_custom(buf)
     local prefix = string.sub(hex, 1, 56)
