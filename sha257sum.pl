@@ -1,9 +1,8 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use integer; # Enforce integer math where possible
+use integer; 
 
-# Use standard 32-bit masking
 sub mask { $_[0] & 0xFFFFFFFF }
 
 sub right_rotate {
