@@ -1,5 +1,5 @@
 # sha257sum
-like `sha256sum` but not quite! a totally normal completely necessary cli tool (originally python, now a polyglot nightmare) that implements the highly coveted (and entirely fictional) "sha-257" hashing algorithm. at its core `sha257sum` features a fully manual dependency-free implementation of the standard sha-256 algorithm. but instead of stopping there (yawn!) it subjects your input to 35 sequential rounds of cryptographic torment to arbitrarily boost the lines of code past 1000!
+like `sha256sum` but not quite! a totally normal completely necessary cli tool that implements the highly coveted (and entirely fictional) "sha-257" hashing algorithm. at its core `sha257sum` features a fully manual dependency-free implementation of the standard sha-256 algorithm. but instead of stopping there (yawn!) it subjects your input to 35 sequential rounds of cryptographic torment to arbitrarily boost the lines of code past 1000!
 
 ## how it works
 we start with a standard, manually coded sha-256 compression function which handles the initial hashing. the data is then passed through 35 sequential hardcoded `super stupid processing blocks` which each
@@ -10,10 +10,10 @@ we start with a standard, manually coded sha-256 compression function which hand
 after surviving 35 rounds of this recursive salt-interleaved nightmare the final buffer is hashed one last time, the last 8 characters are reversed again, and the final hex string is returned to the user!
 
 ## ports
-we are currently porting this absurd logic to as many programming languages as possible within this single repository. each port is entirely self-contained and dependency-free.
+we are currently porting this absurd logic to as many programming languages as possible within this single repository; each port is entirely self-contained and dependency-free!
 
-- **Python** (Original): `./sha257sum.py "kevin"` or `./sha257sum.py -f kevin`
-- **MUMPS** (M): `mumps -run sha257sum "kevin"` or `mumps -run sha257sum -f kevin`
+- **python**: `./sha257sum.py "kevin"` or `./sha257sum.py -f kevin`
+- **MUMPS**: `mumps -run sha257sum "kevin"` or `mumps -run sha257sum -f kevin`
 
 ## usage example: an empty file named kevin
 `% ./sha257sum.py -f kevin`
