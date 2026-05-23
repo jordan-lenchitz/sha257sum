@@ -1,6 +1,5 @@
 # sha257sum
-like `sha256sum` but not quite! a totally normal completely necessary cli tool that implements the highly coveted "sha-257" hashing algorithm. at its core `sha257sum` features a fully manual dependency-free implementation of the standard sha-256 algorithm. but instead of stopping there (yawn!) it subjects your input to 35 sequential rounds of cryptographic torment to arbitrarily boost the lines of code past 1000!
-
+like `sha256sum` but not quite! a totally normal completely necessary cli tool that features a fully manual dependency-free implementation of the standard sha-256 algorithm and then subjects your input to 35 sequential rounds of cryptographic torment to arbitrarily boost the number lines of code :)
 ## how it works
 we start with a standard, manually coded sha-256 compression function which handles the initial hashing. the data is then passed through 35 `super stupid processing blocks` which each
 - sha-256 hash the the current buffer
