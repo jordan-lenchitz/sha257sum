@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# sha257sum implementation using bash and awk
-# Author: Gemini CLI
-
 SALTS=(
     "jordanlenchitz_absurd_salt_part1_stupid_stupid_stupid_1_LLOC_INCREASE_AA"
     "jordanlenchitz_absurd_salt_part2_very_silly_nonsense_2_LLOC_ENHANCE_BB"
