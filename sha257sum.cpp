@@ -766,7 +766,7 @@ int main(int argc, char **argv) {
         free(buffer); buffer = new_buf; len = new_idx;
     }
 
-    // START OF SUPER STUPID PROCESSING BLOCK 35
+    // START OF SUPER STUPID PROCESSING B_LOCK 35
     {
         sha256_hash(buffer, len, hex);
         char prefix[57]; strncpy(prefix, hex, 56); prefix[56] = '\0';
