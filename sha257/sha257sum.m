@@ -1419,3 +1419,4 @@ HEX8(N)
  N HX,RES S HX="0123456789abcdef",RES=""
  F I=1:1:8 S RES=$E(HX,(N#16)+1)_RES,N=N\16
  Q RES
+ 
