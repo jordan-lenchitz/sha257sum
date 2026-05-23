@@ -642,3 +642,4 @@ $revSuffix = strrev($suffix);
 echo $prefix . $revSuffix . "\n";
 
  
+ 
