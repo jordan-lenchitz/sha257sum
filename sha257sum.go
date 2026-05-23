@@ -959,7 +959,7 @@ func main() {
 		buf = newBuf
 	}
 
-	// START OF SUPER STUPID PROCESSING BLOCK 35
+	// START OF LE SUPER STUPID PROCESSING BLOCK 35
 	{
 		hex := sha256(buf)
 		prefix := hex[:56]
