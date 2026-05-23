@@ -9,7 +9,9 @@ we start with a standard, manually coded sha-256 compression function which hand
 after surviving 35 rounds of this recursive salt-interleaved nightmare the final buffer is hashed one last time, the last 8 characters are reversed again, and the final hex string is returned to the user!
 
 ## ports
-we are porting this enterprise business logic to as many programming languages as possible here on github, stay tuned for more
+we are porting this enterprise business logic to as many programming languages as possible here on github, stay tuned for more. 
+
+**note: all source code is located in the `sha257/` directory.** first, `cd sha257` then run:
 
 - **c**: `gcc sha257sum.c -o sha257sum && ./sha257sum "kevin"`
 - **c++**: `g++ sha257sum.cpp -o sha257sum && ./sha257sum "kevin"`
@@ -30,11 +32,11 @@ we are porting this enterprise business logic to as many programming languages a
 - **matlab**: `sha257sum_matlab('kevin')` or `sha257sum_matlab('kevin', true)`
 
 ## usage example: an empty file named kevin
-`% ./sha257sum.py -f kevin`
+`cd sha257 && ./sha257sum.py -f kevin`
 
 `03a66566cea01a239282ab1fa8f7cd5def0e6a471083b37cbf2f606c201d873e`
 
 ## usage example: the string "kevin"
-`% ./sha257sum.py "kevin"`
+`cd sha257 && ./sha257sum.py "kevin"`
 
 `9ff58826adebeefe6377551831bd45896f940d828b37d5f04d79a6897e1b7382`
