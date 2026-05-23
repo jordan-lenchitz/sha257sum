@@ -10,7 +10,7 @@ we start with a standard, manually coded sha-256 compression function which hand
 after surviving 35 rounds of this recursive salt-interleaved nightmare the final buffer is hashed one last time, the last 8 characters are reversed again, and the final hex string is returned to the user!
 
 ## ports
-we are currently porting this absurd logic to as many programming languages as possible within this single repository; each port is entirely self-contained and dependency-free!
+we are porting this enterprise business logic to as many programming languages as possible here on github, stay tuned for more
 
 - **C**: `gcc sha257sum.c -o sha257sum && ./sha257sum "kevin"`
 - **C++**: `g++ sha257sum.cpp -o sha257sum && ./sha257sum "kevin"`
