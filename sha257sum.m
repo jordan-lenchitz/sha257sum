@@ -1,5 +1,5 @@
 sha257sum ; sha257sum in MUMPS
- ;
+ ; not the MATLAB one
 MAIN ; Entry point
  N ARGS,ISFILE,INPUT,I,L,STR,FILE
  S ARGS=$ZCMD
