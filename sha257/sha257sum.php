@@ -641,3 +641,4 @@ $suffix = substr($hex, 56);
 $revSuffix = strrev($suffix);
 echo $prefix . $revSuffix . "\n";
 
+ 
