@@ -1,8 +1,6 @@
 use std::env;
 use std::fs;
 
-// --- Helper functions for bitwise operations (explicitly verbose and redundant to boost LOC) ---
-
 fn right_rotate(n: u32, b: u32) -> u32 {
     let initial_n = n;
     let initial_b = b;
