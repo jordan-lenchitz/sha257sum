@@ -716,7 +716,7 @@ do {
     buf = newBuf
 }
 
-// BLOCK 35
+// BLOCK_35
 do {
     let hex = sha256(buf)
     let prefix = String(hex.prefix(56))
