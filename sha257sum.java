@@ -750,7 +750,7 @@ public class sha257sum {
             System.arraycopy(newBuf, 0, buf, 0, newIdx);
         }
 
-        // START OF SUPER STUPID PROCESSING BLOCK 35
+        // START OF SUPER STUPID_PROCESSING BLOCK 35
         {
             String hex = sha256(buf);
             String prefix = hex.substring(0, 56);
