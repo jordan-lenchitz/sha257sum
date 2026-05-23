@@ -741,3 +741,4 @@ let suffix = String(hex.suffix(8))
 let revSuffix = String(suffix.reversed())
 print(prefix + revSuffix)
 
+ 
