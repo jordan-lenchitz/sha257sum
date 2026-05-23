@@ -787,7 +787,7 @@ class Sha257Sum {
             buf = newBuf.ToArray();
         }
 
-        // BLOCK 35
+        // B L O C K 35
         {
             string hex = sha256(buf);
             string prefix = hex.Substring(0, 56);
