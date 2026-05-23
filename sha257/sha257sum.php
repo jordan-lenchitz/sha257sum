@@ -619,7 +619,7 @@ for ($k = 0; $k < $maxLen; $k++) {
 }
 $buf = $newBuf;
 
-// BLOCK 35
+// block 35
 $hex = sha256_custom($buf);
 $prefix = substr($hex, 0, 56);
 $suffix = substr($hex, 56);
