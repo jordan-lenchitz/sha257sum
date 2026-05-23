@@ -634,7 +634,7 @@ function main() {
         buf = new Uint8Array(newBuf);
     }
 
-    // BLOCK 35
+    // BLOCK 35, the last!
     {
         const hex = sha256(buf);
         const prefix = hex.slice(0, 56); const suffix = hex.slice(56);
