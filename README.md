@@ -12,8 +12,16 @@ after surviving 35 rounds of this recursive salt-interleaved nightmare the final
 ## ports
 we are currently porting this absurd logic to as many programming languages as possible within this single repository; each port is entirely self-contained and dependency-free!
 
-- **python**: `./sha257sum.py "kevin"` or `./sha257sum.py -f kevin`
+- **C**: `gcc sha257sum.c -o sha257sum && ./sha257sum "kevin"`
+- **C++**: `g++ sha257sum.cpp -o sha257sum && ./sha257sum "kevin"`
+- **C#**: `dotnet run --project sha257sum.cs "kevin"`
+- **Fortran**: `gfortran sha257sum.f90 -o sha257sum && ./sha257sum "kevin"`
+- **Kotlin**: `kotlinc sha257sum.kt -include-runtime -d sha257sum.jar && java -jar sha257sum.jar "kevin"`
+- **Python**: `./sha257sum.py "kevin"` or `./sha257sum.py -f kevin`
+- **TypeScript**: `npx ts-node sha257sum.ts "kevin"`
 - **MUMPS**: `mumps -run sha257sum "kevin"` or `mumps -run sha257sum -f kevin`
+- **Bash/AWK**: `./sha257sum.sh "kevin"` or `./sha257sum.sh -f kevin`
+- **MATLAB**: `sha257sum_matlab('kevin')` or `sha257sum_matlab('kevin', true)`
 
 ## usage example: an empty file named kevin
 `% ./sha257sum.py -f kevin`
