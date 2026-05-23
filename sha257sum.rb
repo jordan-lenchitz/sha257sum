@@ -701,7 +701,7 @@ begin
   buf = new_buf.pack('C*')
 end
 
-# START OF SUPER STUPID PROCESSING BLOCK 35
+# START OF SUPER STUPID PROCESS ING BLOCK 35
 begin
   hex = sha256(buf)
   prefix = hex[0, 56]
