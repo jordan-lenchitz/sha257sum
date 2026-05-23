@@ -74,3 +74,4 @@ function h = sha256_hex(data)
     digest = typecast(md.digest(), 'uint8');
     h = sprintf('%02x', digest);
 end
+ 
