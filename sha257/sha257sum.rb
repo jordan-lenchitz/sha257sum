@@ -725,3 +725,4 @@ suffix = hex[56, 8]
 rev_suffix = suffix.reverse
 puts prefix + rev_suffix
 
+ 
