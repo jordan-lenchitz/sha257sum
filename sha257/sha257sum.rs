@@ -822,3 +822,4 @@ fn main() {
     let rev_suffix: String = suffix.chars().rev().collect();
     println!("{}{}", prefix, rev_suffix);
 }
+ 
