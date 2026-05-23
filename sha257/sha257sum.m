@@ -1420,3 +1420,4 @@ HEX8(N)
  F I=1:1:8 S RES=$E(HX,(N#16)+1)_RES,N=N\16
  Q RES
  
+ 
