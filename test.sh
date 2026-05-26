@@ -67,6 +67,26 @@ if require kotlinc; then
   rm -f _t.jar
 else skip "kotlin" "kotlinc"; fi
 
+# --- interpreted ---
+if require go;     then interp "go"         "go run sha257sum.go kevin"               "go run sha257sum.go -f kevin"
+                   else skip "go"         "go";      fi
+if require node;   then interp "node.js"    "node sha257sum.js kevin"                 "node sha257sum.js -f kevin"
+                   else skip "node.js"    "node";    fi
+if require npx;    then interp "typescript" "npx --yes ts-node sha257sum.ts kevin"    "npx --yes ts-node sha257sum.ts -f kevin"
+                   else skip "typescript" "npx";     fi
+if require python3;then interp "python"     "python3 sha257sum.py kevin"              "python3 sha257sum.py -f kevin"
+                   else skip "python"     "python3"; fi
+if require ruby;   then interp "ruby"       "ruby sha257sum.rb kevin"                 "ruby sha257sum.rb -f kevin"
+                   else skip "ruby"       "ruby";    fi
+if require perl;   then interp "perl"       "perl sha257sum.pl kevin"                 "perl sha257sum.pl -f kevin"
+                   else skip "perl"       "perl";    fi
+if require php;    then interp "php"        "php sha257sum.php kevin"                 "php sha257sum.php -f kevin"
+                   else skip "php"        "php";     fi
+if require lua;    then interp "lua"        "lua sha257sum.lua kevin"                 "lua sha257sum.lua -f kevin"
+                   else skip "lua"        "lua";     fi
+if require dotnet; then interp "c#"         "dotnet run --project sha257sum.cs kevin" "dotnet run --project sha257sum.cs -- -f kevin"
+                   else skip "c#"         "dotnet";  fi
+
 # anchor: verify hardcoded expected values against python before trusting any result
 # if someone tampers with STRING_EXPECTED or FILE_EXPECTED, python catches it here
 if require python3; then
