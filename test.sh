@@ -43,6 +43,20 @@ interp() {
   check "$lang" "$s" "$f"
 }
 
+# anchor: verify hardcoded expected values against python before trusting any result
+# if someone tampers with STRING_EXPECTED or FILE_EXPECTED, python catches it here
+if require python3; then
+  py_s=$(python3 sha257sum.py kevin   2>/dev/null)
+  py_f=$(python3 sha257sum.py -f kevin 2>/dev/null)
+  if [ "$py_s" != "$STRING_EXPECTED" ] || [ "$py_f" != "$FILE_EXPECTED" ]; then
+    printf "${RED}FATAL${NC}: hardcoded expected values don't match python reference\n"
+    printf "  python string: %s\n" "$py_s"
+    printf "  python file:   %s\n" "$py_f"
+    rm -f kevin
+    exit 2
+  fi
+fi
+
 echo ""
 printf "results: ${GRN}%d passed${NC}  ${RED}%d failed${NC}  ${YLW}%d skipped${NC}\n" $PASS $FAIL $SKIP
 rm -f kevin
