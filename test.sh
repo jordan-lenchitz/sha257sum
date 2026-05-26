@@ -98,8 +98,12 @@ if require php;    then interp "php"        "php sha257sum.php kevin"           
                    else skip "php"        "php";     fi
 if require lua;    then interp "lua"        "lua sha257sum.lua kevin"                 "lua sha257sum.lua -f kevin"
                    else skip "lua"        "lua";     fi
-if require dotnet; then interp "c#"         "dotnet run --project sha257sum.cs kevin" "dotnet run --project sha257sum.cs -- -f kevin"
-                   else skip "c#"         "dotnet";  fi
+if require dotnet; then
+  echo '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework></PropertyGroup></Project>' > sha257sum.csproj
+  interp "c#" "dotnet run -v q -- kevin" "dotnet run -v q -- -f kevin"
+  rm -f sha257sum.csproj
+  rm -rf bin obj
+else skip "c#" "dotnet"; fi
 
 # --- shell ---
 if require bash && require awk; then
