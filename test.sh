@@ -87,6 +87,17 @@ if require lua;    then interp "lua"        "lua sha257sum.lua kevin"           
 if require dotnet; then interp "c#"         "dotnet run --project sha257sum.cs kevin" "dotnet run --project sha257sum.cs -- -f kevin"
                    else skip "c#"         "dotnet";  fi
 
+# --- shell ---
+if require bash && require awk; then
+  interp "bash/awk" "bash sha257sum.sh kevin" "bash sha257sum.sh -f kevin"
+else skip "bash/awk" "bash or awk"; fi
+
+# --- exotic ---
+if require mumps;  then interp "mumps"  "mumps -run sha257sum kevin"                              "mumps -run sha257sum -f kevin"
+                   else skip "mumps"  "mumps";  fi
+if require matlab; then interp "matlab" "matlab -batch \"sha257sum_matlab('kevin')\" | tail -1"   "matlab -batch \"sha257sum_matlab('kevin', true)\" | tail -1"
+                   else skip "matlab" "matlab"; fi
+
 # anchor: verify hardcoded expected values against python before trusting any result
 # if someone tampers with STRING_EXPECTED or FILE_EXPECTED, python catches it here
 if require python3; then
