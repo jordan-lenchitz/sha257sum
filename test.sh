@@ -57,6 +57,16 @@ if require swiftc;   then compiled "swift"   "swiftc sha257sum.swift -o _t" "./_
 if require ghc;      then compiled "haskell" "ghc sha257sum.hs -o _t -outputdir /tmp/ghc_$$" "./_t kevin" "./_t -f kevin"; rm -f _t; rm -rf "/tmp/ghc_$$"
                      else skip "haskell" "ghc";       fi
 
+# --- jvm ---
+if javac -version &>/dev/null; then
+  compiled "java"   "javac sha257sum.java"                                      "java sha257sum kevin"    "java sha257sum -f kevin"
+else skip "java" "javac"; fi
+
+if require kotlinc; then
+  compiled "kotlin" "kotlinc sha257sum.kt -include-runtime -d _t.jar"          "java -jar _t.jar kevin"  "java -jar _t.jar -f kevin"
+  rm -f _t.jar
+else skip "kotlin" "kotlinc"; fi
+
 # anchor: verify hardcoded expected values against python before trusting any result
 # if someone tampers with STRING_EXPECTED or FILE_EXPECTED, python catches it here
 if require python3; then
