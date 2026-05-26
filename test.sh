@@ -43,27 +43,41 @@ interp() {
   check "$lang" "$s" "$f"
 }
 
+# anchor: verify hardcoded expected values against python before running any tests
+# if someone tampers with STRING_EXPECTED or FILE_EXPECTED above, this aborts immediately
+if require python3; then
+  py_s=$(python3 sha257sum.py kevin    2>/dev/null)
+  py_f=$(python3 sha257sum.py -f kevin 2>/dev/null)
+  if [ "$py_s" != "$STRING_EXPECTED" ] || [ "$py_f" != "$FILE_EXPECTED" ]; then
+    printf "${RED}FATAL${NC}: hardcoded expected values don't match python reference — test.sh may be corrupted\n"
+    printf "  python string: %s\n" "$py_s"
+    printf "  python file:   %s\n" "$py_f"
+    rm -f kevin
+    exit 2
+  fi
+fi
+
 # --- compiled ---
-if require gcc;      then compiled "c"       "gcc sha257sum.c -o _t"       "./_t kevin"  "./_t -f kevin"; rm -f _t
+if require gcc;      then compiled "c"       "gcc sha257sum.c -o _t"        "./_t kevin"  "./_t -f kevin"; rm -f _t
                      else skip "c"       "gcc";       fi
-if require g++;      then compiled "c++"     "g++ sha257sum.cpp -o _t"     "./_t kevin"  "./_t -f kevin"; rm -f _t
+if require g++;      then compiled "c++"     "g++ sha257sum.cpp -o _t"      "./_t kevin"  "./_t -f kevin"; rm -f _t
                      else skip "c++"     "g++";       fi
-if require gfortran; then compiled "fortran" "gfortran sha257sum.f90 -o _t" "./_t kevin" "./_t -f kevin"; rm -f _t
+if require gfortran; then compiled "fortran" "gfortran sha257sum.f90 -o _t" "./_t kevin"  "./_t -f kevin"; rm -f _t
                      else skip "fortran" "gfortran";  fi
-if require rustc;    then compiled "rust"    "rustc sha257sum.rs -o _t"    "./_t kevin"  "./_t -f kevin"; rm -f _t
+if require rustc;    then compiled "rust"    "rustc sha257sum.rs -o _t"     "./_t kevin"  "./_t -f kevin"; rm -f _t
                      else skip "rust"    "rustc";     fi
-if require swiftc;   then compiled "swift"   "swiftc sha257sum.swift -o _t" "./_t kevin" "./_t -f kevin"; rm -f _t
+if require swiftc;   then compiled "swift"   "swiftc sha257sum.swift -o _t" "./_t kevin"  "./_t -f kevin"; rm -f _t
                      else skip "swift"   "swiftc";    fi
-if require ghc;      then compiled "haskell" "ghc sha257sum.hs -o _t -outputdir /tmp/ghc_$$" "./_t kevin" "./_t -f kevin"; rm -f _t; rm -rf "/tmp/ghc_$$"
+if require ghc;      then compiled "haskell" "ghc sha257sum.hs -o _t -outputdir _ghc_$$" "./_t kevin" "./_t -f kevin"; rm -f _t; rm -rf "_ghc_$$"
                      else skip "haskell" "ghc";       fi
 
 # --- jvm ---
 if javac -version &>/dev/null; then
-  compiled "java"   "javac sha257sum.java"                                      "java sha257sum kevin"    "java sha257sum -f kevin"
+  compiled "java"   "javac sha257sum.java"                              "java sha257sum kevin"   "java sha257sum -f kevin"
 else skip "java" "javac"; fi
 
 if require kotlinc; then
-  compiled "kotlin" "kotlinc sha257sum.kt -include-runtime -d _t.jar"          "java -jar _t.jar kevin"  "java -jar _t.jar -f kevin"
+  compiled "kotlin" "kotlinc sha257sum.kt -include-runtime -d _t.jar"  "java -jar _t.jar kevin" "java -jar _t.jar -f kevin"
   rm -f _t.jar
 else skip "kotlin" "kotlinc"; fi
 
@@ -93,24 +107,10 @@ if require bash && require awk; then
 else skip "bash/awk" "bash or awk"; fi
 
 # --- exotic ---
-if require mumps;  then interp "mumps"  "mumps -run sha257sum kevin"                              "mumps -run sha257sum -f kevin"
+if require mumps;  then interp "mumps"  "mumps -run sha257sum kevin"                             "mumps -run sha257sum -f kevin"
                    else skip "mumps"  "mumps";  fi
-if require matlab; then interp "matlab" "matlab -batch \"sha257sum_matlab('kevin')\" | tail -1"   "matlab -batch \"sha257sum_matlab('kevin', true)\" | tail -1"
+if require matlab; then interp "matlab" "matlab -batch \"sha257sum_matlab('kevin')\" | tail -1"  "matlab -batch \"sha257sum_matlab('kevin', true)\" | tail -1"
                    else skip "matlab" "matlab"; fi
-
-# anchor: verify hardcoded expected values against python before trusting any result
-# if someone tampers with STRING_EXPECTED or FILE_EXPECTED, python catches it here
-if require python3; then
-  py_s=$(python3 sha257sum.py kevin   2>/dev/null)
-  py_f=$(python3 sha257sum.py -f kevin 2>/dev/null)
-  if [ "$py_s" != "$STRING_EXPECTED" ] || [ "$py_f" != "$FILE_EXPECTED" ]; then
-    printf "${RED}FATAL${NC}: hardcoded expected values don't match python reference\n"
-    printf "  python string: %s\n" "$py_s"
-    printf "  python file:   %s\n" "$py_f"
-    rm -f kevin
-    exit 2
-  fi
-fi
 
 echo ""
 printf "results: ${GRN}%d passed${NC}  ${RED}%d failed${NC}  ${YLW}%d skipped${NC}\n" $PASS $FAIL $SKIP
