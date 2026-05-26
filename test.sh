@@ -54,6 +54,8 @@ if require rustc;    then compiled "rust"    "rustc sha257sum.rs -o _t"    "./_t
                      else skip "rust"    "rustc";     fi
 if require swiftc;   then compiled "swift"   "swiftc sha257sum.swift -o _t" "./_t kevin" "./_t -f kevin"; rm -f _t
                      else skip "swift"   "swiftc";    fi
+if require ghc;      then compiled "haskell" "ghc sha257sum.hs -o _t -outputdir /tmp/ghc_$$" "./_t kevin" "./_t -f kevin"; rm -f _t; rm -rf "/tmp/ghc_$$"
+                     else skip "haskell" "ghc";       fi
 
 # anchor: verify hardcoded expected values against python before trusting any result
 # if someone tampers with STRING_EXPECTED or FILE_EXPECTED, python catches it here
