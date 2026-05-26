@@ -32,6 +32,7 @@ we are porting `sha257sum` to as many programming languages as possible here on 
 - **typescript**: `npx ts-node sha257sum.ts "kevin"`
 - **mumps**: `mumps -run sha257sum "kevin"` or `mumps -run sha257sum -f kevin`
 - **bash and awk**: `./sha257sum.sh "kevin"` or `./sha257sum.sh -f kevin`
+- **haskell**: `ghc sha257sum.hs -o sha257sum && ./sha257sum "kevin"`
 - **matlab**: `sha257sum_matlab('kevin')` or `sha257sum_matlab('kevin', true)`
 
 ## usage example: an empty file named kevin

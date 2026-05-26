@@ -1,0 +1,91 @@
+name: verify all implementations
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- language runtimes (cross-platform) ---
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          cache: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - uses: haskell-actions/setup@v2
+        with:
+          ghc-version: latest
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: setup swift (linux only — pre-installed on macos, n/a on windows)
+        uses: swift-actions/setup-swift@v2
+        if: runner.os == 'Linux'
+
+      - name: install ts-node
+        run: npm install -g ts-node typescript
+
+      - name: install kotlin
+        env:
+          KOTLIN_VERSION: '2.0.21'
+        run: |
+          curl -fsSL "https://github.com/JetBrains/kotlin/releases/download/v${KOTLIN_VERSION}/kotlin-compiler-${KOTLIN_VERSION}.zip" -o kotlin.zip
+          unzip -q kotlin.zip -d "$RUNNER_TEMP/kotlin"
+          echo "$RUNNER_TEMP/kotlin/kotlinc/bin" >> "$GITHUB_PATH"
+
+      # --- os-specific package installs ---
+
+      - name: install tools (ubuntu)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y gfortran lua5.4 php-cli
+          sudo ln -sf /usr/bin/lua5.4 /usr/local/bin/lua
+
+      - name: install tools (macos)
+        if: runner.os == 'macOS'
+        run: |
+          brew install lua
+          # gfortran ships with brew gcc on macos runners
+          # php and perl are pre-installed
+          # swiftc is pre-installed via xcode
+
+      - name: install tools (windows)
+        if: runner.os == 'Windows'
+        run: |
+          # gcc/g++/gfortran come with mingw64 (pre-installed on windows runners)
+          # lua and php need explicit install
+          choco install -y lua php --no-progress
+
+      # --- run it ---
+
+      - name: run tests
+        run: bash test.sh
