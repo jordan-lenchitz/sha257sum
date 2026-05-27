@@ -67,8 +67,17 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y gfortran lua5.4 php-cli
+          sudo apt-get install -y gfortran lua5.4 php-cli octave file
           sudo ln -sf /usr/bin/lua5.4 /usr/local/bin/lua
+          # Install YottaDB (MUMPS)
+          mkdir /tmp/ydb && cd /tmp/ydb
+          wget https://gitlab.com/YottaDB/DB/YDB/raw/master/sr_unix/ydbinstall.sh
+          chmod +x ydbinstall.sh
+          sudo ./ydbinstall.sh --utf8 default
+          # Find the installation directory (e.g., /usr/local/lib/yottadb/r206)
+          YDB_DIR=$(ls -d /usr/local/lib/yottadb/r* | head -n 1)
+          sudo ln -sf "$YDB_DIR/mumps" /usr/local/bin/mumps
+          sudo ln -sf "$YDB_DIR/yottadb" /usr/local/bin/yottadb
 
       - name: install tools (macos)
         if: runner.os == 'macOS'

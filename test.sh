@@ -111,10 +111,23 @@ if require bash && require awk; then
 else skip "bash/awk" "bash or awk"; fi
 
 # --- exotic ---
-if require mumps;  then interp "mumps"  "mumps -run sha257sum kevin"                             "mumps -run sha257sum -f kevin"
-                   else skip "mumps"  "mumps";  fi
-if require matlab; then interp "matlab" "matlab -batch \"sha257sum_matlab('kevin')\" | tail -1"  "matlab -batch \"sha257sum_matlab('kevin', true)\" | tail -1"
-                   else skip "matlab" "matlab"; fi
+if require mumps;  then
+    if mumps -version 2>&1 | grep -iq "YottaDB\|GT.M"; then
+        if [ -z "${ydb_routines:-}" ] && [ -f /usr/local/etc/ydb_env_set ]; then
+            set +u
+            . /usr/local/etc/ydb_env_set
+            set -u
+        fi
+        export ydb_routines=".(.) ${ydb_routines:-}"
+    fi
+    interp "mumps"  "mumps -run sha257sum kevin"                             "mumps -run sha257sum -f kevin"
+else skip "mumps"  "mumps";  fi
+
+if require matlab; then
+    interp "matlab" "matlab -batch \"sha257sum_matlab('kevin')\" | tail -1"  "matlab -batch \"sha257sum_matlab('kevin', true)\" | tail -1"
+elif require octave; then
+    interp "octave" "octave --quiet --eval \"sha257sum_matlab('kevin')\""    "octave --quiet --eval \"sha257sum_matlab('kevin', true)\""
+else skip "matlab" "matlab or octave"; fi
 
 echo ""
 printf "results: ${GRN}%d passed${NC}  ${RED}%d failed${NC}  ${YLW}%d skipped${NC}\n" $PASS $FAIL $SKIP

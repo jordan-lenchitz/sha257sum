@@ -69,10 +69,38 @@ function sha257sum_matlab(input, isFile)
 end
 
 function h = sha256_hex(data)
-    md = java.security.MessageDigest.getInstance('SHA-256');
-    md.update(data);
-    digest = typecast(md.digest(), 'uint8');
-    h = sprintf('%02x', digest);
+    if isunix
+        % Use system sha256sum for speed and compatibility in Octave on Linux
+        % but keep java for matlab compatibility if needed.
+        % Actually, let's try to make Java work first.
+        try
+            md = javaMethod('getInstance', 'java.security.MessageDigest', 'SHA-256');
+            md.update(data);
+            digest = typecast(md.digest(), 'uint8');
+            h = sprintf('%02x', digest);
+            if length(h) > 64
+                h = h(end-63:end);
+            end
+        catch
+            % Fallback to system command if java fails
+            tmpfile = tempname;
+            fid = fopen(tmpfile, 'wb');
+            fwrite(fid, data, 'uint8');
+            fclose(fid);
+            [status, result] = system(['sha256sum ', tmpfile, ' | awk ''{print $1}''']);
+            delete(tmpfile);
+            if status == 0
+                h = strtrim(result);
+            else
+                error('SHA-256 calculation failed');
+            end
+        end
+    else
+        md = java.security.MessageDigest.getInstance('SHA-256');
+        md.update(data);
+        digest = typecast(md.digest(), 'uint8');
+        h = sprintf('%02x', digest);
+    end
 end
  
  
