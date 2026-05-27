@@ -110,6 +110,11 @@ if require bash && require awk; then
   interp "bash/awk" "bash sha257sum.sh kevin" "bash sha257sum.sh -f kevin"
 else skip "bash/awk" "bash or awk"; fi
 
+if require ksh;  then interp "ksh"       "ksh sha257sum.ksh kevin"                 "ksh sha257sum.ksh -f kevin"
+                   else skip "ksh"       "ksh";     fi
+if require pwsh; then interp "powershell" "pwsh -File sha257sum.ps1 -InputString kevin" "pwsh -File sha257sum.ps1 -InputString kevin -IsFile"
+                   else skip "powershell" "pwsh";    fi
+
 # --- exotic ---
 if require mumps;  then
     if mumps -version 2>&1 | grep -iq "YottaDB\|GT.M"; then
