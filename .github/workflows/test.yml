@@ -67,8 +67,15 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y gfortran lua5.4 php-cli octave file
+          sudo apt-get install -y gfortran lua5.4 php-cli octave file ksh wget apt-transport-https software-properties-common
           sudo ln -sf /usr/bin/lua5.4 /usr/local/bin/lua
+          # Install Powershell
+          source /etc/os-release
+          wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb
+          sudo dpkg -i packages-microsoft-prod.deb
+          rm packages-microsoft-prod.deb
+          sudo apt-get update -qq
+          sudo apt-get install -y powershell
           # Install YottaDB (MUMPS)
           mkdir /tmp/ydb && cd /tmp/ydb
           wget https://gitlab.com/YottaDB/DB/YDB/raw/master/sr_unix/ydbinstall.sh
