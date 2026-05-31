@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sha257sum</title>
+  <!-- TODO: style this page! ideas:
+       - dark terminal aesthetic, monospace font, glowing green hash text
+       - animated "35 rounds of cryptographic torment" counter
+       - copy-to-clipboard buttons on every run command
+       - live test-vector display (sha257sum("kevin") = 9ff5...)
+       - language port table with badges / pass indicators
+       - generally match the unhinged energy of the project
+  -->
+</head>
+<body>
+  <h1>sha257sum</h1>
+  <p>like <code>sha256sum</code> but not quite!</p>
+  <p>
+    a totally normal completely necessary cli tool — fully manual sha-256,
+    then 35 sequential rounds of recursive salt-interleaved cryptographic torment.
+  </p>
+
+  <h2>how it works</h2>
+  <ol>
+    <li>sha-256 hash the input</li>
+    <li>reverse the last 8 characters of the hex digest</li>
+    <li>convert to bytes and interleave with one of ten absurdly named salts</li>
+    <li>repeat steps 1–3 for 35 rounds</li>
+    <li>final sha-256 + reverse last 8 chars → output</li>
+  </ol>
+
+  <h2>test vectors</h2>
+  <pre>sha257sum("kevin")     = 9ff58826adebeefe6377551831bd45896f940d828b37d5f04d79a6897e1b7382
+sha257sum(empty file)  = 03a66566cea01a239282ab1fa8f7cd5def0e6a471083b37cbf2f606c201d873e</pre>
+
+  <h2>ports</h2>
+  <p>implemented in 25 languages. see the <a href="https://github.com/jordan-lenchitz/sha257sum">github repo</a> for run commands.</p>
+  <ul>
+    <li>ada</li><li>bash/awk</li><li>c</li><li>c++</li><li>c#</li>
+    <li>cobol</li><li>fortran</li><li>go</li><li>haskell</li><li>java</li>
+    <li>ksh</li><li>kotlin</li><li>lua</li><li>matlab/octave</li><li>mumps</li>
+    <li>node.js</li><li>perl</li><li>php</li><li>powershell</li><li>prolog</li>
+    <li>python</li><li>ruby</li><li>rust</li><li>swift</li><li>typescript</li>
+  </ul>
+
+  <p><a href="https://github.com/jordan-lenchitz/sha257sum">github.com/jordan-lenchitz/sha257sum</a></p>
+</body>
+</html>
