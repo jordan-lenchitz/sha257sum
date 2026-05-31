@@ -89,19 +89,19 @@ jobs:
       - name: install tools (macos)
         if: runner.os == 'macOS'
         run: |
-          brew install lua swi-prolog
-          # gfortran ships with brew gcc on macos runners
-          # php and perl are pre-installed
-          # swiftc is pre-installed via xcode
-          # gnat (ada) excluded: arm64 homebrew support uncertain, not required on macos
+          brew install lua swi-prolog gcc php
+          # gcc provides the gfortran symlink (not pre-installed on arm64 runners)
+          # php was removed from macOS 12+; swiftc/ksh/perl are pre-installed
+          # gnat excluded: arm64 homebrew support uncertain
 
       - name: install tools (windows)
         if: runner.os == 'Windows'
         run: |
-          # gcc/g++/gfortran come with mingw64 (pre-installed on windows runners)
-          # lua and php need explicit install; swi-prolog available in choco
-          # gnat not available via choco — ada test will be skipped on windows
-          choco install -y lua php swi-prolog --no-progress
+          # gcc/g++/gfortran from mingw64 (pre-installed); php pre-installed on runner
+          # choco shims don't reliably surface in git bash — use MSYS2 mingw64 packages
+          /c/msys64/usr/bin/pacman.exe -Sy --noconfirm mingw-w64-x86_64-lua mingw-w64-x86_64-swi-prolog
+          echo "C:/msys64/mingw64/bin" >> "$GITHUB_PATH"
+          # gnat not available — ada test will be skipped on windows
 
       # --- declare which langs must pass (skip = failure for these) ---
 
@@ -113,9 +113,8 @@ jobs:
       - name: set required langs (macos)
         if: runner.os == 'macOS'
         run: |
-          # ada excluded: gnat arm64 support uncertain; ksh excluded: not installed
-          # mumps/octave excluded: not installed on macos runners
-          echo "MUST_RUN=c,c++,fortran,rust,swift,haskell,java,kotlin,go,node.js,typescript,python,ruby,perl,php,lua,c#,bash/awk,powershell,prolog" >> "$GITHUB_ENV"
+          # ksh is pre-installed on macos runners; ada/mumps/octave excluded
+          echo "MUST_RUN=c,c++,fortran,rust,swift,haskell,java,kotlin,go,node.js,typescript,python,ruby,perl,php,lua,c#,bash/awk,ksh,powershell,prolog" >> "$GITHUB_ENV"
 
       - name: set required langs (windows)
         if: runner.os == 'Windows'
