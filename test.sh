@@ -13,7 +13,17 @@ GRN='\033[0;32m'; RED='\033[0;31m'; YLW='\033[1;33m'; NC='\033[0m'
 
 require() { command -v "$1" &>/dev/null; }
 pass()     { printf "${GRN}PASS${NC}  %s\n" "$1"; ((PASS++)); }
-skip()     { printf "${YLW}SKIP${NC}  %s (%s not found)\n" "$1" "$2"; ((SKIP++)); }
+skip() {
+  # If MUST_RUN is set and this lang is in the list, a skip is a failure.
+  # CI sets MUST_RUN per OS so only truly expected langs are required.
+  if [[ -n "${MUST_RUN:-}" ]] && [[ ",$MUST_RUN," == *",$1,"* ]]; then
+    printf "${RED}FAIL${NC}  %s (required on this OS but '%s' not found)\n" "$1" "$2"
+    ((FAIL++))
+  else
+    printf "${YLW}SKIP${NC}  %s (%s not found)\n" "$1" "$2"
+    ((SKIP++))
+  fi
+}
 fail_err() { printf "${RED}FAIL${NC}  %s (%s)\n" "$1" "$2"; ((FAIL++)); }
 
 check() {

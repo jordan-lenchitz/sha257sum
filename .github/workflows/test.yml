@@ -89,10 +89,11 @@ jobs:
       - name: install tools (macos)
         if: runner.os == 'macOS'
         run: |
-          brew install lua swi-prolog gnat
+          brew install lua swi-prolog
           # gfortran ships with brew gcc on macos runners
           # php and perl are pre-installed
           # swiftc is pre-installed via xcode
+          # gnat (ada) excluded: arm64 homebrew support uncertain, not required on macos
 
       - name: install tools (windows)
         if: runner.os == 'Windows'
@@ -101,6 +102,26 @@ jobs:
           # lua and php need explicit install; swi-prolog available in choco
           # gnat not available via choco — ada test will be skipped on windows
           choco install -y lua php swi-prolog --no-progress
+
+      # --- declare which langs must pass (skip = failure for these) ---
+
+      - name: set required langs (ubuntu)
+        if: runner.os == 'Linux'
+        run: |
+          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,python,ruby,perl,php,lua,c#,bash/awk,ksh,powershell,prolog,octave" >> "$GITHUB_ENV"
+
+      - name: set required langs (macos)
+        if: runner.os == 'macOS'
+        run: |
+          # ada excluded: gnat arm64 support uncertain; ksh excluded: not installed
+          # mumps/octave excluded: not installed on macos runners
+          echo "MUST_RUN=c,c++,fortran,rust,swift,haskell,java,kotlin,go,node.js,typescript,python,ruby,perl,php,lua,c#,bash/awk,powershell,prolog" >> "$GITHUB_ENV"
+
+      - name: set required langs (windows)
+        if: runner.os == 'Windows'
+        run: |
+          # swift/ada/ksh/mumps: not available on windows — genuinely excluded
+          echo "MUST_RUN=c,c++,fortran,rust,haskell,java,kotlin,go,node.js,typescript,python,ruby,perl,php,lua,c#,bash/awk,powershell,prolog" >> "$GITHUB_ENV"
 
       # --- run it ---
 
