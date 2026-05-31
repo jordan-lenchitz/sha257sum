@@ -67,7 +67,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y gfortran lua5.4 php-cli octave file ksh wget apt-transport-https software-properties-common
+          sudo apt-get install -y gfortran gnat swi-prolog lua5.4 php-cli octave file ksh wget apt-transport-https software-properties-common
           sudo ln -sf /usr/bin/lua5.4 /usr/local/bin/lua
           # Install Powershell
           source /etc/os-release
@@ -89,7 +89,7 @@ jobs:
       - name: install tools (macos)
         if: runner.os == 'macOS'
         run: |
-          brew install lua
+          brew install lua swi-prolog gnat
           # gfortran ships with brew gcc on macos runners
           # php and perl are pre-installed
           # swiftc is pre-installed via xcode
@@ -98,8 +98,9 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           # gcc/g++/gfortran come with mingw64 (pre-installed on windows runners)
-          # lua and php need explicit install
-          choco install -y lua php --no-progress
+          # lua and php need explicit install; swi-prolog available in choco
+          # gnat not available via choco — ada test will be skipped on windows
+          choco install -y lua php swi-prolog --no-progress
 
       # --- run it ---
 
