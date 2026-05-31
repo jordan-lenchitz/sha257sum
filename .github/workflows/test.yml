@@ -90,7 +90,9 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install lua swi-prolog gcc php
-          # gcc provides the gfortran symlink (not pre-installed on arm64 runners)
+          # gcc provides versioned gfortran (e.g. gfortran-14) — create bare symlink
+          gf=$(ls /opt/homebrew/bin/gfortran-* 2>/dev/null | sort -V | tail -1)
+          if [[ -n "$gf" ]]; then ln -sf "$gf" /opt/homebrew/bin/gfortran; fi
           # php was removed from macOS 12+; swiftc/ksh/perl are pre-installed
           # gnat excluded: arm64 homebrew support uncertain
 
