@@ -46,7 +46,6 @@ we are porting `sha257sum` to as many programming languages as possible here on 
 `cd sha257 && ./sha257sum.py -f kevin`
 
 `03a66566cea01a239282ab1fa8f7cd5def0e6a471083b37cbf2f606c201d873e`
-
 ## usage example: the string "kevin"
 `cd sha257 && ./sha257sum.py "kevin"`
 
