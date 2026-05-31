@@ -15,10 +15,13 @@ procedure SHA257Sum is
    type Byte_Array_Access is access Byte_Array;
    procedure Free is new Ada.Unchecked_Deallocation (Byte_Array, Byte_Array_Access);
 
+   type Hash_Words  is array (0 ..  7) of Word32;
+   type Sched_Words is array (0 .. 63) of Word32;
+
    package Byte_IO is new Ada.Sequential_IO (Byte);
 
    -- SHA-256 round constants
-   K : constant array (0 .. 63) of Word32 :=
+   K : constant Sched_Words :=
      (16#428a2f98#, 16#71374491#, 16#b5c0fbcf#, 16#e9b5dba5#,
       16#3956c25b#, 16#59f111f1#, 16#923f82a4#, 16#ab1c5ed5#,
       16#d807aa98#, 16#12835b01#, 16#243185be#, 16#550c7dc3#,
@@ -37,7 +40,7 @@ procedure SHA257Sum is
       16#90befffa#, 16#a4506ceb#, 16#bef9a3f7#, 16#c67178f2#);
 
    -- Initial hash values
-   H_Init : constant array (0 .. 7) of Word32 :=
+   H_Init : constant Hash_Words :=
      (16#6a09e667#, 16#bb67ae85#, 16#3c6ef372#, 16#a54ff53a#,
       16#510e527f#, 16#9b05688c#, 16#1f83d9ab#, 16#5be0cd19#);
 
@@ -104,8 +107,8 @@ procedure SHA257Sum is
 
    function SHA256 (Msg : Byte_Array) return String is
       Padded  : constant Byte_Array := Pad_Message (Msg);
-      H       : array (0 .. 7) of Word32 := H_Init;
-      W       : array (0 .. 63) of Word32;
+      H       : Hash_Words  := H_Init;
+      W       : Sched_Words;
       A, B, C, D, E, F, G, HH, T1, T2 : Word32;
       Hex     : String (1 .. 64) := (others => '0');
       Hex_Map : constant String  := "0123456789abcdef";
@@ -244,7 +247,7 @@ procedure SHA257Sum is
    exception
       when others =>
          if Byte_IO.Is_Open (File) then Byte_IO.Close (File); end if;
-         return (1 .. 0 => 0);
+         return Byte_Array'(1 .. 0 => 0);
    end Read_File;
 
    Buf : Byte_Array_Access;
