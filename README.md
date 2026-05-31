@@ -14,26 +14,31 @@ we are porting `sha257sum` to as many programming languages as possible here on 
 
 `cd sha257` then sudo your choice
 
+- **ada**: `gnatmake sha257sum.adb -o sha257sum && ./sha257sum "kevin"`
+- **bash and awk**: `./sha257sum.sh "kevin"` or `./sha257sum.sh -f kevin`
 - **c**: `gcc sha257sum.c -o sha257sum && ./sha257sum "kevin"`
 - **c++**: `g++ sha257sum.cpp -o sha257sum && ./sha257sum "kevin"`
 - **c#**: `dotnet run --project sha257sum.cs "kevin"`
+- **cobol**: `cobc -x sha257sum.cob -o sha257sum && ./sha257sum "kevin"`
 - **fortran**: `gfortran sha257sum.f90 -o sha257sum && ./sha257sum "kevin"`
 - **go**: `go run sha257sum.go "kevin"`
+- **haskell**: `ghc sha257sum.hs -o sha257sum && ./sha257sum "kevin"`
 - **java**: `javac sha257sum.java && java sha257sum "kevin"`
-- **node.js**: `node sha257sum.js "kevin"`
+- **ksh**: `ksh sha257sum.ksh "kevin"` or `ksh sha257sum.ksh -f kevin`
 - **kotlin**: `kotlinc sha257sum.kt -include-runtime -d sha257sum.jar && java -jar sha257sum.jar "kevin"`
 - **lua**: `./sha257sum.lua "kevin"`
+- **matlab**: `sha257sum_matlab('kevin')` or `sha257sum_matlab('kevin', true)`
+- **mumps**: `mumps -run sha257sum "kevin"` or `mumps -run sha257sum -f kevin`
+- **node.js**: `node sha257sum.js "kevin"`
 - **perl**: `./sha257sum.pl "kevin"`
 - **php**: `php sha257sum.php "kevin"`
+- **powershell**: `pwsh -File sha257sum.ps1 -InputString "kevin"` or `pwsh -File sha257sum.ps1 -InputString kevin -IsFile`
+- **prolog**: `swipl -q sha257sum.pro -- "kevin"` or `swipl -q sha257sum.pro -- -f kevin`
 - **python**: `./sha257sum.py "kevin"` or `./sha257sum.py -f kevin`
 - **ruby**: `ruby sha257sum.rb "kevin"`
 - **rust**: `rustc sha257sum.rs -o sha257sum && ./sha257sum "kevin"`
 - **swift**: `swiftc sha257sum.swift -o sha257sum && ./sha257sum "kevin"`
 - **typescript**: `npx ts-node sha257sum.ts "kevin"`
-- **mumps**: `mumps -run sha257sum "kevin"` or `mumps -run sha257sum -f kevin`
-- **bash and awk**: `./sha257sum.sh "kevin"` or `./sha257sum.sh -f kevin`
-- **haskell**: `ghc sha257sum.hs -o sha257sum && ./sha257sum "kevin"`
-- **matlab**: `sha257sum_matlab('kevin')` or `sha257sum_matlab('kevin', true)`
 
 ## usage example: an empty file named kevin
 `cd sha257 && ./sha257sum.py -f kevin`
