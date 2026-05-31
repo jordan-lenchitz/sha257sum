@@ -70,6 +70,8 @@ if require swiftc;   then compiled "swift"   "swiftc sha257sum.swift -o _t" "./_
                      else skip "swift"   "swiftc";    fi
 if require ghc;      then compiled "haskell" "ghc sha257sum.hs -o _t -outputdir _ghc_$$" "./_t kevin" "./_t -f kevin"; rm -f _t; rm -rf "_ghc_$$"
                      else skip "haskell" "ghc";       fi
+if require gnatmake; then compiled "ada"     "gnatmake sha257sum.adb -o _t -D _ada_$$" "./_t kevin" "./_t -f kevin"; rm -f _t; rm -rf "_ada_$$"
+                     else skip "ada"     "gnatmake"; fi
 
 # --- jvm ---
 if javac -version &>/dev/null; then
@@ -94,6 +96,8 @@ if require ruby;   then interp "ruby"       "ruby sha257sum.rb kevin"           
                    else skip "ruby"       "ruby";    fi
 if require perl;   then interp "perl"       "perl sha257sum.pl kevin"                 "perl sha257sum.pl -f kevin"
                    else skip "perl"       "perl";    fi
+if require swipl;  then interp "prolog"    "swipl -q sha257sum.pro -- kevin"          "swipl -q sha257sum.pro -- -f kevin"
+                   else skip "prolog"   "swipl";    fi
 if require php;    then interp "php"        "php sha257sum.php kevin"                 "php sha257sum.php -f kevin"
                    else skip "php"        "php";     fi
 if require lua;    then interp "lua"        "lua sha257sum.lua kevin"                 "lua sha257sum.lua -f kevin"
