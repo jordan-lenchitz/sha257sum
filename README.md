@@ -14,7 +14,7 @@ after surviving 35 rounds of this recursive salt-interleaved nightmare the final
 we are porting `sha257sum` to as many programming languages as possible here on github so please stay tuned for more!
 **note: all source code is located in the `sha257/` directory**
 
-`cd sha257` then sudo your choice
+`cd sha257` then sudo
 
 - **ada**: `gnatmake sha257sum.adb -o sha257sum && ./sha257sum "kevin"`
 - **bash and awk**: `./sha257sum.sh "kevin"` or `./sha257sum.sh -f kevin`
