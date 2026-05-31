@@ -193,10 +193,12 @@ read_file_bytes(Filename, Bytes) :-
 
 main :-
     current_prolog_flag(argv, Argv),
-    ( Argv = ['-f', File | _] ->
+    % SWI-Prolog includes '--' in argv when invoked as: swipl script.pro -- args
+    ( Argv = ['--' | Rest] -> Args = Rest ; Args = Argv ),
+    ( Args = ['-f', File | _] ->
         atom_string(File, FileStr),
         read_file_bytes(FileStr, Bytes)
-    ; Argv = [Input | _] ->
+    ; Args = [Input | _] ->
         atom_codes(Input, Bytes)
     ;
         Bytes = []

@@ -80,7 +80,7 @@ if require swiftc;   then compiled "swift"   "swiftc sha257sum.swift -o _t" "./_
                      else skip "swift"   "swiftc";    fi
 if require ghc;      then compiled "haskell" "ghc sha257sum.hs -o _t -outputdir _ghc_$$" "./_t kevin" "./_t -f kevin"; rm -f _t; rm -rf "_ghc_$$"
                      else skip "haskell" "ghc";       fi
-if require gnatmake; then compiled "ada"     "gnatmake sha257sum.adb -o _t -D _ada_$$" "./_t kevin" "./_t -f kevin"; rm -f _t; rm -rf "_ada_$$"
+if require gnatmake; then compiled "ada"     "gnatmake sha257sum.adb -o _t" "./_t kevin" "./_t -f kevin"; rm -f _t sha257sum.o sha257sum.ali
                      else skip "ada"     "gnatmake"; fi
 
 # --- jvm ---
