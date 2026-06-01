@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sha257sum - KEVIN CONTAINMENT PROTOCOL</title>
+    <title>sha257sum (kevin containment protocol)</title>
     <style>
         :root {
             --glow: #00ff41;
@@ -24,14 +24,14 @@
         }
 
         @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
+            0% { transform: translatey(-100%); }
+            100% { transform: translatey(100%); }
         }
 
         body {
             background-color: var(--bg);
             color: var(--glow);
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'courier new', courier, monospace;
             margin: 0;
             padding: 20px;
             line-height: 1.4;
@@ -225,7 +225,7 @@
         .badge {
             font-size: 0.6rem;
             padding: 2px 4px;
-            border: 1px solid currentColor;
+            border: 1px solid currentcolor;
         }
 
         .badge-certified { color: var(--glow); }
@@ -270,13 +270,13 @@
             display: inline-block;
         }
 
-        [data-status="UNSTABLE"] input {
+        [data-status="unstable"] input {
             border-color: var(--danger);
             box-shadow: inset 0 0 10px var(--danger);
             color: var(--danger);
         }
         
-        [data-status="UNSTABLE"] .hash-output {
+        [data-status="unstable"] .hash-output {
             border-color: var(--danger);
             color: var(--danger);
         }
@@ -304,66 +304,66 @@
     <div class="scanline"></div>
     <div class="container">
         <h1>sha257sum</h1>
-        <div class="subtitle">KEVIN CONTAINMENT PROTOCOL // LEVEL 35 TORMENT</div>
+        <div class="subtitle">kevin containment protocol // level 35 torment</div>
 
         <div class="section">
-            <div class="section-title">SUBJECT LORE</div>
-            <p class="lore-text">"It began with a single string. 'kevin'. We thought we could hash it. We were wrong."</p>
-            <p><code>sha257sum</code> is not a hash function. It is a cage. Standard SHA-256 was insufficient to bind the recursive energy of the test vector <code>"kevin"</code>. We had to go further. 35 rounds further.</p>
-            <p>Each round subjects the buffer to <strong>Sequential Recursive Salt-Interleaved Torment</strong>. If the buffer survives, it is hashed again. Then reversed. Then salted. Then repeated.</p>
+            <div class="section-title">subject lore</div>
+            <p class="lore-text">"it began with a single string. 'kevin'. we thought we could hash it. we were wrong."</p>
+            <p><code>sha257sum</code> is not a hash function. it is a cage. standard sha-256 was insufficient to bind the recursive energy of the test vector <code>"kevin"</code>. we had to go further. 35 rounds further.</p>
+            <p>each round subjects the buffer to <strong>sequential recursive salt-interleaved torment</strong>. if the buffer survives, it is hashed again. then reversed. then salted. then repeated.</p>
         </div>
 
         <div class="section" id="containment-zone">
-            <div class="section-title">LIVE CONTAINMENT ZONE</div>
+            <div class="section-title">live containment zone</div>
             <div class="live-demo">
                 <div class="input-group">
-                    <label for="kevin-input">INPUT VECTOR:</label>
+                    <label for="kevin-input">input vector:</label>
                     <input type="text" id="kevin-input" value="kevin" spellcheck="false" autocomplete="off">
                 </div>
                 
                 <div class="status-bar">
-                    <div class="status-item" id="containment-status">STATUS: <span>SECURE</span></div>
-                    <div class="status-item">PROTOCOL: <span>SHA-257-V1</span></div>
-                    <div class="status-item" id="torment-level">TORMENT: <span>35/35</span></div>
+                    <div class="status-item" id="containment-status">status: <span>secure</span></div>
+                    <div class="status-item">protocol: <span>sha-257-v1</span></div>
+                    <div class="status-item" id="torment-level">torment: <span>35/35</span></div>
                 </div>
 
                 <div class="torment-counter" id="counter">35</div>
 
                 <div class="input-group">
-                    <label>CRYPTOGRAPHIC SIGNATURE:</label>
-                    <div class="hash-output" id="hash-result">...CALCULATING...</div>
+                    <label>cryptographic signature:</label>
+                    <div class="hash-output" id="hash-result">...calculating...</div>
                 </div>
             </div>
         </div>
 
         <div class="section">
-            <div class="section-title">HOW THE TORMENT WORKS</div>
+            <div class="section-title">how the torment works</div>
             <ol>
-                <li><strong>INITIAL COMPRESSION:</strong> Input is crushed via standard SHA-256.</li>
-                <li><strong>THE REVERSAL:</strong> The last 8 hex characters are reversed (Temporal Displacement).</li>
-                <li><strong>THE INTERLEAVE:</strong> Modified hash is interleaved byte-by-byte with one of 10 <code>ABSURD SALTS</code>.</li>
-                <li><strong>THE RECURSION:</strong> Repeat steps 1–3 for <strong>35 ROUNDS</strong> of total cryptographic agony.</li>
-                <li><strong>FINAL SEAL:</strong> One last SHA-256 followed by a final 8-char reversal.</li>
+                <li><strong>initial compression:</strong> input is crushed via standard sha-256.</li>
+                <li><strong>the reversal:</strong> the last 8 hex characters are reversed (temporal displacement).</li>
+                <li><strong>the interleave:</strong> modified hash is interleaved byte-by-byte with one of 10 <code>absurd salts</code>.</li>
+                <li><strong>the recursion:</strong> repeat steps 1–3 for <strong>35 rounds</strong> of total cryptographic agony.</li>
+                <li><strong>final seal:</strong> one last sha-256 followed by a final 8-char reversal.</li>
             </ol>
         </div>
 
         <div class="section">
-            <div class="section-title">DEPLOYMENT NODES (PORTS)</div>
-            <p style="margin-bottom: 20px;">The protocol has been ported to 25 languages to ensure Kevin's containment across all known compute environments.</p>
+            <div class="section-title">deployment nodes (ports)</div>
+            <p style="margin-bottom: 20px;">the protocol has been ported to 25 languages to ensure kevin's containment across as many known compute environments as possible but we are still nowhere near safe so please visit the repo using the link at the bottom of this page and help us</p>
             <div class="ports-grid" id="ports-list">
-                <!-- Port cards will be injected here -->
+                <!-- port cards will be injected here -->
             </div>
         </div>
 
         <div class="footer">
-            MANUAL IMPLEMENTATION // NO DEPENDENCIES // 100% PURE TORMENT<br>
-            <a href="https://github.com/jordan-lenchitz/sha257sum">ACCESS SOURCE REPOSITORY</a>
+            manual implementation // no dependencies // 100% pure torment<br>
+            <a href="https://github.com/jordan-lenchitz/sha257sum">access source repository</a>
         </div>
     </div>
 
     <script>
-        // --- SHA256 IMPLEMENTATION ---
-        const K = [
+        // --- sha256 implementation ---
+        const k = [
             0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
             0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
             0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
@@ -374,35 +374,35 @@
             0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
         ];
 
-        function rightRotate(n, b) { return ((n >>> b) | (n << (32 - b))) >>> 0; }
-        function rightShift(n, b) { return n >>> b; }
+        function rightrotate(n, b) { return ((n >>> b) | (n << (32 - b))) >>> 0; }
+        function rightshift(n, b) { return n >>> b; }
         function ch(e, f, g) { return ((e & f) ^ ((~e >>> 0) & g)) >>> 0; }
         function maj(a, b, c) { return ((a & b) ^ (a & c) ^ (b & c)) >>> 0; }
-        function s0(a) { return (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) >>> 0; }
-        function s1(e) { return (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) >>> 0; }
-        function msg_s0(w) { return (rightRotate(w, 7) ^ rightRotate(w, 18) ^ rightShift(w, 3)) >>> 0; }
-        function msg_s1(w) { return (rightRotate(w, 17) ^ rightRotate(w, 19) ^ rightShift(w, 10)) >>> 0; }
+        function s0(a) { return (rightrotate(a, 2) ^ rightrotate(a, 13) ^ rightrotate(a, 22)) >>> 0; }
+        function s1(e) { return (rightrotate(e, 6) ^ rightrotate(e, 11) ^ rightrotate(e, 25)) >>> 0; }
+        function msg_s0(w) { return (rightrotate(w, 7) ^ rightrotate(w, 18) ^ rightshift(w, 3)) >>> 0; }
+        function msg_s1(w) { return (rightrotate(w, 17) ^ rightrotate(w, 19) ^ rightshift(w, 10)) >>> 0; }
 
         function sha256(msg) {
             const h = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19];
-            let newLen = msg.length + 1;
-            while (newLen % 64 !== 56) newLen++;
-            newLen += 8;
-            const padded = new Uint8Array(newLen);
+            let newlen = msg.length + 1;
+            while (newlen % 64 !== 56) newlen++;
+            newlen += 8;
+            const padded = new uint8array(newlen);
             padded.set(msg);
             padded[msg.length] = 0x80;
             const bits = msg.length * 8;
-            for (let i = 0; i < 4; i++) padded[newLen - 1 - i] = (bits >>> (i * 8)) & 0xFF;
-            const bitsHigh = Math.floor(bits / 4294967296);
-            for (let i = 0; i < 4; i++) padded[newLen - 5 - i] = (bitsHigh >>> (i * 8)) & 0xFF;
+            for (let i = 0; i < 4; i++) padded[newlen - 1 - i] = (bits >>> (i * 8)) & 0xff;
+            const bitshigh = math.floor(bits / 4294967296);
+            for (let i = 0; i < 4; i++) padded[newlen - 5 - i] = (bitshigh >>> (i * 8)) & 0xff;
             
-            for (let offset = 0; offset < newLen; offset += 64) {
-                const w = new Uint32Array(64);
+            for (let offset = 0; offset < newlen; offset += 64) {
+                const w = new uint32array(64);
                 for (let i = 0; i < 16; i++) w[i] = ((padded[offset + i*4] << 24) | (padded[offset + i*4 + 1] << 16) | (padded[offset + i*4 + 2] << 8) | padded[offset + i*4 + 3]) >>> 0;
                 for (let i = 16; i < 64; i++) w[i] = (msg_s1(w[i-2]) + w[i-7] + msg_s0(w[i-15]) + w[i-16]) >>> 0;
                 let [a, b, c, d, e, f, g, hh] = h;
                 for (let i = 0; i < 64; i++) {
-                    const t1 = (hh + s1(e) + ch(e, f, g) + K[i] + w[i]) >>> 0;
+                    const t1 = (hh + s1(e) + ch(e, f, g) + k[i] + w[i]) >>> 0;
                     const t2 = (s0(a) + maj(a, b, c)) >>> 0;
                     hh = g; g = f; f = e; e = (d + t1) >>> 0;
                     d = c; c = b; b = a; a = (t1 + t2) >>> 0;
@@ -410,30 +410,30 @@
                 h[0] = (h[0] + a) >>> 0; h[1] = (h[1] + b) >>> 0; h[2] = (h[2] + c) >>> 0; h[3] = (h[3] + d) >>> 0;
                 h[4] = (h[4] + e) >>> 0; h[5] = (h[5] + f) >>> 0; h[6] = (h[6] + g) >>> 0; h[7] = (h[7] + hh) >>> 0;
             }
-            return h.map(x => x.toString(16).padStart(8, '0')).join('');
+            return h.map(x => x.tostring(16).padstart(8, '0')).join('');
         }
 
-        function stringToBytes(str) {
-            const encoder = new TextEncoder();
+        function stringtobytes(str) {
+            const encoder = new textencoder();
             return encoder.encode(str);
         }
 
-        // --- SHA257 LOGIC ---
-        const SALTS = [
-            "jordanlenchitz_absurd_salt_part1_stupid_stupid_stupid_1_LLOC_INCREASE_AA",
-            "jordanlenchitz_absurd_salt_part2_very_silly_nonsense_2_LLOC_ENHANCE_BB",
-            "jordanlenchitz_absurd_salt_part3_utterly_pointless_3_LLOC_MAXIMUM_CC",
-            "jordanlenchitz_absurd_salt_part4_final_silly_bits_4_LLOC_OVER_1000_DD",
-            "jordanlenchitz_absurd_salt_part5_more_random_bytes_5_LLOC_ABUNDANCE_EE",
-            "jordanlenchitz_absurd_salt_part6_extra_long_salt_6_LLOC_GENERATE_FF",
-            "jordanlenchitz_absurd_salt_part7_another_salt_block_7_LLOC_FILL_GG",
-            "jordanlenchitz_absurd_salt_part8_just_for_lines_8_LLOC_MANY_MANY_HH",
-            "jordanlenchitz_absurd_salt_part9_yet_another_salt_9_LLOC_MORE_II",
-            "jordanlenchitz_absurd_salt_part10_final_long_salt_10_LLOC_END_OF_SALTS_JJ"
+        // --- sha257 logic ---
+        const salts = [
+            "jordanlenchitz_absurd_salt_part1_stupid_stupid_stupid_1_lloc_increase_aa",
+            "jordanlenchitz_absurd_salt_part2_very_silly_nonsense_2_lloc_enhance_bb",
+            "jordanlenchitz_absurd_salt_part3_utterly_pointless_3_lloc_maximum_cc",
+            "jordanlenchitz_absurd_salt_part4_final_silly_bits_4_lloc_over_1000_dd",
+            "jordanlenchitz_absurd_salt_part5_more_random_bytes_5_lloc_abundance_ee",
+            "jordanlenchitz_absurd_salt_part6_extra_long_salt_6_lloc_generate_ff",
+            "jordanlenchitz_absurd_salt_part7_another_salt_block_7_lloc_fill_gg",
+            "jordanlenchitz_absurd_salt_part8_just_for_lines_8_lloc_many_many_hh",
+            "jordanlenchitz_absurd_salt_part9_yet_another_salt_9_lloc_more_ii",
+            "jordanlenchitz_absurd_salt_part10_final_long_salt_10_lloc_end_of_salts_jj"
         ];
 
         function sha257sum(input) {
-            let buf = stringToBytes(input);
+            let buf = stringtobytes(input);
             
             for (let i = 0; i < 35; i++) {
                 const hex = sha256(buf);
@@ -442,118 +442,118 @@
                 const rev = suffix.split('').reverse().join('');
                 const inter = prefix + rev;
                 
-                const hashBytes = stringToBytes(inter);
-                const salt = stringToBytes(SALTS[i % 10]);
-                const maxLen = Math.max(hashBytes.length, salt.length);
-                const newBuf = new Uint8Array(hashBytes.length + salt.length);
+                const hashbytes = stringtobytes(inter);
+                const salt = stringtobytes(salts[i % 10]);
+                const maxlen = math.max(hashbytes.length, salt.length);
+                const newbuf = new uint8array(hashbytes.length + salt.length);
                 let ptr = 0;
-                for (let k = 0; k < maxLen; k++) {
-                    if (k < hashBytes.length) newBuf[ptr++] = hashBytes[k];
-                    if (k < salt.length) newBuf[ptr++] = salt[k];
+                for (let k = 0; k < maxlen; k++) {
+                    if (k < hashbytes.length) newbuf[ptr++] = hashbytes[k];
+                    if (k < salt.length) newbuf[ptr++] = salt[k];
                 }
-                buf = newBuf.slice(0, ptr);
+                buf = newbuf.slice(0, ptr);
             }
 
-            const finalHex = sha256(buf);
-            const finalPrefix = finalHex.slice(0, 56);
-            const finalSuffix = finalHex.slice(56);
-            const finalRev = finalSuffix.split('').reverse().join('');
-            return finalPrefix + finalRev;
+            const finalhex = sha256(buf);
+            const finalprefix = finalhex.slice(0, 56);
+            const finalsuffix = finalhex.slice(56);
+            const finalrev = finalsuffix.split('').reverse().join('');
+            return finalprefix + finalrev;
         }
 
-        // --- UI LOGIC ---
-        const input = document.getElementById('kevin-input');
-        const output = document.getElementById('hash-result');
-        const counter = document.getElementById('counter');
-        const status = document.getElementById('containment-status').querySelector('span');
-        const zone = document.getElementById('containment-zone');
+        // --- ui logic ---
+        const input = document.getelementbyid('kevin-input');
+        const output = document.getelementbyid('hash-result');
+        const counter = document.getelementbyid('counter');
+        const status = document.getelementbyid('containment-status').queryselector('span');
+        const zone = document.getelementbyid('containment-zone');
 
         const ports = [
-            { name: "Ada", cmd: "gnatmake sha257sum.adb -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
-            { name: "Bash/Awk", cmd: "./sha257sum.sh \"kevin\"", badge: "SURVIVED" },
-            { name: "C", cmd: "gcc sha257sum.c -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
-            { name: "C++", cmd: "g++ sha257sum.cpp -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
-            { name: "C#", cmd: "dotnet run --project sha257sum.cs \"kevin\"", badge: "SURVIVED" },
-            { name: "COBOL", cmd: "cobc -x sha257sum.cob -o sha257sum && ./sha257sum \"kevin\"", badge: "UNHINGED" },
-            { name: "Fortran", cmd: "gfortran sha257sum.f90 -o sha257sum && ./sha257sum \"kevin\"", badge: "UNHINGED" },
-            { name: "Go", cmd: "go run sha257sum.go \"kevin\"", badge: "CERTIFIED" },
-            { name: "Haskell", cmd: "ghc sha257sum.hs -o sha257sum && ./sha257sum \"kevin\"", badge: "SURVIVED" },
-            { name: "Java", cmd: "javac sha257sum.java && java sha257sum \"kevin\"", badge: "TORMENTED" },
-            { name: "KSH", cmd: "ksh sha257sum.ksh \"kevin\"", badge: "SURVIVED" },
-            { name: "Kotlin", cmd: "kotlinc sha257sum.kt -include-runtime -d sha257sum.jar && java -jar sha257sum.jar \"kevin\"", badge: "TORMENTED" },
-            { name: "Lua", cmd: "./sha257sum.lua \"kevin\"", badge: "SURVIVED" },
-            { name: "Matlab", cmd: "sha257sum_matlab('kevin')", badge: "UNHINGED" },
-            { name: "Mumps", cmd: "mumps -run sha257sum \"kevin\"", badge: "UNHINGED" },
-            { name: "Node.js", cmd: "node sha257sum.js \"kevin\"", badge: "CERTIFIED" },
-            { name: "Perl", cmd: "./sha257sum.pl \"kevin\"", badge: "SURVIVED" },
-            { name: "PHP", cmd: "php sha257sum.php \"kevin\"", badge: "TORMENTED" },
-            { name: "PowerShell", cmd: "pwsh -File sha257sum.ps1 -InputString \"kevin\"", badge: "SURVIVED" },
-            { name: "Prolog", cmd: "swipl -q sha257sum.pro -- \"kevin\"", badge: "UNHINGED" },
-            { name: "Python", cmd: "./sha257sum.py \"kevin\"", badge: "CERTIFIED" },
-            { name: "Ruby", cmd: "ruby sha257sum.rb \"kevin\"", badge: "SURVIVED" },
-            { name: "Rust", cmd: "rustc sha257sum.rs -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
-            { name: "Swift", cmd: "swiftc sha257sum.swift -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
-            { name: "TypeScript", cmd: "npx ts-node sha257sum.ts \"kevin\"", badge: "CERTIFIED" }
+            { name: "ada", cmd: "gnatmake sha257sum.adb -o sha257sum && ./sha257sum \"kevin\"", badge: "certified" },
+            { name: "bash/awk", cmd: "./sha257sum.sh \"kevin\"", badge: "survived" },
+            { name: "c", cmd: "gcc sha257sum.c -o sha257sum && ./sha257sum \"kevin\"", badge: "tormented" },
+            { name: "c++", cmd: "g++ sha257sum.cpp -o sha257sum && ./sha257sum \"kevin\"", badge: "tormented" },
+            { name: "c#", cmd: "dotnet run --project sha257sum.cs \"kevin\"", badge: "survived" },
+            { name: "cobol", cmd: "cobc -x sha257sum.cob -o sha257sum && ./sha257sum \"kevin\"", badge: "unhinged" },
+            { name: "fortran", cmd: "gfortran sha257sum.f90 -o sha257sum && ./sha257sum \"kevin\"", badge: "unhinged" },
+            { name: "go", cmd: "go run sha257sum.go \"kevin\"", badge: "certified" },
+            { name: "haskell", cmd: "ghc sha257sum.hs -o sha257sum && ./sha257sum \"kevin\"", badge: "survived" },
+            { name: "java", cmd: "javac sha257sum.java && java sha257sum \"kevin\"", badge: "tormented" },
+            { name: "ksh", cmd: "ksh sha257sum.ksh \"kevin\"", badge: "survived" },
+            { name: "kotlin", cmd: "kotlinc sha257sum.kt -include-runtime -d sha257sum.jar && java -jar sha257sum.jar \"kevin\"", badge: "tormented" },
+            { name: "lua", cmd: "./sha257sum.lua \"kevin\"", badge: "survived" },
+            { name: "matlab", cmd: "sha257sum_matlab('kevin')", badge: "unhinged" },
+            { name: "mumps", cmd: "mumps -run sha257sum \"kevin\"", badge: "unhinged" },
+            { name: "node.js", cmd: "node sha257sum.js \"kevin\"", badge: "certified" },
+            { name: "perl", cmd: "./sha257sum.pl \"kevin\"", badge: "survived" },
+            { name: "php", cmd: "php sha257sum.php \"kevin\"", badge: "tormented" },
+            { name: "powershell", cmd: "pwsh -file sha257sum.ps1 -inputstring \"kevin\"", badge: "survived" },
+            { name: "prolog", cmd: "swipl -q sha257sum.pro -- \"kevin\"", badge: "unhinged" },
+            { name: "python", cmd: "./sha257sum.py \"kevin\"", badge: "certified" },
+            { name: "ruby", cmd: "ruby sha257sum.rb \"kevin\"", badge: "survived" },
+            { name: "rust", cmd: "rustc sha257sum.rs -o sha257sum && ./sha257sum \"kevin\"", badge: "certified" },
+            { name: "swift", cmd: "swiftc sha257sum.swift -o sha257sum && ./sha257sum \"kevin\"", badge: "tormented" },
+            { name: "typescript", cmd: "npx ts-node sha257sum.ts \"kevin\"", badge: "certified" }
         ];
 
-        function renderPorts() {
-            const list = document.getElementById('ports-list');
-            ports.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'port-card';
-                card.innerHTML = `
+        function renderports() {
+            const list = document.getelementbyid('ports-list');
+            ports.foreach(p => {
+                const card = document.createelement('div');
+                card.classname = 'port-card';
+                card.innerhtml = `
                     <div class="port-header">
                         <span class="port-name">${p.name}</span>
-                        <span class="badge badge-${p.badge.toLowerCase()}">[${p.badge}]</span>
+                        <span class="badge badge-${p.badge.tolowercase()}">[${p.badge}]</span>
                     </div>
                     <div style="font-size: 0.6rem; color: #555; margin-bottom: 8px; word-break: break-all;">${p.cmd}</div>
-                    <button class="copy-btn" onclick="copyCmd('${p.cmd}', this)">COPY COMMAND</button>
+                    <button class="copy-btn" onclick="copycmd('${p.cmd}', this)">copy command</button>
                 `;
-                list.appendChild(card);
+                list.appendchild(card);
             });
         }
 
-        window.copyCmd = (cmd, btn) => {
-            navigator.clipboard.writeText(cmd);
-            const original = btn.innerText;
-            btn.innerText = "COPIED!";
+        window.copycmd = (cmd, btn) => {
+            navigator.clipboard.writetext(cmd);
+            const original = btn.innertext;
+            btn.innertext = "copied!";
             btn.style.background = "#00ff41";
             btn.style.color = "#000";
-            setTimeout(() => {
-                btn.innerText = original;
+            settimeout(() => {
+                btn.innertext = original;
                 btn.style.background = "";
                 btn.style.color = "";
             }, 1000);
         };
 
-        let lastVal = "";
+        let lastval = "";
         function update() {
             const val = input.value;
-            if (val === lastVal) return;
-            lastVal = val;
+            if (val === lastval) return;
+            lastval = val;
 
-            if (val.toLowerCase() === "kevin") {
-                status.innerText = "SECURE";
-                zone.removeAttribute('data-status');
+            if (val.tolowercase() === "kevin") {
+                status.innertext = "secure";
+                zone.removeattribute('data-status');
             } else {
-                status.innerText = "UNSTABLE";
-                zone.setAttribute('data-status', 'UNSTABLE');
+                status.innertext = "unstable";
+                zone.setattribute('data-status', 'unstable');
             }
 
-            // Animate counter
+            // animate counter
             let c = 0;
-            const itv = setInterval(() => {
-                counter.innerText = ++c;
+            const itv = setinterval(() => {
+                counter.innertext = ++c;
                 if (c >= 35) {
-                    clearInterval(itv);
+                    clearinterval(itv);
                     const result = sha257sum(val);
-                    output.innerText = result;
+                    output.innertext = result;
                 }
             }, 10);
         }
 
-        input.addEventListener('input', update);
-        renderPorts();
+        input.addeventlistener('input', update);
+        renderports();
         update();
     </script>
 </body>
