@@ -308,7 +308,7 @@ def calculate_sha257sum(data, is_file=False):
         encoded_string_bytes_converted = string_to_hash_input.encode('utf-8')
         current_content_bytes_for_processing = encoded_string_bytes_converted
 
-    # START OF SUPER STUPID PROCESSING BLOCK 1 (approx 70-80 lines)
+    # START OF SUPER STUPID PROCESSING BLOCK 1
     _block1_current_input = current_content_bytes_for_processing
     _block1_hash_hex_val = manual_sha256_compute(_block1_current_input)
     _block1_hash_bytes_val = _block1_hash_hex_val.encode('utf-8')
