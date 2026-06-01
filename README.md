@@ -9,12 +9,18 @@ we start with a standard, manually coded sha-256 compression function which hand
 
 after surviving 35 rounds of this recursive salt-interleaved nightmare the final buffer is hashed one last time, the last 8 characters are reversed again, and the final hex string is returned to the user!
 
-## ports and howto
-we are porting `sha257sum` to as many programming languages as possible here on github so please stay tuned for more!
-**note: all source code is located in the `sha257/` directory**
+## howto port
+we are porting `sha257sum` to as many programming languages as possible here on github and we would love your help
+- find an open issue
+- work on your port (see the python one for a pretty easy-to-understand example of the enterprise business logic)
+- write a test
+- make a pull request
+- ???
+- non-profit } foss actually :) {
 
+## ports and howto (run)
+**note: all source code is located in the `sha257/` directory of this repo**
 `cd sha257` then sudo
-
 - **ada**: `gnatmake sha257sum.adb -o sha257sum && ./sha257sum "kevin"`
 - **bash and awk**: `./sha257sum.sh "kevin"` or `./sha257sum.sh -f kevin`
 - **c**: `gcc sha257sum.c -o sha257sum && ./sha257sum "kevin"`
