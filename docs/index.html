@@ -1,35 +1,560 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sha257sum</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sha257sum - KEVIN CONTAINMENT PROTOCOL</title>
+    <style>
+        :root {
+            --glow: #00ff41;
+            --bg: #0a0a0a;
+            --dim: #003b00;
+            --danger: #ff0000;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.97; }
+            5% { opacity: 0.95; }
+            10% { opacity: 0.9; }
+            15% { opacity: 0.95; }
+            20% { opacity: 0.98; }
+            25% { opacity: 0.95; }
+            30% { opacity: 0.9; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--glow);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.4;
+            overflow-x: hidden;
+            animation: flicker 0.1s infinite;
+        }
+
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(18, 16, 16, 0.1);
+            opacity: 0;
+            z-index: 2;
+            pointer-events: none;
+            animation: flicker 0.15s infinite;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 3;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 255, 65, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0.1;
+            position: fixed;
+            bottom: 100%;
+            animation: scanline 10s linear infinite;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--glow);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--dim);
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        .section {
+            border: 1px solid var(--glow);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+            background: rgba(0, 20, 0, 0.5);
+        }
+
+        .section-title {
+            background: var(--glow);
+            color: var(--bg);
+            padding: 5px 10px;
+            display: inline-block;
+            font-weight: bold;
+            margin-top: -35px;
+            margin-bottom: 20px;
+        }
+
+        code {
+            background: var(--dim);
+            color: var(--glow);
+            padding: 2px 5px;
+        }
+
+        pre {
+            background: #000;
+            padding: 15px;
+            overflow-x: auto;
+            border-left: 3px solid var(--glow);
+        }
+
+        .live-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        input {
+            background: #000;
+            border: 1px solid var(--glow);
+            color: var(--glow);
+            padding: 15px;
+            font-family: inherit;
+            font-size: 1.2rem;
+            outline: none;
+            box-shadow: inset 0 0 5px var(--glow);
+        }
+
+        input:focus {
+            box-shadow: inset 0 0 10px var(--glow), 0 0 10px var(--glow);
+        }
+
+        .hash-output {
+            word-break: break-all;
+            font-size: 1.1rem;
+            min-height: 3rem;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px dashed var(--glow);
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--dim);
+        }
+
+        .status-item span {
+            color: var(--glow);
+        }
+
+        .status-item.danger span {
+            color: var(--danger);
+            text-shadow: 0 0 5px var(--danger);
+        }
+
+        .ports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .port-card {
+            border: 1px solid var(--dim);
+            padding: 10px;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .port-card:hover {
+            border-color: var(--glow);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+
+        .port-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .port-name {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge {
+            font-size: 0.6rem;
+            padding: 2px 4px;
+            border: 1px solid currentColor;
+        }
+
+        .badge-certified { color: var(--glow); }
+        .badge-tormented { color: #ff8c00; }
+        .badge-unhinged { color: var(--danger); }
+
+        .copy-btn {
+            background: var(--dim);
+            color: var(--glow);
+            border: 1px solid var(--glow);
+            padding: 2px 8px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-family: inherit;
+        }
+
+        .copy-btn:hover {
+            background: var(--glow);
+            color: var(--bg);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .lore-text {
+            font-style: italic;
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .torment-counter {
+            font-size: 2rem;
+            text-align: center;
+            margin: 10px 0;
+            height: 2.5rem;
+        }
+
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+
+        [data-status="UNSTABLE"] input {
+            border-color: var(--danger);
+            box-shadow: inset 0 0 10px var(--danger);
+            color: var(--danger);
+        }
+        
+        [data-status="UNSTABLE"] .hash-output {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--dim);
+            font-size: 0.7rem;
+        }
+
+        a {
+            color: var(--glow);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--glow);
+        }
+
+        a:hover {
+            background: var(--glow);
+            color: var(--bg);
+        }
+    </style>
 </head>
 <body>
-  <h1>sha257sum</h1>
-  <p>like <code>sha256sum</code> but not quite!</p>
-  <p>a totally normal completely necessary daily driver cli tool</p>
-  <p>100% manual sha-256 followed by 35 sequential rounds of recursive salt-interleaved self-inflicted cryptographic torment</p>
-  <h2>how it works</h2>
-  <ol>
-    <li>sha-256 hash the input</li>
-    <li>reverse the last 8 characters of the hex digest</li>
-    <li>convert to bytes and interleave with one of ten absurdly named salts</li>
-    <li>repeat steps 1–3 for 35 rounds</li>
-    <li>final sha-256 + reverse last 8 chars is the output</li>
-  </ol>
-  <h2>test vectors</h2>
-  <pre>sha257sum("kevin")     = 9ff58826adebeefe6377551831bd45896f940d828b37d5f04d79a6897e1b7382
-sha257sum(empty file)  = 03a66566cea01a239282ab1fa8f7cd5def0e6a471083b37cbf2f606c201d873e</pre>
-  <h2>ports</h2>
-  <p>implemented in 25 languages so far but please help us do more together!</p>
-  <p>see the <a href="https://github.com/jordan-lenchitz/sha257sum">github repo</a> for syntax</p>
-  <ul>
-    <li>ada</li><li>bash/awk</li><li>c</li><li>c++</li><li>c#</li>
-    <li>cobol</li><li>fortran</li><li>go</li><li>haskell</li><li>java</li>
-    <li>ksh</li><li>kotlin</li><li>lua</li><li>matlab/octave</li><li>mumps</li>
-    <li>node.js</li><li>perl</li><li>php</li><li>powershell</li><li>prolog</li>
-    <li>python</li><li>ruby</li><li>rust</li><li>swift</li><li>typescript</li>
-  </ul>
+    <div class="scanline"></div>
+    <div class="container">
+        <h1>sha257sum</h1>
+        <div class="subtitle">KEVIN CONTAINMENT PROTOCOL // LEVEL 35 TORMENT</div>
+
+        <div class="section">
+            <div class="section-title">SUBJECT LORE</div>
+            <p class="lore-text">"It began with a single string. 'kevin'. We thought we could hash it. We were wrong."</p>
+            <p><code>sha257sum</code> is not a hash function. It is a cage. Standard SHA-256 was insufficient to bind the recursive energy of the test vector <code>"kevin"</code>. We had to go further. 35 rounds further.</p>
+            <p>Each round subjects the buffer to <strong>Sequential Recursive Salt-Interleaved Torment</strong>. If the buffer survives, it is hashed again. Then reversed. Then salted. Then repeated.</p>
+        </div>
+
+        <div class="section" id="containment-zone">
+            <div class="section-title">LIVE CONTAINMENT ZONE</div>
+            <div class="live-demo">
+                <div class="input-group">
+                    <label for="kevin-input">INPUT VECTOR:</label>
+                    <input type="text" id="kevin-input" value="kevin" spellcheck="false" autocomplete="off">
+                </div>
+                
+                <div class="status-bar">
+                    <div class="status-item" id="containment-status">STATUS: <span>SECURE</span></div>
+                    <div class="status-item">PROTOCOL: <span>SHA-257-V1</span></div>
+                    <div class="status-item" id="torment-level">TORMENT: <span>35/35</span></div>
+                </div>
+
+                <div class="torment-counter" id="counter">35</div>
+
+                <div class="input-group">
+                    <label>CRYPTOGRAPHIC SIGNATURE:</label>
+                    <div class="hash-output" id="hash-result">...CALCULATING...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">HOW THE TORMENT WORKS</div>
+            <ol>
+                <li><strong>INITIAL COMPRESSION:</strong> Input is crushed via standard SHA-256.</li>
+                <li><strong>THE REVERSAL:</strong> The last 8 hex characters are reversed (Temporal Displacement).</li>
+                <li><strong>THE INTERLEAVE:</strong> Modified hash is interleaved byte-by-byte with one of 10 <code>ABSURD SALTS</code>.</li>
+                <li><strong>THE RECURSION:</strong> Repeat steps 1–3 for <strong>35 ROUNDS</strong> of total cryptographic agony.</li>
+                <li><strong>FINAL SEAL:</strong> One last SHA-256 followed by a final 8-char reversal.</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <div class="section-title">DEPLOYMENT NODES (PORTS)</div>
+            <p style="margin-bottom: 20px;">The protocol has been ported to 25 languages to ensure Kevin's containment across all known compute environments.</p>
+            <div class="ports-grid" id="ports-list">
+                <!-- Port cards will be injected here -->
+            </div>
+        </div>
+
+        <div class="footer">
+            MANUAL IMPLEMENTATION // NO DEPENDENCIES // 100% PURE TORMENT<br>
+            <a href="https://github.com/jordan-lenchitz/sha257sum">ACCESS SOURCE REPOSITORY</a>
+        </div>
+    </div>
+
+    <script>
+        // --- SHA256 IMPLEMENTATION ---
+        const K = [
+            0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+            0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+            0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+            0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+            0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+            0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+            0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+            0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+        ];
+
+        function rightRotate(n, b) { return ((n >>> b) | (n << (32 - b))) >>> 0; }
+        function rightShift(n, b) { return n >>> b; }
+        function ch(e, f, g) { return ((e & f) ^ ((~e >>> 0) & g)) >>> 0; }
+        function maj(a, b, c) { return ((a & b) ^ (a & c) ^ (b & c)) >>> 0; }
+        function s0(a) { return (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) >>> 0; }
+        function s1(e) { return (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) >>> 0; }
+        function msg_s0(w) { return (rightRotate(w, 7) ^ rightRotate(w, 18) ^ rightShift(w, 3)) >>> 0; }
+        function msg_s1(w) { return (rightRotate(w, 17) ^ rightRotate(w, 19) ^ rightShift(w, 10)) >>> 0; }
+
+        function sha256(msg) {
+            const h = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19];
+            let newLen = msg.length + 1;
+            while (newLen % 64 !== 56) newLen++;
+            newLen += 8;
+            const padded = new Uint8Array(newLen);
+            padded.set(msg);
+            padded[msg.length] = 0x80;
+            const bits = msg.length * 8;
+            for (let i = 0; i < 4; i++) padded[newLen - 1 - i] = (bits >>> (i * 8)) & 0xFF;
+            const bitsHigh = Math.floor(bits / 4294967296);
+            for (let i = 0; i < 4; i++) padded[newLen - 5 - i] = (bitsHigh >>> (i * 8)) & 0xFF;
+            
+            for (let offset = 0; offset < newLen; offset += 64) {
+                const w = new Uint32Array(64);
+                for (let i = 0; i < 16; i++) w[i] = ((padded[offset + i*4] << 24) | (padded[offset + i*4 + 1] << 16) | (padded[offset + i*4 + 2] << 8) | padded[offset + i*4 + 3]) >>> 0;
+                for (let i = 16; i < 64; i++) w[i] = (msg_s1(w[i-2]) + w[i-7] + msg_s0(w[i-15]) + w[i-16]) >>> 0;
+                let [a, b, c, d, e, f, g, hh] = h;
+                for (let i = 0; i < 64; i++) {
+                    const t1 = (hh + s1(e) + ch(e, f, g) + K[i] + w[i]) >>> 0;
+                    const t2 = (s0(a) + maj(a, b, c)) >>> 0;
+                    hh = g; g = f; f = e; e = (d + t1) >>> 0;
+                    d = c; c = b; b = a; a = (t1 + t2) >>> 0;
+                }
+                h[0] = (h[0] + a) >>> 0; h[1] = (h[1] + b) >>> 0; h[2] = (h[2] + c) >>> 0; h[3] = (h[3] + d) >>> 0;
+                h[4] = (h[4] + e) >>> 0; h[5] = (h[5] + f) >>> 0; h[6] = (h[6] + g) >>> 0; h[7] = (h[7] + hh) >>> 0;
+            }
+            return h.map(x => x.toString(16).padStart(8, '0')).join('');
+        }
+
+        function stringToBytes(str) {
+            const encoder = new TextEncoder();
+            return encoder.encode(str);
+        }
+
+        // --- SHA257 LOGIC ---
+        const SALTS = [
+            "jordanlenchitz_absurd_salt_part1_stupid_stupid_stupid_1_LLOC_INCREASE_AA",
+            "jordanlenchitz_absurd_salt_part2_very_silly_nonsense_2_LLOC_ENHANCE_BB",
+            "jordanlenchitz_absurd_salt_part3_utterly_pointless_3_LLOC_MAXIMUM_CC",
+            "jordanlenchitz_absurd_salt_part4_final_silly_bits_4_LLOC_OVER_1000_DD",
+            "jordanlenchitz_absurd_salt_part5_more_random_bytes_5_LLOC_ABUNDANCE_EE",
+            "jordanlenchitz_absurd_salt_part6_extra_long_salt_6_LLOC_GENERATE_FF",
+            "jordanlenchitz_absurd_salt_part7_another_salt_block_7_LLOC_FILL_GG",
+            "jordanlenchitz_absurd_salt_part8_just_for_lines_8_LLOC_MANY_MANY_HH",
+            "jordanlenchitz_absurd_salt_part9_yet_another_salt_9_LLOC_MORE_II",
+            "jordanlenchitz_absurd_salt_part10_final_long_salt_10_LLOC_END_OF_SALTS_JJ"
+        ];
+
+        function sha257sum(input) {
+            let buf = stringToBytes(input);
+            
+            for (let i = 0; i < 35; i++) {
+                const hex = sha256(buf);
+                const prefix = hex.slice(0, 56);
+                const suffix = hex.slice(56);
+                const rev = suffix.split('').reverse().join('');
+                const inter = prefix + rev;
+                
+                const hashBytes = stringToBytes(inter);
+                const salt = stringToBytes(SALTS[i % 10]);
+                const maxLen = Math.max(hashBytes.length, salt.length);
+                const newBuf = new Uint8Array(hashBytes.length + salt.length);
+                let ptr = 0;
+                for (let k = 0; k < maxLen; k++) {
+                    if (k < hashBytes.length) newBuf[ptr++] = hashBytes[k];
+                    if (k < salt.length) newBuf[ptr++] = salt[k];
+                }
+                buf = newBuf.slice(0, ptr);
+            }
+
+            const finalHex = sha256(buf);
+            const finalPrefix = finalHex.slice(0, 56);
+            const finalSuffix = finalHex.slice(56);
+            const finalRev = finalSuffix.split('').reverse().join('');
+            return finalPrefix + finalRev;
+        }
+
+        // --- UI LOGIC ---
+        const input = document.getElementById('kevin-input');
+        const output = document.getElementById('hash-result');
+        const counter = document.getElementById('counter');
+        const status = document.getElementById('containment-status').querySelector('span');
+        const zone = document.getElementById('containment-zone');
+
+        const ports = [
+            { name: "Ada", cmd: "gnatmake sha257sum.adb -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
+            { name: "Bash/Awk", cmd: "./sha257sum.sh \"kevin\"", badge: "SURVIVED" },
+            { name: "C", cmd: "gcc sha257sum.c -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
+            { name: "C++", cmd: "g++ sha257sum.cpp -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
+            { name: "C#", cmd: "dotnet run --project sha257sum.cs \"kevin\"", badge: "SURVIVED" },
+            { name: "COBOL", cmd: "cobc -x sha257sum.cob -o sha257sum && ./sha257sum \"kevin\"", badge: "UNHINGED" },
+            { name: "Fortran", cmd: "gfortran sha257sum.f90 -o sha257sum && ./sha257sum \"kevin\"", badge: "UNHINGED" },
+            { name: "Go", cmd: "go run sha257sum.go \"kevin\"", badge: "CERTIFIED" },
+            { name: "Haskell", cmd: "ghc sha257sum.hs -o sha257sum && ./sha257sum \"kevin\"", badge: "SURVIVED" },
+            { name: "Java", cmd: "javac sha257sum.java && java sha257sum \"kevin\"", badge: "TORMENTED" },
+            { name: "KSH", cmd: "ksh sha257sum.ksh \"kevin\"", badge: "SURVIVED" },
+            { name: "Kotlin", cmd: "kotlinc sha257sum.kt -include-runtime -d sha257sum.jar && java -jar sha257sum.jar \"kevin\"", badge: "TORMENTED" },
+            { name: "Lua", cmd: "./sha257sum.lua \"kevin\"", badge: "SURVIVED" },
+            { name: "Matlab", cmd: "sha257sum_matlab('kevin')", badge: "UNHINGED" },
+            { name: "Mumps", cmd: "mumps -run sha257sum \"kevin\"", badge: "UNHINGED" },
+            { name: "Node.js", cmd: "node sha257sum.js \"kevin\"", badge: "CERTIFIED" },
+            { name: "Perl", cmd: "./sha257sum.pl \"kevin\"", badge: "SURVIVED" },
+            { name: "PHP", cmd: "php sha257sum.php \"kevin\"", badge: "TORMENTED" },
+            { name: "PowerShell", cmd: "pwsh -File sha257sum.ps1 -InputString \"kevin\"", badge: "SURVIVED" },
+            { name: "Prolog", cmd: "swipl -q sha257sum.pro -- \"kevin\"", badge: "UNHINGED" },
+            { name: "Python", cmd: "./sha257sum.py \"kevin\"", badge: "CERTIFIED" },
+            { name: "Ruby", cmd: "ruby sha257sum.rb \"kevin\"", badge: "SURVIVED" },
+            { name: "Rust", cmd: "rustc sha257sum.rs -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
+            { name: "Swift", cmd: "swiftc sha257sum.swift -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
+            { name: "TypeScript", cmd: "npx ts-node sha257sum.ts \"kevin\"", badge: "CERTIFIED" }
+        ];
+
+        function renderPorts() {
+            const list = document.getElementById('ports-list');
+            ports.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'port-card';
+                card.innerHTML = `
+                    <div class="port-header">
+                        <span class="port-name">${p.name}</span>
+                        <span class="badge badge-${p.badge.toLowerCase()}">[${p.badge}]</span>
+                    </div>
+                    <div style="font-size: 0.6rem; color: #555; margin-bottom: 8px; word-break: break-all;">${p.cmd}</div>
+                    <button class="copy-btn" onclick="copyCmd('${p.cmd}', this)">COPY COMMAND</button>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        window.copyCmd = (cmd, btn) => {
+            navigator.clipboard.writeText(cmd);
+            const original = btn.innerText;
+            btn.innerText = "COPIED!";
+            btn.style.background = "#00ff41";
+            btn.style.color = "#000";
+            setTimeout(() => {
+                btn.innerText = original;
+                btn.style.background = "";
+                btn.style.color = "";
+            }, 1000);
+        };
+
+        let lastVal = "";
+        function update() {
+            const val = input.value;
+            if (val === lastVal) return;
+            lastVal = val;
+
+            if (val.toLowerCase() === "kevin") {
+                status.innerText = "SECURE";
+                zone.removeAttribute('data-status');
+            } else {
+                status.innerText = "UNSTABLE";
+                zone.setAttribute('data-status', 'UNSTABLE');
+            }
+
+            // Animate counter
+            let c = 0;
+            const itv = setInterval(() => {
+                counter.innerText = ++c;
+                if (c >= 35) {
+                    clearInterval(itv);
+                    const result = sha257sum(val);
+                    output.innerText = result;
+                }
+            }, 10);
+        }
+
+        input.addEventListener('input', update);
+        renderPorts();
+        update();
+    </script>
 </body>
 </html>
