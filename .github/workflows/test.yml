@@ -67,7 +67,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y gfortran gnat swi-prolog lua5.4 php-cli octave file ksh wget apt-transport-https software-properties-common
+          sudo apt-get install -y gfortran gnat gnucobol swi-prolog lua5.4 php-cli octave file ksh wget apt-transport-https software-properties-common
           sudo ln -sf /usr/bin/lua5.4 /usr/local/bin/lua
           # Install Powershell
           source /etc/os-release
@@ -110,7 +110,7 @@ jobs:
       - name: set required langs (ubuntu)
         if: runner.os == 'Linux'
         run: |
-          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,python,ruby,perl,php,lua,c#,bash/awk,ksh,powershell,prolog,octave,mumps" >> "$GITHUB_ENV"
+          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,python,ruby,perl,php,lua,c#,bash/awk,ksh,powershell,prolog,octave,mumps,cobol" >> "$GITHUB_ENV"
 
       - name: set required langs (macos)
         if: runner.os == 'macOS'
