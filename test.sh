@@ -95,6 +95,8 @@ if require ghc;      then compiled "haskell" "ghc sha257sum.hs -o _t -outputdir 
                      else skip "haskell" "ghc";       fi
 if require gnatmake; then compiled "ada"     "gnatmake sha257sum.adb -o _t" "./_t kevin" "./_t -f kevin" './_t "$ANTICHEAT_INPUT"'; rm -f _t sha257sum.o sha257sum.ali
                      else skip "ada"     "gnatmake"; fi
+if require cobc;     then compiled "cobol"   "cobc -x sha257sum.cob -o _t" "./_t kevin" "./_t -f kevin" './_t "$ANTICHEAT_INPUT"'; rm -f _t
+                     else skip "cobol"   "cobc";      fi
 
 # jvm
 if javac -version &>/dev/null; then
