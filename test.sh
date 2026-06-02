@@ -5,8 +5,7 @@ cd "$(dirname "$0")/sha257"
 
 STRING_EXPECTED="9ff58826adebeefe6377551831bd45896f940d828b37d5f04d79a6897e1b7382"
 FILE_EXPECTED="03a66566cea01a239282ab1fa8f7cd5def0e6a471083b37cbf2f606c201d873e"
-# ANTICHEAT_INPUT and ANTICHEAT_EXPECTED are generated at runtime from python.
-# No implementation can have precomputed this value — it's different every run.
+# these next two values are generated at runtime so no implementation can cheat and precompute the two above values
 ANTICHEAT_INPUT=""
 ANTICHEAT_EXPECTED=""
 
@@ -18,8 +17,8 @@ GRN='\033[0;32m'; RED='\033[0;31m'; YLW='\033[1;33m'; NC='\033[0m'
 require() { command -v "$1" &>/dev/null; }
 pass()     { printf "${GRN}PASS${NC}  %s\n" "$1"; ((PASS++)); }
 skip() {
-  # If MUST_RUN is set and this lang is in the list, a skip is a failure.
-  # CI sets MUST_RUN per OS so only truly expected langs are required.
+  # if MUST_RUN is set and this lang is in the list skip failure
+  # but do not fret since CI sets MUST_RUN per OS so only truly expected langs are required
   if [[ -n "${MUST_RUN:-}" ]] && [[ ",$MUST_RUN," == *",$1,"* ]]; then
     printf "${RED}FAIL${NC}  %s (required on this OS but '%s' not found)\n" "$1" "$2"
     ((FAIL++))
@@ -65,13 +64,12 @@ interp() {
   check "$lang" "$s" "$f" "$x"
 }
 
-# anchor: verify static vectors against python, then generate a random anti-cheat
-# input that no implementation could have precomputed.
+# verify static vectors against python and then generate the random anti-cheat
 if require python3; then
   py_s=$(python3 sha257sum.py kevin    2>/dev/null)
   py_f=$(python3 sha257sum.py -f kevin 2>/dev/null)
   if [ "$py_s" != "$STRING_EXPECTED" ] || [ "$py_f" != "$FILE_EXPECTED" ]; then
-    printf "${RED}FATAL${NC}: hardcoded expected values don't match python reference — test.sh may be corrupted\n"
+    printf "${RED}FATAL${NC}: hardcoded expected values don't match python reference (uh oh) test.sh may be corrupted\n"
     printf "  python string: %s\n" "$py_s"
     printf "  python file:   %s\n" "$py_f"
     rm -f kevin
@@ -82,7 +80,7 @@ if require python3; then
   printf "anti-cheat input: %s  →  %s\n\n" "$ANTICHEAT_INPUT" "$ANTICHEAT_EXPECTED"
 fi
 
-# --- compiled ---
+# compiled
 if require gcc;      then compiled "c"       "gcc sha257sum.c -o _t"        "./_t kevin"  "./_t -f kevin"  './_t "$ANTICHEAT_INPUT"'; rm -f _t
                      else skip "c"       "gcc";       fi
 if require g++;      then compiled "c++"     "g++ sha257sum.cpp -o _t"      "./_t kevin"  "./_t -f kevin"  './_t "$ANTICHEAT_INPUT"'; rm -f _t
@@ -98,7 +96,7 @@ if require ghc;      then compiled "haskell" "ghc sha257sum.hs -o _t -outputdir 
 if require gnatmake; then compiled "ada"     "gnatmake sha257sum.adb -o _t" "./_t kevin" "./_t -f kevin" './_t "$ANTICHEAT_INPUT"'; rm -f _t sha257sum.o sha257sum.ali
                      else skip "ada"     "gnatmake"; fi
 
-# --- jvm ---
+# jvm
 if javac -version &>/dev/null; then
   compiled "java"   "javac sha257sum.java"                              "java sha257sum kevin"   "java sha257sum -f kevin"   'java sha257sum "$ANTICHEAT_INPUT"'
 else skip "java" "javac"; fi
@@ -108,7 +106,7 @@ if require kotlinc; then
   rm -f _t.jar
 else skip "kotlin" "kotlinc"; fi
 
-# --- interpreted ---
+# interpreted
 if require go;     then interp "go"         "go run sha257sum.go kevin"               "go run sha257sum.go -f kevin"               'go run sha257sum.go "$ANTICHEAT_INPUT"'
                    else skip "go"         "go";      fi
 if require node;   then interp "node.js"    "node sha257sum.js kevin"                 "node sha257sum.js -f kevin"                 'node sha257sum.js "$ANTICHEAT_INPUT"'
@@ -134,7 +132,7 @@ if require dotnet; then
   rm -rf bin obj
 else skip "c#" "dotnet"; fi
 
-# --- shell ---
+# shell
 if require bash && require awk; then
   interp "bash/awk" "bash sha257sum.sh kevin" "bash sha257sum.sh -f kevin" 'bash sha257sum.sh "$ANTICHEAT_INPUT"'
 else skip "bash/awk" "bash or awk"; fi
@@ -144,7 +142,7 @@ if require ksh;  then interp "ksh"        "ksh sha257sum.ksh kevin"             
 if require pwsh; then interp "powershell" "pwsh -File sha257sum.ps1 -InputString kevin"  "pwsh -File sha257sum.ps1 -InputString kevin -IsFile" 'pwsh -File sha257sum.ps1 -InputString "$ANTICHEAT_INPUT"'
                  else skip "powershell" "pwsh";    fi
 
-# --- exotic ---
+# exotic
 if require mumps;  then
     if mumps -version 2>&1 | grep -iq "YottaDB\|GT.M"; then
         if [ -z "${ydb_routines:-}" ] && [ -f /usr/local/etc/ydb_env_set ]; then
