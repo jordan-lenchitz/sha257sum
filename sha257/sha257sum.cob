@@ -83,3 +83,4 @@
            PERFORM VARYING I FROM 1 BY 1 UNTIL I > 8
                MOVE TEMP-SUFFIX(I:1) TO WS-HASH-OUT(64 - I + 1 : 1)
            END-PERFORM.
+       END PROGRAM SHA257SUM.
