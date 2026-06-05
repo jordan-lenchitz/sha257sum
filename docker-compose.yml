@@ -1,0 +1,7 @@
+services:
+  sha257sum-shell:
+    build: .
+    ports:
+      - "8080:8080"
+    container_name: sha257sum-shell
+    restart: unless-stopped
