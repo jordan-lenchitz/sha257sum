@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Update and install basic tools and repositories
 RUN apt-get update && apt-get install -y \
     wget curl git gnupg software-properties-common apt-transport-https build-essential \
-    unzip pkg-config libelf-dev libssl-dev libicu-dev \
+    unzip pkg-config libelf-dev libssl-dev libicu-dev libjansson-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Add repos for specific languages
