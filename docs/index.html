@@ -513,24 +513,58 @@
                         <span class="badge badge-${p.badge.toLowerCase()}">[${p.badge}]</span>
                     </div>
                     <div style="font-size: 0.6rem; color: #555; margin-bottom: 8px; word-break: break-all;">${p.cmd}</div>
-                    <button class="copy-btn" onclick="copyCmd('${p.cmd}', this)">COPY COMMAND</button>
+                    <button class="copy-btn">COPY COMMAND</button>
                 `;
+                
+                const btn = card.querySelector('.copy-btn');
+                btn.addEventListener('click', () => {
+                    copyToClipboard(p.cmd).then(() => {
+                        const original = btn.innerText;
+                        btn.innerText = "COPIED!";
+                        btn.style.background = "#00ff41";
+                        btn.style.color = "#000";
+                        setTimeout(() => {
+                            btn.innerText = original;
+                            btn.style.background = "";
+                            btn.style.color = "";
+                        }, 1000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                        btn.innerText = "FAILED";
+                        btn.style.background = "var(--danger)";
+                        setTimeout(() => {
+                            btn.innerText = "COPY COMMAND";
+                            btn.style.background = "";
+                        }, 1000);
+                    });
+                });
+                
                 list.appendChild(card);
             });
         }
 
-        window.copyCmd = (cmd, btn) => {
-            navigator.clipboard.writeText(cmd);
-            const original = btn.innerText;
-            btn.innerText = "COPIED!";
-            btn.style.background = "#00ff41";
-            btn.style.color = "#000";
-            setTimeout(() => {
-                btn.innerText = original;
-                btn.style.background = "";
-                btn.style.color = "";
-            }, 1000);
-        };
+        async function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(text);
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-9999px";
+                textArea.style.top = "0";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    const successful = document.execCommand('copy');
+                    textArea.remove();
+                    if (!successful) throw new Error('copy command failed');
+                } catch (err) {
+                    textArea.remove();
+                    throw err;
+                }
+            }
+        }
 
         let lastVal = "";
         function update() {
