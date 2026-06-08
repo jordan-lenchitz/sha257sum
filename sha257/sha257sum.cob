@@ -1,86 +1,135 @@
-       IDENTIFICATION DIVISION.
-       PROGRAM-ID. SHA257SUM.
-       ENVIRONMENT DIVISION.
-       CONFIGURATION SECTION.
-       DATA DIVISION.
-       WORKING-STORAGE SECTION.
-       01  WS-ARGS PIC X(100).
-       01  WS-BLOCK-IDX PIC 9(2).
-       01  WS-DATA-BUF PIC X(2048).
-       01  WS-HASH-OUT PIC X(64).
-       
-       *> Salts Table
-       01  WS-SALTS.
-           05 SALT-TBL OCCURS 10 TIMES PIC X(73).
-       01  SALT-IDX PIC 9(2).
-       01  TEMP-SALT PIC X(73).
-       01  TEMP-SUFFIX PIC X(8).
-       01  I PIC 9(3).
-       01  J PIC 9(3).
-       01  SALT-LEN PIC 9(3).
-       01  HASH-LEN PIC 9(3) VALUE 64.
-       
-       *> SHA-256 Variables
-       01  H-VALS.
-           05 H PIC 9(10) COMP-5 OCCURS 8 TIMES.
-       01  W-SCHED PIC 9(10) COMP-5 OCCURS 64 TIMES.
-       
-       PROCEDURE DIVISION.
-       MAIN-LOGIC.
-           ACCEPT WS-ARGS FROM COMMAND-LINE.
-           MOVE "jordanlenchitz_absurd_salt_part1_stupid_stupid_stupid_1_LLOC_INCREASE_AA" TO SALT-TBL(1)
-           MOVE "jordanlenchitz_absurd_salt_part2_very_silly_nonsense_2_LLOC_ENHANCE_BB" TO SALT-TBL(2)
-           MOVE "jordanlenchitz_absurd_salt_part3_utterly_pointless_3_LLOC_MAXIMUM_CC" TO SALT-TBL(3)
-           MOVE "jordanlenchitz_absurd_salt_part4_final_silly_bits_4_LLOC_OVER_1000_DD" TO SALT-TBL(4)
-           MOVE "jordanlenchitz_absurd_salt_part5_more_random_bytes_5_LLOC_ABUNDANCE_EE" TO SALT-TBL(5)
-           MOVE "jordanlenchitz_absurd_salt_part6_extra_long_salt_6_LLOC_GENERATE_FF" TO SALT-TBL(6)
-           MOVE "jordanlenchitz_absurd_salt_part7_another_salt_block_7_LLOC_FILL_GG" TO SALT-TBL(7)
-           MOVE "jordanlenchitz_absurd_salt_part8_just_for_lines_8_LLOC_MANY_MANY_HH" TO SALT-TBL(8)
-           MOVE "jordanlenchitz_absurd_salt_part9_yet_another_salt_9_LLOC_MORE_II" TO SALT-TBL(9)
-           MOVE "jordanlenchitz_absurd_salt_part10_final_long_salt_10_LLOC_END_OF_SALTS_JJ" TO SALT-TBL(10)
+>>SOURCE FORMAT FREE
+IDENTIFICATION DIVISION.
+PROGRAM-ID. SHA257SUM.
+ENVIRONMENT DIVISION.
+INPUT-OUTPUT SECTION.
+FILE-CONTROL.
+    SELECT HASH-FILE ASSIGN TO "tmp_hash.txt"
+        ORGANIZATION IS LINE SEQUENTIAL.
 
-           PERFORM VARYING WS-BLOCK-IDX FROM 1 BY 1 UNTIL WS-BLOCK-IDX > 35
-               PERFORM SHA256-COMPRESS
-               PERFORM INTERLEAVE-SALT
-               PERFORM REVERSE-SUFFIX
-           END-PERFORM.
-           
-           DISPLAY "SHA-257 Result: " WS-HASH-OUT.
-           STOP RUN.
+DATA DIVISION.
+FILE SECTION.
+FD  HASH-FILE.
+01  HASH-RECORD PIC X(128).
 
-       SHA256-COMPRESS.
-           *> 1. Padding
-           *> 2. Message Schedule W (0-63)
-           *> 3. 64 Rounds of H (a-h)
-           *> 4. Update WS-HASH-OUT with hex representation of H-VALS
-           CONTINUE.
+WORKING-STORAGE SECTION.
+01  WS-ARGS PIC X(1024).
+01  WS-BLOCK-IDX PIC 9(2).
+01  WS-HASH-OUT PIC X(64).
+01  WS-INTER-HEX PIC X(64).
+01  WS-DATA-BUF PIC X(2048).
+01  WS-DATA-LEN PIC 9(4).
+01  WS-FILE-PATH PIC X(255).
+01  WS-IS-FILE PIC 9 VALUE 0.
+01  WS-CMD PIC X(2500).
 
-       INTERLEAVE-SALT.
-           COMPUTE SALT-IDX = FUNCTION MOD(WS-BLOCK-IDX - 1, 10) + 1.
-           MOVE SALT-TBL(SALT-IDX) TO TEMP-SALT.
-           
-           MOVE 73 TO SALT-LEN.
-           PERFORM VARYING I FROM 73 BY -1 UNTIL I < 1 OR TEMP-SALT(I:1) NOT = SPACE
-               COMPUTE SALT-LEN = I - 1
-           END-PERFORM.
-           
-           MOVE 1 TO J.
-           MOVE SPACES TO WS-DATA-BUF.
-           
-           PERFORM VARYING I FROM 1 BY 1 UNTIL I > HASH-LEN AND I > SALT-LEN
-               IF I <= HASH-LEN
-                   MOVE WS-HASH-OUT(I:1) TO WS-DATA-BUF(J:1)
-                   ADD 1 TO J
-               END-IF
-               IF I <= SALT-LEN
-                   MOVE TEMP-SALT(I:1) TO WS-DATA-BUF(J:1)
-                   ADD 1 TO J
-               END-IF
-           END-PERFORM.
+01  WS-SALTS.
+    05 FILLER PIC X(80) VALUE "jordanlenchitz_absurd_salt_part1_stupid_stupid_stupid_1_LLOC_INCREASE_AA".
+    05 FILLER PIC X(80) VALUE "jordanlenchitz_absurd_salt_part2_very_silly_nonsense_2_LLOC_ENHANCE_BB".
+    05 FILLER PIC X(80) VALUE "jordanlenchitz_absurd_salt_part3_utterly_pointless_3_LLOC_MAXIMUM_CC".
+    05 FILLER PIC X(80) VALUE "jordanlenchitz_absurd_salt_part4_final_silly_bits_4_LLOC_OVER_1000_DD".
+    05 FILLER PIC X(80) VALUE "jordanlenchitz_absurd_salt_part5_more_random_bytes_5_LLOC_ABUNDANCE_EE".
+    05 FILLER PIC X(80) VALUE "jordanlenchitz_absurd_salt_part6_extra_long_salt_6_LLOC_GENERATE_FF".
+    05 FILLER PIC X(80) VALUE "jordanlenchitz_absurd_salt_part7_another_salt_block_7_LLOC_FILL_GG".
+    05 FILLER PIC X(80) VALUE "jordanlenchitz_absurd_salt_part8_just_for_lines_8_LLOC_MANY_MANY_HH".
+    05 FILLER PIC X(80) VALUE "jordanlenchitz_absurd_salt_part9_yet_another_salt_9_LLOC_MORE_II".
+    05 FILLER PIC X(80) VALUE "jordanlenchitz_absurd_salt_part10_final_long_salt_10_LLOC_END_OF_SALTS_JJ".
+01  WS-SALTS-REDEF REDEFINES WS-SALTS.
+    05 SALT-TBL OCCURS 10 TIMES PIC X(80).
 
-       REVERSE-SUFFIX.
-           MOVE WS-HASH-OUT(57:8) TO TEMP-SUFFIX.
-           PERFORM VARYING I FROM 1 BY 1 UNTIL I > 8
-               MOVE TEMP-SUFFIX(I:1) TO WS-HASH-OUT(64 - I + 1 : 1)
-           END-PERFORM.
-       END PROGRAM SHA257SUM.
+01  WS-SALT-LENS.
+    05 FILLER PIC 9(2) VALUE 72.
+    05 FILLER PIC 9(2) VALUE 70.
+    05 FILLER PIC 9(2) VALUE 68.
+    05 FILLER PIC 9(2) VALUE 69.
+    05 FILLER PIC 9(2) VALUE 70.
+    05 FILLER PIC 9(2) VALUE 67.
+    05 FILLER PIC 9(2) VALUE 66.
+    05 FILLER PIC 9(2) VALUE 67.
+    05 FILLER PIC 9(2) VALUE 64.
+    05 FILLER PIC 9(2) VALUE 73.
+01  WS-SALT-LENS-REDEF REDEFINES WS-SALT-LENS.
+    05 SALT-LEN-TBL OCCURS 10 TIMES PIC 9(2).
+
+01  SALT-IDX PIC 9(2).
+01  TEMP-SALT PIC X(80).
+01  I PIC 9(4).
+01  J PIC 9(4).
+01  SALT-LEN PIC 9(4).
+01  HASH-LEN PIC 9(4) VALUE 64.
+
+PROCEDURE DIVISION.
+MAIN-LOGIC.
+    ACCEPT WS-ARGS FROM COMMAND-LINE.
+    
+    IF WS-ARGS(1:2) = "-f"
+        MOVE 1 TO WS-IS-FILE
+        MOVE WS-ARGS(4:) TO WS-FILE-PATH
+        INITIALIZE WS-CMD
+        STRING "cat '" WS-FILE-PATH DELIMITED BY "  " "' > tmp_buf.txt"
+            INTO WS-CMD
+        CALL "SYSTEM" USING WS-CMD
+    ELSE
+        MOVE WS-ARGS TO WS-FILE-PATH
+        INITIALIZE WS-CMD
+        STRING "printf '%s' '" WS-FILE-PATH DELIMITED BY "  " "' > tmp_buf.txt"
+            INTO WS-CMD
+        CALL "SYSTEM" USING WS-CMD
+    END-IF.
+
+    PERFORM VARYING WS-BLOCK-IDX FROM 1 BY 1 UNTIL WS-BLOCK-IDX > 35
+        PERFORM SHA256-EXTERNAL
+        PERFORM REVERSE-SUFFIX
+        PERFORM INTERLEAVE-SALT
+        
+        INITIALIZE WS-CMD
+        STRING "printf '%s' '" WS-DATA-BUF(1:WS-DATA-LEN) "' > tmp_buf.txt"
+            INTO WS-CMD
+        CALL "SYSTEM" USING WS-CMD
+    END-PERFORM.
+    
+    PERFORM SHA256-EXTERNAL.
+    PERFORM REVERSE-SUFFIX.
+    
+    DISPLAY WS-INTER-HEX.
+    
+    CALL "SYSTEM" USING "rm -f tmp_buf.txt tmp_hash.txt".
+    STOP RUN.
+
+SHA256-EXTERNAL.
+    MOVE "sha256sum tmp_buf.txt | awk '{print $1}' > tmp_hash.txt" TO WS-CMD.
+    CALL "SYSTEM" USING WS-CMD.
+    
+    OPEN INPUT HASH-FILE.
+    READ HASH-FILE INTO HASH-RECORD.
+    CLOSE HASH-FILE.
+    MOVE HASH-RECORD(1:64) TO WS-HASH-OUT.
+
+REVERSE-SUFFIX.
+    MOVE WS-HASH-OUT TO WS-INTER-HEX.
+    MOVE WS-HASH-OUT(57:8) TO TEMP-SALT(1:8).
+    PERFORM VARYING I FROM 1 BY 1 UNTIL I > 8
+        MOVE TEMP-SALT(I:1) TO WS-INTER-HEX(64 - I + 1 : 1)
+    END-PERFORM.
+
+INTERLEAVE-SALT.
+    COMPUTE SALT-IDX = FUNCTION MOD(WS-BLOCK-IDX - 1, 10) + 1.
+    MOVE SALT-TBL(SALT-IDX) TO TEMP-SALT.
+    MOVE SALT-LEN-TBL(SALT-IDX) TO SALT-LEN.
+    
+    MOVE 1 TO J.
+    MOVE SPACES TO WS-DATA-BUF.
+    
+    PERFORM VARYING I FROM 1 BY 1 UNTIL I > HASH-LEN AND I > SALT-LEN
+        IF I <= HASH-LEN
+            MOVE WS-INTER-HEX(I:1) TO WS-DATA-BUF(J:1)
+            ADD 1 TO J
+        END-IF
+        IF I <= SALT-LEN
+            MOVE TEMP-SALT(I:1) TO WS-DATA-BUF(J:1)
+            ADD 1 TO J
+        END-IF
+    END-PERFORM.
+    COMPUTE WS-DATA-LEN = J - 1.
+
+END PROGRAM SHA257SUM.
