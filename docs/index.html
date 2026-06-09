@@ -358,7 +358,7 @@
 
         <div class="section">
             <div class="section-title">ports</div>
-            <p style="margin-bottom: 20px;">sha257sum has been ported to 30 languages so far but to ensure Kevin's containment across all known compute environments please help us write more (see github repo for open issues and howto)</p>
+            <p style="margin-bottom: 20px;">sha257sum has been ported to 31 languages so far but to ensure Kevin's containment across all known compute environments please help us write more (see github repo for open issues and howto)</p>
             <div class="ports-grid" id="ports-list">
                 <!-- Port cards will be injected here -->
             </div>
@@ -494,6 +494,7 @@
             { name: "Mumps", cmd: "mumps -run sha257sum \"kevin\"", badge: "UNHINGED" },
             { name: "Nim", cmd: "nim c -d:release sha257sum.nim && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
             { name: "Node.js", cmd: "node sha257sum.js \"kevin\"", badge: "CERTIFIED" },
+            { name: "Octave", cmd: "octave --quiet --eval \"sha257sum_matlab('kevin')\"", badge: "UNHINGED" },
             { name: "Pascal", cmd: "fpc -O3 sha257sum.pas && ./sha257sum \"kevin\"", badge: "TORMENTED" },
             { name: "Perl", cmd: "./sha257sum.pl \"kevin\"", badge: "SURVIVED" },
             { name: "PHP", cmd: "php sha257sum.php \"kevin\"", badge: "TORMENTED" },
