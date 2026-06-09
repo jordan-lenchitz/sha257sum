@@ -67,7 +67,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y gfortran gnat gnucobol swi-prolog lua5.4 php-cli octave file ksh wget apt-transport-https software-properties-common
+          sudo apt-get install -y gfortran gnat gnucobol swi-prolog lua5.4 php-cli octave file ksh wget apt-transport-https software-properties-common gdc fpc nim
           sudo ln -sf /usr/bin/lua5.4 /usr/local/bin/lua
           # Install Powershell
           source /etc/os-release
@@ -85,6 +85,16 @@ jobs:
           YDB_DIR=$(ls -d /usr/local/lib/yottadb/r* | head -n 1)
           sudo ln -sf "$YDB_DIR/mumps" /usr/local/bin/mumps
           sudo ln -sf "$YDB_DIR/yottadb" /usr/local/bin/yottadb
+          # Install Zig
+          curl -L https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz -o zig.tar.xz
+          tar -xJf zig.tar.xz
+          sudo mv zig-linux-x86_64-0.13.0 /usr/local/zig
+          sudo ln -s /usr/local/zig/zig /usr/local/bin/zig
+          # Install Julia
+          curl -L https://julialang-s3.julialang.org/bin/linux/x64/1.10/julia-1.10.4-linux-x86_64.tar.gz -o julia.tar.gz
+          tar -xzf julia.tar.gz
+          sudo mv julia-1.10.4 /usr/local/julia
+          sudo ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
 
       - name: install tools (macos)
         if: runner.os == 'macOS'
@@ -110,7 +120,7 @@ jobs:
       - name: set required langs (ubuntu)
         if: runner.os == 'Linux'
         run: |
-          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,python,ruby,perl,php,lua,c#,bash/awk,ksh,powershell,prolog,octave,mumps,cobol" >> "$GITHUB_ENV"
+          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,python,ruby,perl,php,lua,c#,bash/awk,ksh,powershell,prolog,octave,mumps,cobol,d,zig,nim,pascal,julia" >> "$GITHUB_ENV"
 
       - name: set required langs (macos)
         if: runner.os == 'macOS'
