@@ -9,6 +9,18 @@
 *.log
 *.log.*
 *.sig
+sha257sum
+sha257sum_d
+sha257sum_zig
+sha257sum_nim
+sha257sum_pas
+nimcache/
+.nimcache/
+*.o
+*.ali
+_t
+fpctwit*
+fpc-debug.txt
 
 pkg/
 src/

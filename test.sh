@@ -97,6 +97,14 @@ if require gnatmake; then compiled "ada"     "gnatmake sha257sum.adb -o _t" "./_
                      else skip "ada"     "gnatmake"; fi
 if require cobc;     then compiled "cobol"   "cobc -x -F sha257sum.cob -o _t" "./_t kevin" "./_t -f kevin" './_t "$ANTICHEAT_INPUT"'; rm -f _t
                      else skip "cobol"   "cobc";      fi
+if require gdc;      then compiled "d"       "gdc sha257sum.d -o _t"        "./_t kevin"  "./_t -f kevin"  './_t "$ANTICHEAT_INPUT"'; rm -f _t
+                     else skip "d"       "gdc";       fi
+if require zig;      then compiled "zig"     "zig build-exe sha257sum.zig -femit-bin=_t -O ReleaseSafe" "./_t kevin" "./_t -f kevin" './_t "$ANTICHEAT_INPUT"'; rm -f _t
+                     else skip "zig"     "zig";       fi
+if require nim;      then compiled "nim"     "nim c -d:release --hints:off sha257sum.nim" "./sha257sum kevin" "./sha257sum -f kevin" './sha257sum "$ANTICHEAT_INPUT"'; rm -f sha257sum
+                     else skip "nim"     "nim";       fi
+if require fpc;      then compiled "pascal"  "fpc -O3 sha257sum.pas -o_t"   "./_t kevin"  "./_t -f kevin"  './_t "$ANTICHEAT_INPUT"'; rm -f _t sha257sum.o
+                     else skip "pascal"  "fpc";       fi
 
 # jvm
 if javac -version &>/dev/null; then
@@ -127,6 +135,8 @@ if require php;    then interp "php"        "php sha257sum.php kevin"           
                    else skip "php"        "php";     fi
 if require lua;    then interp "lua"        "lua sha257sum.lua kevin"                 "lua sha257sum.lua -f kevin"                 'lua sha257sum.lua "$ANTICHEAT_INPUT"'
                    else skip "lua"        "lua";     fi
+if require julia;  then interp "julia"      "julia sha257sum.jl kevin"                "julia sha257sum.jl -f kevin"                'julia sha257sum.jl "$ANTICHEAT_INPUT"'
+                   else skip "julia"      "julia";   fi
 if require dotnet; then
   echo '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework></PropertyGroup></Project>' > sha257sum.csproj
   interp "c#" "dotnet run -v q -- kevin" "dotnet run -v q -- -f kevin" 'dotnet run -v q -- "$ANTICHEAT_INPUT"'
