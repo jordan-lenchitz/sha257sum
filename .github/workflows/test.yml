@@ -1,6 +1,12 @@
 name: verify all implementations
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - 'sha257/**'
+  pull_request:
+    paths:
+      - 'sha257/**'
 
 jobs:
   test:
