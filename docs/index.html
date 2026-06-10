@@ -348,11 +348,11 @@
         <div class="section">
             <div class="section-title">sha257sum how does it work</div>
             <ol>
-                <li><strong>initial compression:</strong> the input is crushed via standard sha256sum</li>
-                <li><strong>the reveresal:</strong> the last 8 hex characters are reversed</li>
-                <li><strong>the interleave:</strong> the modified hash is interleaved byte-by-byte with one of 10 <code>salts</code></li>
-                <li><strong>the recursion:</strong> we repeat steps 1–3 for <strong>35 rounds</strong> of cryptographic torment</li>
-                <li><strong>final seal:</strong> there is one last sha256sum followed by one final last-8-hex-chars reversal</li>
+                <li><strong>compression</strong> sees input crushed via standard sha256sum</li>
+                <li><strong>reversal</strong> ensures the last 8 hex characters are reversed</li>
+                <li><strong>interleave</strong> weaves the modified hash byte-by-byte with one of 10 <code>salts</code></li>
+                <li><strong>recursion</strong> repeats steps 1–3 for <strong>35 rounds</strong> of cryptographic torment</li>
+                <li><strong>seal (for safety)</strong> entails one more sha256sum followed by one final last-8-hex-chars reversal</li>
             </ol>
         </div>
 
