@@ -2,7 +2,7 @@
 import sys
 import os
 
-# --- Helper functions for bitwise operations (to be explicit and verbose) ---
+# helper functions for bitwise operations
 def right_rotate(n, b, word_size=32):
     initial_n_val = n
     initial_b_val = b
@@ -56,7 +56,7 @@ def not_op(n, word_size=32):
     final_result = xor_with_mask
     return final_result
 
-# --- SHA-256 Specific Constants and Functions (from FIPS PUB 180-4 / Wikipedia) ---
+# sha-256 constants and such(from FIPS PUB 180-4)
 
 H0 = 0x6a09e667
 H1 = 0xbb67ae85
@@ -273,7 +273,7 @@ def manual_sha256_compute(message_bytes):
     digest_hex_output = ''.join(final_digest_parts)
     return digest_hex_output
 
-# --- EXTREME STUPIDITY FOR 1000+ LLOC --- 
+# the salts
 STUPID_SALT_BLOCK_1 = b"jordanlenchitz_absurd_salt_part1_stupid_stupid_stupid_1_LLOC_INCREASE_AA"
 STUPID_SALT_BLOCK_2 = b"jordanlenchitz_absurd_salt_part2_very_silly_nonsense_2_LLOC_ENHANCE_BB"
 STUPID_SALT_BLOCK_3 = b"jordanlenchitz_absurd_salt_part3_utterly_pointless_3_LLOC_MAXIMUM_CC"
