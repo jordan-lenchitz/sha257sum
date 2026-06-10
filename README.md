@@ -10,7 +10,7 @@ we start with a standard, manually coded sha-256 compression function which hand
 after surviving 35 rounds of this recursive salt-interleaved nightmare the final buffer is hashed one last time, the last 8 characters are reversed again, and the final hex string is returned to the user!
 
 ## howto port
-we are porting `sha257sum` to as many programming languages as possible here on github and we would love your help
+we are porting `sha257sum` to as many languages as possible and would love your help
 - find an open issue
 - work on your port (see an example in `sha257/` for the logic)
 - write a test
