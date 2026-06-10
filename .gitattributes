@@ -1,0 +1,9 @@
+# Exclude multi-language port implementations from GitHub's language statistics.
+# This prevents the language bar from being cluttered with dozens of different 
+# port languages and showing a massive "Other" category (which looked bad).
+# By using linguist-detectable=false, we keep these files searchable and 
+# fully visible/reviewable in pull request diffs without collapsing them.
+sha257/** linguist-detectable=false
+
+# Exclude test script from language stats to keep statistics focused on the main codebase
+test.sh linguist-detectable=false
