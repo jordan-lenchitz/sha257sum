@@ -8,6 +8,9 @@ on:
     paths:
       - 'sha257/**'
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 jobs:
   test:
     strategy:
