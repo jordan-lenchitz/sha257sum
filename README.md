@@ -25,9 +25,13 @@ we are porting `sha257sum` to as many programming languages as possible here on 
 - **bash and awk**: `./sha257sum.sh "kevin"` or `./sha257sum.sh -f kevin`
 - **c**: `gcc sha257sum.c -o sha257sum && ./sha257sum "kevin"`
 - **c++**: `g++ sha257sum.cpp -o sha257sum && ./sha257sum "kevin"`
+- **clojure**: `java -cp /usr/share/java/clojure.jar clojure.main sha257sum.clj "kevin"`
+- **common lisp**: `sbcl --script sha257sum.cl "kevin"`
+- **crystal**: `crystal build sha257sum.cr -o sha257sum && ./sha257sum "kevin"`
 - **c#**: `dotnet run --project sha257sum.cs "kevin"`
 - **cobol**: `cobc -x sha257sum.cob -o sha257sum "kevin"`
 - **d**: `gdc sha257sum.d -o sha257sum && ./sha257sum "kevin"`
+- **elixir**: `elixir sha257sum.exs "kevin"`
 - **fortran**: `gfortran sha257sum.f90 -o sha257sum "kevin"`
 - **go**: `go run sha257sum.go "kevin"`
 - **haskell**: `ghc sha257sum.hs -o sha257sum && ./sha257sum "kevin"`
