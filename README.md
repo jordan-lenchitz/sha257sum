@@ -12,7 +12,7 @@ after surviving 35 rounds of this recursive salt-interleaved nightmare the final
 ## howto port
 we are porting `sha257sum` to as many programming languages as possible here on github and we would love your help
 - find an open issue
-- work on your port (see the python one for a pretty easy-to-understand example of the enterprise business logic)
+- work on your port (see an example in `sha257/` for the logic)
 - write a test
 - make a pull request
 - ???
