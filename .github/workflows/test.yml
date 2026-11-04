@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-2022]
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -60,7 +60,7 @@ jobs:
         if: runner.os == 'Linux'
 
       - name: install ts-node
-        run: npm install -g ts-node typescript
+        run: npm install -g ts-node typescript@^5
 
       - name: install kotlin
         env:

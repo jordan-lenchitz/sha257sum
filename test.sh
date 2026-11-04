@@ -123,8 +123,9 @@ if require go;     then interp "go"         "go run sha257sum.go kevin"         
                    else skip "go"         "go";      fi
 if require node;   then interp "node.js"    "node sha257sum.js kevin"                 "node sha257sum.js -f kevin"                 'node sha257sum.js "$ANTICHEAT_INPUT"'
                    else skip "node.js"    "node";    fi
-if require npx;    then interp "typescript" "npx --yes ts-node sha257sum.ts kevin"    "npx --yes ts-node sha257sum.ts -f kevin"    'npx --yes ts-node sha257sum.ts "$ANTICHEAT_INPUT"'
-                   else skip "typescript" "npx";     fi
+if require ts-node; then interp "typescript" "ts-node sha257sum.ts kevin"              "ts-node sha257sum.ts -f kevin"              'ts-node sha257sum.ts "$ANTICHEAT_INPUT"'
+elif require npx;   then interp "typescript" "npx --yes -p ts-node -p typescript@^5 ts-node sha257sum.ts kevin" "npx --yes -p ts-node -p typescript@^5 ts-node sha257sum.ts -f kevin" 'npx --yes -p ts-node -p typescript@^5 ts-node sha257sum.ts "$ANTICHEAT_INPUT"'
+                    else skip "typescript" "ts-node or npx";  fi
 if require python3;then interp "python"     "python3 sha257sum.py kevin"              "python3 sha257sum.py -f kevin"              'python3 sha257sum.py "$ANTICHEAT_INPUT"'
                    else skip "python"     "python3"; fi
 if require ruby;   then interp "ruby"       "ruby sha257sum.rb kevin"                 "ruby sha257sum.rb -f kevin"                 'ruby sha257sum.rb "$ANTICHEAT_INPUT"'
