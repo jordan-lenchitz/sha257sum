@@ -52,6 +52,7 @@ we are porting `sha257sum` to as many languages as possible and would love your 
 - **python**: `./sha257sum.py "kevin"` or `./sha257sum.py -f kevin`
 - **ruby**: `ruby sha257sum.rb "kevin"`
 - **rust**: `rustc sha257sum.rs -o sha257sum && ./sha257sum "kevin"`
+- **sed**: `./sha257sum.sed "kevin"` or `./sha257sum.sed -f kevin`
 - **swift**: `swiftc sha257sum.swift -o sha257sum && ./sha257sum "kevin"`
 - **typescript**: `npx ts-node sha257sum.ts "kevin"`
 - **zig**: `zig build-exe sha257sum.zig -O ReleaseSafe && ./sha257sum "kevin"`

@@ -157,6 +157,9 @@ if require bash && require awk; then
   interp "bash/awk" "bash sha257sum.sh kevin" "bash sha257sum.sh -f kevin" 'bash sha257sum.sh "$ANTICHEAT_INPUT"'
 else skip "bash/awk" "bash or awk"; fi
 
+if require sed;  then interp "sed"        "./sha257sum.sed kevin"                       "./sha257sum.sed -f kevin"                      './sha257sum.sed "$ANTICHEAT_INPUT"'
+                 else skip "sed"        "sed";     fi
+
 if require ksh;  then interp "ksh"        "ksh sha257sum.ksh kevin"                     "ksh sha257sum.ksh -f kevin"                    'ksh sha257sum.ksh "$ANTICHEAT_INPUT"'
                  else skip "ksh"        "ksh";     fi
 if require pwsh; then interp "powershell" "pwsh -File sha257sum.ps1 -InputString kevin"  "pwsh -File sha257sum.ps1 -InputString kevin -IsFile" 'pwsh -File sha257sum.ps1 -InputString "$ANTICHEAT_INPUT"'
