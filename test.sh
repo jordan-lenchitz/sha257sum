@@ -168,6 +168,10 @@ if should_run "typescript"; then
   elif require npx;   then interp "typescript" "npx --yes -p ts-node -p typescript@^5 ts-node sha257sum.ts kevin" "npx --yes -p ts-node -p typescript@^5 ts-node sha257sum.ts -f kevin" 'npx --yes -p ts-node -p typescript@^5 ts-node sha257sum.ts "$ANTICHEAT_INPUT"'
                       else skip "typescript" "ts-node or npx";  fi
 fi
+if should_run "coffeescript"; then
+  if require coffee;  then interp "coffeescript" "coffee sha257sum.coffee kevin"         "coffee sha257sum.coffee -f kevin"           'coffee sha257sum.coffee "$ANTICHEAT_INPUT"'
+                      else skip "coffeescript" "coffee"; fi
+fi
 if should_run "python"; then
   if require python3;then interp "python"     "python3 sha257sum.py kevin"              "python3 sha257sum.py -f kevin"              'python3 sha257sum.py "$ANTICHEAT_INPUT"'
                      else skip "python"     "python3"; fi
@@ -219,6 +223,15 @@ if should_run "c#"; then
     rm -f sha257sum.csproj
     rm -rf bin obj
   else skip "c#" "dotnet"; fi
+fi
+if should_run "f#"; then
+  if require dotnet; then interp "f#" "DOTNET_NOLOGO=true dotnet fsi --exec sha257sum.fsx -- kevin" "DOTNET_NOLOGO=true dotnet fsi --exec sha257sum.fsx -- -f kevin" 'DOTNET_NOLOGO=true dotnet fsi --exec sha257sum.fsx -- "$ANTICHEAT_INPUT"'
+                     else skip "f#" "dotnet"; fi
+fi
+if should_run "tcl"; then
+  if require tclsh;     then interp "tcl" "tclsh sha257sum.tcl kevin"    "tclsh sha257sum.tcl -f kevin"    'tclsh sha257sum.tcl "$ANTICHEAT_INPUT"'
+  elif require tclsh8.6; then interp "tcl" "tclsh8.6 sha257sum.tcl kevin" "tclsh8.6 sha257sum.tcl -f kevin" 'tclsh8.6 sha257sum.tcl "$ANTICHEAT_INPUT"'
+                        else skip "tcl" "tclsh"; fi
 fi
 
 # shell

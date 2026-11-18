@@ -38,6 +38,7 @@ RUN apt-get update && apt-get install -y \
     octave \
     ksh \
     gawk \
+    tcl \
     vim \
     && rm -rf /var/lib/apt/lists/*
 
@@ -61,8 +62,8 @@ RUN wget https://gitlab.com/YottaDB/DB/YDB/raw/master/sr_unix/ydbinstall.sh \
 # Ensure YottaDB environment is sourced or binary is linked
 RUN ln -s /usr/local/lib/yottadb/current/mumps /usr/local/bin/mumps || true
 
-# Install TypeScript/ts-node
-RUN npm install -g typescript ts-node
+# Install TypeScript/ts-node and CoffeeScript
+RUN npm install -g typescript ts-node coffeescript
 
 # Install ttyd
 RUN wget https://github.com/tsl0922/ttyd/releases/download/1.7.7/ttyd.x86_64 -O /usr/local/bin/ttyd \

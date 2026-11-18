@@ -358,7 +358,7 @@
 
         <div class="section">
             <div class="section-title">ports</div>
-            <p style="margin-bottom: 20px;">sha257sum has been ported to 36 languages so far but to ensure kevin's containment across all known compute environments please help us write more (see github repo for open issues and howto)</p>
+            <p style="margin-bottom: 20px;">sha257sum has been ported to 39 languages so far but to ensure kevin's containment across all known compute environments please help us write more (see github repo for open issues and howto)</p>
             <div class="ports-grid" id="ports-list">
                 <!-- Port cards will be injected here -->
             </div>
@@ -480,12 +480,14 @@
             { name: "C", cmd: "gcc sha257sum.c -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
             { name: "C++", cmd: "g++ sha257sum.cpp -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
             { name: "Clojure", cmd: "java -cp /usr/share/java/clojure.jar clojure.main sha257sum.clj \"kevin\"", badge: "TORMENTED" },
+            { name: "CoffeeScript", cmd: "coffee sha257sum.coffee \"kevin\"", badge: "SURVIVED" },
             { name: "Common Lisp", cmd: "sbcl --script sha257sum.cl \"kevin\"", badge: "SURVIVED" },
             { name: "Crystal", cmd: "crystal build sha257sum.cr -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
             { name: "C#", cmd: "dotnet run --project sha257sum.cs \"kevin\"", badge: "SURVIVED" },
             { name: "COBOL", cmd: "cobc -x sha257sum.cob -o sha257sum && ./sha257sum \"kevin\"", badge: "UNHINGED" },
             { name: "D", cmd: "gdc sha257sum.d -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
             { name: "Elixir", cmd: "elixir sha257sum.exs \"kevin\"", badge: "SURVIVED" },
+            { name: "F#", cmd: "dotnet fsi sha257sum.fsx -- \"kevin\"", badge: "CERTIFIED" },
             { name: "Fortran", cmd: "gfortran sha257sum.f90 -o sha257sum \"kevin\"", badge: "UNHINGED" },
             { name: "Go", cmd: "go run sha257sum.go \"kevin\"", badge: "CERTIFIED" },
             { name: "Haskell", cmd: "ghc sha257sum.hs -o sha257sum && ./sha257sum \"kevin\"", badge: "SURVIVED" },
@@ -509,6 +511,7 @@
             { name: "Rust", cmd: "rustc sha257sum.rs -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
             { name: "Sed", cmd: "./sha257sum.sed \"kevin\"", badge: "UNHINGED" },
             { name: "Swift", cmd: "swiftc sha257sum.swift -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
+            { name: "Tcl", cmd: "tclsh sha257sum.tcl \"kevin\"", badge: "UNHINGED" },
             { name: "TypeScript", cmd: "npx ts-node sha257sum.ts \"kevin\"", badge: "CERTIFIED" },
             { name: "Zig", cmd: "zig build-exe sha257sum.zig -O ReleaseSafe && ./sha257sum \"kevin\"", badge: "CERTIFIED" }
         ];

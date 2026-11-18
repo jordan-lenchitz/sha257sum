@@ -78,8 +78,8 @@ jobs:
         uses: swift-actions/setup-swift@v2
         if: runner.os == 'Linux'
 
-      - name: install ts-node
-        run: npm install -g ts-node typescript@^5
+      - name: install ts-node & coffeescript
+        run: npm install -g ts-node typescript@^5 coffeescript
 
       - name: install kotlin
         env:
@@ -146,7 +146,7 @@ jobs:
           sudo apt-get install -y --no-install-recommends \
             gfortran gnat gnucobol swi-prolog-nox lua5.4 php-cli octave \
             file ksh wget gdc fp-compiler nim crystal libgc-dev libevent-dev \
-            sbcl elixir clojure
+            sbcl elixir clojure tcl
           sudo ln -sf /usr/bin/lua5.4 /usr/local/bin/lua
           # Install PowerShell (only if not already pre-installed on runner)
           if ! command -v pwsh &>/dev/null; then
@@ -183,6 +183,11 @@ jobs:
           # gcc provides versioned gfortran (e.g. gfortran-14) — create bare symlink
           gf=$(ls /opt/homebrew/bin/gfortran-* 2>/dev/null | sort -V | tail -1)
           if [[ -n "$gf" ]]; then ln -sf "$gf" /opt/homebrew/bin/gfortran; fi
+          # tclsh is pre-installed on macOS, but fall back to homebrew tcl-tk if absent
+          if ! command -v tclsh &>/dev/null; then
+            brew install tcl-tk
+            echo "$(brew --prefix tcl-tk)/bin" >> "$GITHUB_PATH"
+          fi
           # php was removed from macOS 12+; swiftc/ksh/perl are pre-installed
           # gnat excluded: arm64 homebrew support uncertain
 
@@ -207,19 +212,19 @@ jobs:
       - name: set required langs (ubuntu)
         if: runner.os == 'Linux'
         run: |
-          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,python,ruby,perl,php,lua,c#,bash/awk,ksh,powershell,prolog,octave,mumps,cobol,d,zig,nim,pascal,julia,crystal,common lisp,elixir,clojure" >> "$GITHUB_ENV"
+          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,tcl,bash/awk,ksh,powershell,prolog,octave,mumps,cobol,d,zig,nim,pascal,julia,crystal,common lisp,elixir,clojure" >> "$GITHUB_ENV"
 
       - name: set required langs (macos)
         if: runner.os == 'macOS'
         run: |
-          # ksh is pre-installed on macos runners; ada/mumps/octave excluded
-          echo "MUST_RUN=c,c++,fortran,rust,swift,haskell,java,kotlin,go,node.js,typescript,python,ruby,perl,php,lua,c#,bash/awk,ksh,powershell,prolog" >> "$GITHUB_ENV"
+          # ksh/tclsh are pre-installed on macos runners; ada/mumps/octave excluded
+          echo "MUST_RUN=c,c++,fortran,rust,swift,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,tcl,bash/awk,ksh,powershell,prolog" >> "$GITHUB_ENV"
 
       - name: set required langs (windows)
         if: runner.os == 'Windows'
         run: |
-          # swift/ada/ksh/mumps: not available on windows — genuinely excluded
-          echo "MUST_RUN=c,c++,fortran,rust,haskell,java,kotlin,go,node.js,typescript,python,ruby,perl,php,lua,c#,bash/awk,powershell,prolog" >> "$GITHUB_ENV"
+          # swift/ada/ksh/mumps/tcl: not conveniently available on windows — genuinely excluded
+          echo "MUST_RUN=c,c++,fortran,rust,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,bash/awk,powershell,prolog" >> "$GITHUB_ENV"
 
       # --- run it ---
 

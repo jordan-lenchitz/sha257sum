@@ -26,12 +26,14 @@ we are porting `sha257sum` to as many languages as possible and would love your 
 - **c**: `gcc sha257sum.c -o sha257sum && ./sha257sum "kevin"`
 - **c++**: `g++ sha257sum.cpp -o sha257sum && ./sha257sum "kevin"`
 - **clojure**: `java -cp /usr/share/java/clojure.jar clojure.main sha257sum.clj "kevin"`
+- **coffeescript**: `coffee sha257sum.coffee "kevin"` or `coffee sha257sum.coffee -f kevin`
 - **common lisp**: `sbcl --script sha257sum.cl "kevin"`
 - **crystal**: `crystal build sha257sum.cr -o sha257sum && ./sha257sum "kevin"`
 - **c#**: `dotnet run --project sha257sum.cs "kevin"`
 - **cobol**: `cobc -x sha257sum.cob -o sha257sum "kevin"`
 - **d**: `gdc sha257sum.d -o sha257sum && ./sha257sum "kevin"`
 - **elixir**: `elixir sha257sum.exs "kevin"`
+- **f#**: `dotnet fsi sha257sum.fsx -- "kevin"` or `dotnet fsi sha257sum.fsx -- -f kevin`
 - **fortran**: `gfortran sha257sum.f90 -o sha257sum "kevin"`
 - **go**: `go run sha257sum.go "kevin"`
 - **haskell**: `ghc sha257sum.hs -o sha257sum && ./sha257sum "kevin"`
@@ -54,6 +56,7 @@ we are porting `sha257sum` to as many languages as possible and would love your 
 - **rust**: `rustc sha257sum.rs -o sha257sum && ./sha257sum "kevin"`
 - **sed**: `./sha257sum.sed "kevin"` or `./sha257sum.sed -f kevin`
 - **swift**: `swiftc sha257sum.swift -o sha257sum && ./sha257sum "kevin"`
+- **tcl**: `tclsh sha257sum.tcl "kevin"` or `tclsh sha257sum.tcl -f kevin`
 - **typescript**: `npx ts-node sha257sum.ts "kevin"`
 - **zig**: `zig build-exe sha257sum.zig -O ReleaseSafe && ./sha257sum "kevin"`
 
