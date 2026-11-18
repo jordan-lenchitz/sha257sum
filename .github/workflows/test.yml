@@ -70,6 +70,7 @@ jobs:
       - uses: haskell-actions/setup@v2
         with:
           ghc-version: latest
+          cabal-update: false
 
       - uses: dtolnay/rust-toolchain@stable
 
@@ -93,16 +94,66 @@ jobs:
       - name: install tools (ubuntu)
         if: runner.os == 'Linux'
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y gfortran gnat gnucobol swi-prolog lua5.4 php-cli octave file ksh wget apt-transport-https software-properties-common gdc fpc nim crystal sbcl elixir clojure
-          sudo ln -sf /usr/bin/lua5.4 /usr/local/bin/lua
-          # Install Powershell
+          # Probe candidate Ubuntu mirrors in parallel and rank by download speed
           source /etc/os-release
-          wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb
-          sudo dpkg -i packages-microsoft-prod.deb
-          rm packages-microsoft-prod.deb
+          PROBE_PATH="dists/${VERSION_CODENAME}/main/binary-amd64/Packages.gz"
+          CANDIDATES=(
+            "http://archive.ubuntu.com/ubuntu"
+            "http://us.archive.ubuntu.com/ubuntu"
+            "http://us-east-1.ec2.archive.ubuntu.com/ubuntu"
+            "http://azure.archive.ubuntu.com/ubuntu"
+            "https://mirrors.edge.kernel.org/ubuntu"
+          )
+          if [[ -f /etc/apt/apt-mirrors.txt ]]; then
+            while IFS= read -r m; do
+              m="${m%%[[:space:]]*}"
+              if [[ -n "$m" && "$m" != \#* ]]; then
+                CANDIDATES+=("${m%/}")
+              fi
+            done < /etc/apt/apt-mirrors.txt
+          fi
+          mapfile -t CANDIDATES < <(printf '%s\n' "${CANDIDATES[@]}" | awk '!seen[$0]++')
+
+          PROBE_DIR=$(mktemp -d)
+          for i in "${!CANDIDATES[@]}"; do
+            m="${CANDIDATES[$i]}"
+            (
+              out=$(curl -fsS --connect-timeout 2 --max-time 4 -o /dev/null -w '%{http_code} %{size_download} %{speed_download}' "${m}/${PROBE_PATH}" 2>/dev/null) || out="0 0 0"
+              read -r code size speed <<< "$out"
+              if [[ "$code" == "200" && "${size%%.*}" -gt 100000 ]]; then
+                printf '%s %s\n' "${speed%%.*}" "$m" > "${PROBE_DIR}/${i}"
+              fi
+            ) &
+          done
+          wait
+
+          RANKED=$(cat "${PROBE_DIR}"/* 2>/dev/null | awk '$1+0 > 0' | sort -rn || true)
+          rm -rf "$PROBE_DIR"
+          if [[ -n "$RANKED" ]]; then
+            echo "Ubuntu mirror speeds (bytes/s):"
+            echo "$RANKED"
+            BEST_MIRROR=$(awk 'NR==1 {print $2}' <<< "$RANKED")
+            if [[ -f /etc/apt/apt-mirrors.txt ]]; then
+              awk '{printf "%s\tpriority:%d\n", $2, NR}' <<< "$RANKED" | sudo tee /etc/apt/apt-mirrors.txt >/dev/null
+            elif [[ -f /etc/apt/sources.list.d/ubuntu.sources ]]; then
+              sudo sed -i -E "s|^URIs: https?://[^ ]*archive\.ubuntu\.com/ubuntu/?|URIs: ${BEST_MIRROR}|" /etc/apt/sources.list.d/ubuntu.sources
+            fi
+          fi
+
           sudo apt-get update -qq
-          sudo apt-get install -y powershell
+          sudo apt-get install -y --no-install-recommends \
+            gfortran gnat gnucobol swi-prolog-nox lua5.4 php-cli octave \
+            file ksh wget gdc fp-compiler nim crystal libgc-dev libevent-dev \
+            sbcl elixir clojure
+          sudo ln -sf /usr/bin/lua5.4 /usr/local/bin/lua
+          # Install PowerShell (only if not already pre-installed on runner)
+          if ! command -v pwsh &>/dev/null; then
+            wget -q "https://packages.microsoft.com/config/ubuntu/${VERSION_ID}/packages-microsoft-prod.deb"
+            sudo dpkg -i packages-microsoft-prod.deb
+            rm packages-microsoft-prod.deb
+            sudo apt-get update -qq
+            sudo apt-get install -y --no-install-recommends powershell
+          fi
           # Install YottaDB (MUMPS)
           mkdir /tmp/ydb && cd /tmp/ydb
           wget https://gitlab.com/YottaDB/DB/YDB/raw/master/sr_unix/ydbinstall.sh
