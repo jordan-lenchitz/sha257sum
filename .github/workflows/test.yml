@@ -30,11 +30,10 @@ env:
 
 jobs:
   test:
-    if: ${{ !inputs.os || inputs.os == 'all' || inputs.os == matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, macos-latest, windows-latest]
+        os: ${{ (inputs.os && inputs.os != 'all') && fromJSON(format('["{0}"]', inputs.os)) || fromJSON('["ubuntu-24.04", "macos-latest", "windows-latest"]') }}
     runs-on: ${{ matrix.os }}
     defaults:
       run:
