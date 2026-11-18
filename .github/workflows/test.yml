@@ -139,7 +139,8 @@ jobs:
           # gcc/g++/gfortran from mingw64 (pre-installed); php pre-installed on runner
           # lua53 provides 5.3+ bitwise operators used in sha257sum.lua (choco 'lua' may default to 5.1)
           choco install -y lua53 swi-prolog --no-progress || choco install -y lua swi-prolog --no-progress
-          # swi-prolog installs to Program Files without a choco shim; add to GITHUB_PATH
+          # lua53 deploys to chocolatey/lib/lua53/tools without a bin shim; swi-prolog installs to Program Files/swipl/bin
+          echo "C:/ProgramData/chocolatey/lib/lua53/tools" >> "$GITHUB_PATH"
           echo "C:/Program Files/swipl/bin" >> "$GITHUB_PATH"
           echo "C:/ProgramData/chocolatey/bin" >> "$GITHUB_PATH"
           # Ensure python3 alias exists on Windows if only python.exe is present
