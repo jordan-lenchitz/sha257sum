@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-2022]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -49,6 +49,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
+          windows-toolchain: none
 
       - uses: haskell-actions/setup@v2
         with:
@@ -120,9 +121,23 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           # gcc/g++/gfortran from mingw64 (pre-installed); php pre-installed on runner
-          # choco shims don't reliably surface in git bash — use MSYS2 mingw64 packages
-          /c/msys64/usr/bin/pacman.exe -Sy --noconfirm mingw-w64-x86_64-lua mingw-w64-x86_64-swi-prolog
-          echo "C:/msys64/mingw64/bin" >> "$GITHUB_PATH"
+          # lua53 provides 5.3+ bitwise operators used in sha257sum.lua (choco 'lua' may default to 5.1)
+          choco install -y lua53 swi-prolog --no-progress
+          # swi-prolog installs to Program Files without a choco shim; add to GITHUB_PATH
+          echo "C:/Program Files/swipl/bin" >> "$GITHUB_PATH"
+          echo "C:/ProgramData/chocolatey/bin" >> "$GITHUB_PATH"
+          if ! command -v lua &>/dev/null; then
+            for bin in lua54 lua53; do
+              if command -v "$bin" &>/dev/null; then
+                cp "$(command -v "$bin")" /c/ProgramData/chocolatey/bin/lua.exe
+                break
+              fi
+            done
+          fi
+          # Ensure python3 alias exists on Windows if only python.exe is present
+          if ! command -v python3 &>/dev/null && command -v python &>/dev/null; then
+            cp "$(command -v python)" "$(dirname "$(command -v python)")/python3.exe"
+          fi
           # gnat not available — ada test will be skipped on windows
 
       # --- declare which langs must pass (skip = failure for these) ---
