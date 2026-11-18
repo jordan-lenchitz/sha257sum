@@ -233,6 +233,10 @@ if should_run "tcl"; then
   elif require tclsh8.6; then interp "tcl" "tclsh8.6 sha257sum.tcl kevin" "tclsh8.6 sha257sum.tcl -f kevin" 'tclsh8.6 sha257sum.tcl "$ANTICHEAT_INPUT"'
                         else skip "tcl" "tclsh"; fi
 fi
+if should_run "basic"; then
+  if require yabasic;   then interp "basic" "yabasic sha257sum.bas -- kevin" "yabasic sha257sum.bas -- -f kevin" 'yabasic sha257sum.bas -- "$ANTICHEAT_INPUT"'
+                        else skip "basic" "yabasic"; fi
+fi
 
 # shell
 if should_run "bash/awk"; then

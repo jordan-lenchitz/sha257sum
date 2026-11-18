@@ -23,6 +23,7 @@ we are porting `sha257sum` to as many languages as possible and would love your 
 `cd sha257` then sudo
 - **ada**: `gnatmake sha257sum.adb -o sha257sum && ./sha257sum "kevin"`
 - **bash and awk**: `./sha257sum.sh "kevin"` or `./sha257sum.sh -f kevin`
+- **basic**: `yabasic sha257sum.bas -- "kevin"` or `yabasic sha257sum.bas -- -f kevin`
 - **c**: `gcc sha257sum.c -o sha257sum && ./sha257sum "kevin"`
 - **c++**: `g++ sha257sum.cpp -o sha257sum && ./sha257sum "kevin"`
 - **clojure**: `java -cp /usr/share/java/clojure.jar clojure.main sha257sum.clj "kevin"`

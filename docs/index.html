@@ -358,7 +358,7 @@
 
         <div class="section">
             <div class="section-title">ports</div>
-            <p style="margin-bottom: 20px;">sha257sum has been ported to 39 languages so far but to ensure kevin's containment across all known compute environments please help us write more (see github repo for open issues and howto)</p>
+            <p style="margin-bottom: 20px;">sha257sum has been ported to 40 languages so far but to ensure kevin's containment across all known compute environments please help us write more (see github repo for open issues and howto)</p>
             <div class="ports-grid" id="ports-list">
                 <!-- Port cards will be injected here -->
             </div>
@@ -477,6 +477,7 @@
         const ports = [
             { name: "Ada", cmd: "gnatmake sha257sum.adb -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
             { name: "Bash/Awk", cmd: "./sha257sum.sh \"kevin\"", badge: "SURVIVED" },
+            { name: "BASIC", cmd: "yabasic sha257sum.bas -- \"kevin\"", badge: "UNHINGED" },
             { name: "C", cmd: "gcc sha257sum.c -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
             { name: "C++", cmd: "g++ sha257sum.cpp -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
             { name: "Clojure", cmd: "java -cp /usr/share/java/clojure.jar clojure.main sha257sum.clj \"kevin\"", badge: "TORMENTED" },

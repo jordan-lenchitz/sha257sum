@@ -146,7 +146,7 @@ jobs:
           sudo apt-get install -y --no-install-recommends \
             gfortran gnat gnucobol swi-prolog-nox lua5.4 php-cli octave \
             file ksh wget gdc fp-compiler nim crystal libgc-dev libevent-dev \
-            sbcl elixir clojure tcl
+            sbcl elixir clojure tcl yabasic
           sudo ln -sf /usr/bin/lua5.4 /usr/local/bin/lua
           # Install PowerShell (only if not already pre-installed on runner)
           if ! command -v pwsh &>/dev/null; then
@@ -212,7 +212,7 @@ jobs:
       - name: set required langs (ubuntu)
         if: runner.os == 'Linux'
         run: |
-          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,tcl,bash/awk,ksh,powershell,prolog,octave,mumps,cobol,d,zig,nim,pascal,julia,crystal,common lisp,elixir,clojure" >> "$GITHUB_ENV"
+          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,tcl,basic,bash/awk,ksh,powershell,prolog,octave,mumps,cobol,d,zig,nim,pascal,julia,crystal,common lisp,elixir,clojure" >> "$GITHUB_ENV"
 
       - name: set required langs (macos)
         if: runner.os == 'macOS'

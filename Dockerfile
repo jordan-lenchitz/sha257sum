@@ -39,6 +39,7 @@ RUN apt-get update && apt-get install -y \
     ksh \
     gawk \
     tcl \
+    yabasic \
     vim \
     && rm -rf /var/lib/apt/lists/*
 
