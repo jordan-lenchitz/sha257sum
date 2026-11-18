@@ -98,11 +98,13 @@ jobs:
           source /etc/os-release
           PROBE_PATH="dists/${VERSION_CODENAME}/main/binary-amd64/Packages.gz"
           CANDIDATES=(
-            "http://archive.ubuntu.com/ubuntu"
-            "http://us.archive.ubuntu.com/ubuntu"
-            "http://us-east-1.ec2.archive.ubuntu.com/ubuntu"
             "http://azure.archive.ubuntu.com/ubuntu"
-            "https://mirrors.edge.kernel.org/ubuntu"
+            "http://us-east-1.ec2.archive.ubuntu.com/ubuntu"
+            "http://us-east-2.ec2.archive.ubuntu.com/ubuntu"
+            "http://us-west-1.ec2.archive.ubuntu.com/ubuntu"
+            "http://us-west-2.ec2.archive.ubuntu.com/ubuntu"
+            "http://us.archive.ubuntu.com/ubuntu"
+            "http://archive.ubuntu.com/ubuntu"
           )
           if [[ -f /etc/apt/apt-mirrors.txt ]]; then
             while IFS= read -r m; do
