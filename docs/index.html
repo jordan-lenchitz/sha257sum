@@ -358,8 +358,8 @@
 
         <div class="section">
             <div class="section-title">ports</div>
-            <p style="margin-bottom: 16px;">sha257sum has been ported to 46 languages so far but to ensure kevin's containment across all known compute environments please help us write more (see github repo for open issues and howto)</p>
-            <input type="text" id="ports-filter" class="ports-filter" placeholder="filter 46 languages (e.g. rust, verilog, forth)..." spellcheck="false" autocomplete="off">
+            <p style="margin-bottom: 16px;">sha257sum has been ported to 53 languages so far but to ensure kevin's containment across all known compute environments please help us write more (see github repo for open issues and howto)</p>
+            <input type="text" id="ports-filter" class="ports-filter" placeholder="filter 53 languages (e.g. rust, verilog, forth)..." spellcheck="false" autocomplete="off">
             <div class="ports-grid" id="ports-list">
                 <!-- Port cards will be injected here -->
             </div>
@@ -489,15 +489,18 @@
             { name: "COBOL", cmd: "cobc -x sha257sum.cob -o sha257sum && ./sha257sum \"kevin\"", badge: "UNHINGED" },
             { name: "D", cmd: "gdc sha257sum.d -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
             { name: "Elixir", cmd: "elixir sha257sum.exs \"kevin\"", badge: "SURVIVED" },
+            { name: "Erlang", cmd: "escript sha257sum.erl \"kevin\"", badge: "SURVIVED" },
             { name: "F#", cmd: "dotnet fsi sha257sum.fsx -- \"kevin\"", badge: "CERTIFIED" },
             { name: "Forth", cmd: "gforth sha257sum.fs \"kevin\"", badge: "UNHINGED" },
             { name: "Fortran", cmd: "gfortran sha257sum.f90 -o sha257sum \"kevin\"", badge: "UNHINGED" },
             { name: "Go", cmd: "go run sha257sum.go \"kevin\"", badge: "CERTIFIED" },
             { name: "Haskell", cmd: "ghc sha257sum.hs -o sha257sum && ./sha257sum \"kevin\"", badge: "SURVIVED" },
             { name: "Java", cmd: "javac sha257sum.java && java sha257sum \"kevin\"", badge: "TORMENTED" },
+            { name: "jq", cmd: "jq -rn --arg input \"kevin\" -f sha257sum.jq", badge: "UNHINGED" },
             { name: "Julia", cmd: "julia sha257sum.jl \"kevin\"", badge: "SURVIVED" },
             { name: "KSH", cmd: "ksh sha257sum.ksh \"kevin\"", badge: "SURVIVED" },
             { name: "Kotlin", cmd: "kotlinc sha257sum.kt -include-runtime -d sha257sum.jar && java -jar sha257sum.jar \"kevin\"", badge: "TORMENTED" },
+            { name: "LLVM IR", cmd: "clang -Wno-override-module sha257sum.ll -o sha257sum && ./sha257sum \"kevin\"", badge: "UNHINGED" },
             { name: "Lua", cmd: "./sha257sum.lua \"kevin\"", badge: "SURVIVED" },
             { name: "Matlab", cmd: "sha257sum_matlab('kevin')", badge: "UNHINGED" },
             { name: "Mumps", cmd: "mumps -run sha257sum \"kevin\"", badge: "UNHINGED" },
@@ -508,6 +511,7 @@
             { name: "Pascal", cmd: "fpc -O3 sha257sum.pas && ./sha257sum \"kevin\"", badge: "TORMENTED" },
             { name: "Perl", cmd: "./sha257sum.pl \"kevin\"", badge: "SURVIVED" },
             { name: "PHP", cmd: "php sha257sum.php \"kevin\"", badge: "TORMENTED" },
+            { name: "PostScript", cmd: "gs -q -dNOSAFER -dNODISPLAY -- sha257sum.ps \"kevin\"", badge: "UNHINGED" },
             { name: "PowerShell", cmd: "pwsh -File sha257sum.ps1 -InputString \"kevin\"", badge: "SURVIVED" },
             { name: "Prolog", cmd: "swipl -q sha257sum.pro -- \"kevin\"", badge: "UNHINGED" },
             { name: "Python", cmd: "./sha257sum.py \"kevin\"", badge: "CERTIFIED" },
@@ -515,11 +519,14 @@
             { name: "Rust", cmd: "rustc sha257sum.rs -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
             { name: "Scheme", cmd: "guile --no-auto-compile sha257sum.scm \"kevin\"", badge: "SURVIVED" },
             { name: "Sed", cmd: "./sha257sum.sed \"kevin\"", badge: "UNHINGED" },
+            { name: "SQL (SQLite)", cmd: "sqlite3 :memory: -cmd \".param init\" -cmd \".param set :mode 'str'\" -cmd \".param set :arg 'kevin'\" \".read sha257sum.sql\"", badge: "UNHINGED" },
             { name: "Swift", cmd: "swiftc sha257sum.swift -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
             { name: "Tcl", cmd: "tclsh sha257sum.tcl \"kevin\"", badge: "UNHINGED" },
             { name: "TypeScript", cmd: "npx ts-node sha257sum.ts \"kevin\"", badge: "CERTIFIED" },
             { name: "Vala", cmd: "valac sha257sum.vala -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
             { name: "Verilog", cmd: "iverilog -o sha257sum.vvp sha257sum.v && vvp sha257sum.vvp +INPUT=kevin", badge: "UNHINGED" },
+            { name: "VHDL", cmd: "ghdl -a sha257sum.vhd && ghdl -e sha257sum && ghdl -r sha257sum -gINPUT=kevin", badge: "UNHINGED" },
+            { name: "WebAssembly (WAT)", cmd: "wasmtime --dir=. sha257sum.wat \"kevin\"", badge: "UNHINGED" },
             { name: "x86 Assembly", cmd: "nasm -f elf64 sha257sum.asm -o sha257sum.o && ld sha257sum.o -o sha257sum && ./sha257sum \"kevin\"", badge: "UNHINGED" },
             { name: "Zig", cmd: "zig build-exe sha257sum.zig -O ReleaseSafe && ./sha257sum \"kevin\"", badge: "CERTIFIED" }
         ];

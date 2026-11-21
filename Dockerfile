@@ -46,8 +46,19 @@ RUN apt-get update && apt-get install -y \
     ocaml-nox \
     guile-3.0 \
     valac \
+    jq \
+    sqlite3 \
+    clang \
+    ghostscript \
+    ghdl \
+    erlang-base \
     vim \
     && rm -rf /var/lib/apt/lists/*
+
+RUN curl -fsSL https://github.com/bytecodealliance/wasmtime/releases/download/v27.0.0/wasmtime-v27.0.0-x86_64-linux.tar.xz -o /tmp/wasmtime.tar.xz \
+    && tar -xJf /tmp/wasmtime.tar.xz -C /tmp \
+    && mv /tmp/wasmtime-v27.0.0-x86_64-linux/wasmtime /usr/local/bin/wasmtime \
+    && rm -rf /tmp/wasmtime.tar.xz /tmp/wasmtime-v27.0.0-x86_64-linux
 
 # Install Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | xargs -r sh -s -- -y || \

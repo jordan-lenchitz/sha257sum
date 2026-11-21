@@ -159,6 +159,14 @@ if should_run "vala"; then
   if require valac;    then compiled "vala"  "valac sha257sum.vala -o _t" "./_t kevin" "./_t -f kevin" './_t "$ANTICHEAT_INPUT"'; rm -f _t
                        else skip "vala"  "valac";    fi
 fi
+if should_run "llvm ir"; then
+  if require clang;    then compiled "llvm ir" "clang -Wno-override-module sha257sum.ll -o _t" "./_t kevin" "./_t -f kevin" './_t "$ANTICHEAT_INPUT"'; rm -f _t _t.exe
+                       else skip "llvm ir" "clang";  fi
+fi
+if should_run "vhdl"; then
+  if require ghdl;     then compiled "vhdl" "ghdl -a sha257sum.vhd && ghdl -e sha257sum" "ghdl -r sha257sum -gINPUT=kevin" "ghdl -r sha257sum -gFILE_NAME=kevin" 'ghdl -r sha257sum "-gINPUT=$ANTICHEAT_INPUT"'; rm -f work-obj93.cf sha257sum sha257sum.o e~sha257sum.o
+                       else skip "vhdl" "ghdl";      fi
+fi
 
 # jvm
 if should_run "java"; then
@@ -264,6 +272,27 @@ fi
 if should_run "scheme"; then
   if require guile;     then interp "scheme" "guile --no-auto-compile sha257sum.scm kevin" "guile --no-auto-compile sha257sum.scm -f kevin" 'guile --no-auto-compile sha257sum.scm "$ANTICHEAT_INPUT"'
                         else skip "scheme" "guile"; fi
+fi
+if should_run "erlang"; then
+  if require escript;   then interp "erlang" "escript sha257sum.erl kevin" "escript sha257sum.erl -f kevin" 'escript sha257sum.erl "$ANTICHEAT_INPUT"'
+                        else skip "erlang" "escript"; fi
+fi
+if should_run "jq"; then
+  if require jq;        then interp "jq" "jq -rn --arg input kevin -f sha257sum.jq" "jq -rn --rawfile input kevin -f sha257sum.jq" 'jq -rn --arg input "$ANTICHEAT_INPUT" -f sha257sum.jq'
+                        else skip "jq" "jq"; fi
+fi
+if should_run "sqlite"; then
+  if require sqlite3;   then interp "sqlite" "sqlite3 :memory: -cmd \".param init\" -cmd \".param set :mode 'str'\" -cmd \".param set :arg 'kevin'\" \".read sha257sum.sql\"" "sqlite3 :memory: -cmd \".param init\" -cmd \".param set :mode 'file'\" -cmd \".param set :arg 'kevin'\" \".read sha257sum.sql\"" 'sqlite3 :memory: -cmd ".param init" -cmd ".param set :mode '\''str'\''" -cmd ".param set :arg '\''$ANTICHEAT_INPUT'\''" ".read sha257sum.sql"'
+                        else skip "sqlite" "sqlite3"; fi
+fi
+if should_run "postscript"; then
+  if require gs;           then interp "postscript" "gs -q -dNOSAFER -dNODISPLAY -- sha257sum.ps kevin" "gs -q -dNOSAFER -dNODISPLAY -- sha257sum.ps -f kevin" 'gs -q -dNOSAFER -dNODISPLAY -- sha257sum.ps "$ANTICHEAT_INPUT"'
+  elif require gswin64c;   then interp "postscript" "gswin64c -q -dNOSAFER -dNODISPLAY -- sha257sum.ps kevin" "gswin64c -q -dNOSAFER -dNODISPLAY -- sha257sum.ps -f kevin" 'gswin64c -q -dNOSAFER -dNODISPLAY -- sha257sum.ps "$ANTICHEAT_INPUT"'
+                           else skip "postscript" "gs"; fi
+fi
+if should_run "webassembly"; then
+  if require wasmtime;  then interp "webassembly" "wasmtime --dir=. sha257sum.wat kevin" "wasmtime --dir=. sha257sum.wat -f kevin" 'wasmtime --dir=. sha257sum.wat "$ANTICHEAT_INPUT"'
+                        else skip "webassembly" "wasmtime"; fi
 fi
 
 # shell

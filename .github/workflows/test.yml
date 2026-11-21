@@ -146,7 +146,8 @@ jobs:
           sudo apt-get install -y --no-install-recommends \
             gfortran gnat gnucobol swi-prolog-nox lua5.4 php-cli octave \
             file ksh wget gdc fp-compiler nim crystal libgc-dev libevent-dev \
-            sbcl elixir clojure tcl yabasic nasm iverilog gforth ocaml-nox guile-3.0 valac
+            sbcl elixir clojure tcl yabasic nasm iverilog gforth ocaml-nox guile-3.0 valac \
+            jq sqlite3 clang ghostscript ghdl
           sudo ln -sf /usr/bin/lua5.4 /usr/local/bin/lua
           # Install PowerShell (only if not already pre-installed on runner)
           if ! command -v pwsh &>/dev/null; then
@@ -175,11 +176,16 @@ jobs:
           tar -xzf julia.tar.gz
           sudo mv julia-1.10.4 /usr/local/julia
           sudo ln -s /usr/local/julia/bin/julia /usr/local/bin/julia
+          # Install Wasmtime
+          curl -fsSL https://github.com/bytecodealliance/wasmtime/releases/download/v27.0.0/wasmtime-v27.0.0-x86_64-linux.tar.xz -o wasmtime.tar.xz
+          tar -xJf wasmtime.tar.xz
+          sudo mv wasmtime-v27.0.0-x86_64-linux/wasmtime /usr/local/bin/wasmtime
 
       - name: install tools (macos)
         if: runner.os == 'macOS'
         run: |
-          brew install lua swi-prolog gcc php icarus-verilog gforth
+          brew install lua swi-prolog gcc php icarus-verilog gforth sqlite ghostscript wasmtime ghdl erlang
+          echo "$(brew --prefix sqlite)/bin" >> "$GITHUB_PATH"
           # gcc provides versioned gfortran (e.g. gfortran-14) — create bare symlink
           gf=$(ls /opt/homebrew/bin/gfortran-* 2>/dev/null | sort -V | tail -1)
           if [[ -n "$gf" ]]; then ln -sf "$gf" /opt/homebrew/bin/gfortran; fi
@@ -196,11 +202,17 @@ jobs:
         run: |
           # gcc/g++/gfortran from mingw64 (pre-installed); php pre-installed on runner
           # lua53 provides 5.3+ bitwise operators used in sha257sum.lua (choco 'lua' may default to 5.1)
-          choco install -y lua53 swi-prolog --no-progress || choco install -y lua swi-prolog --no-progress
+          choco install -y lua53 swi-prolog sqlite ghostscript erlang --no-progress || choco install -y lua swi-prolog sqlite ghostscript erlang --no-progress
           # lua53 deploys to chocolatey/lib/lua53/tools without a bin shim; swi-prolog installs to Program Files/swipl/bin
           echo "C:/ProgramData/chocolatey/lib/lua53/tools" >> "$GITHUB_PATH"
           echo "C:/Program Files/swipl/bin" >> "$GITHUB_PATH"
           echo "C:/ProgramData/chocolatey/bin" >> "$GITHUB_PATH"
+          for d in "/c/Program Files/gs"/gs*/bin "/c/Program Files/Erlang OTP/bin" "/c/Program Files"/erl*/bin; do
+            if [[ -d "$d" ]]; then cygpath -w "$d" >> "$GITHUB_PATH"; fi
+          done
+          curl -fsSL https://github.com/bytecodealliance/wasmtime/releases/download/v27.0.0/wasmtime-v27.0.0-x86_64-windows.zip -o wasmtime.zip
+          unzip -q wasmtime.zip -d "$RUNNER_TEMP/wasmtime"
+          echo "$RUNNER_TEMP/wasmtime/wasmtime-v27.0.0-x86_64-windows" >> "$GITHUB_PATH"
           # Ensure python3 alias exists on Windows if only python.exe is present
           if ! command -v python3 &>/dev/null && command -v python &>/dev/null; then
             cp "$(command -v python)" "$(dirname "$(command -v python)")/python3.exe"
@@ -212,19 +224,19 @@ jobs:
       - name: set required langs (ubuntu)
         if: runner.os == 'Linux'
         run: |
-          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,tcl,basic,forth,x86 assembly,verilog,ocaml,vala,scheme,bash/awk,ksh,powershell,prolog,octave,mumps,cobol,d,zig,nim,pascal,julia,crystal,common lisp,elixir,clojure" >> "$GITHUB_ENV"
+          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,tcl,basic,forth,x86 assembly,verilog,vhdl,ocaml,vala,scheme,erlang,jq,sqlite,llvm ir,webassembly,postscript,bash/awk,ksh,powershell,prolog,octave,mumps,cobol,d,zig,nim,pascal,julia,crystal,common lisp,elixir,clojure" >> "$GITHUB_ENV"
 
       - name: set required langs (macos)
         if: runner.os == 'macOS'
         run: |
           # ksh/tclsh are pre-installed on macos runners; ada/mumps/octave excluded
-          echo "MUST_RUN=c,c++,fortran,rust,swift,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,tcl,forth,verilog,bash/awk,ksh,powershell,prolog" >> "$GITHUB_ENV"
+          echo "MUST_RUN=c,c++,fortran,rust,swift,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,tcl,forth,verilog,vhdl,erlang,jq,sqlite,llvm ir,webassembly,postscript,bash/awk,ksh,powershell,prolog" >> "$GITHUB_ENV"
 
       - name: set required langs (windows)
         if: runner.os == 'Windows'
         run: |
           # swift/ada/ksh/mumps/tcl: not conveniently available on windows — genuinely excluded
-          echo "MUST_RUN=c,c++,fortran,rust,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,bash/awk,powershell,prolog" >> "$GITHUB_ENV"
+          echo "MUST_RUN=c,c++,fortran,rust,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,erlang,jq,sqlite,llvm ir,webassembly,postscript,bash/awk,powershell,prolog" >> "$GITHUB_ENV"
 
       # --- run it ---
 
