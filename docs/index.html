@@ -12,20 +12,9 @@
             --danger: #ff0000;
         }
 
-        @keyframes flicker {
-            0% { opacity: 0.97; }
-            5% { opacity: 0.95; }
-            10% { opacity: 0.9; }
-            15% { opacity: 0.95; }
-            20% { opacity: 0.98; }
-            25% { opacity: 0.95; }
-            30% { opacity: 0.9; }
-            100% { opacity: 1; }
-        }
-
         @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
+            0% { transform: translate3d(0, -100px, 0); }
+            100% { transform: translate3d(0, 100vh, 0); }
         }
 
         body {
@@ -36,47 +25,41 @@
             padding: 20px;
             line-height: 1.4;
             overflow-x: hidden;
-            animation: flicker 0.1s infinite;
         }
 
         body::before {
-            content: " ";
+            content: "";
             display: block;
             position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-        }
-
-        body::after {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: rgba(18, 16, 16, 0.1);
-            opacity: 0;
+            inset: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 2px,
+                rgba(0, 0, 0, 0.22) 2px,
+                rgba(0, 0, 0, 0.22) 3px
+            );
             z-index: 2;
             pointer-events: none;
-            animation: flicker 0.15s infinite;
         }
 
         .scanline {
             width: 100%;
             height: 100px;
             z-index: 3;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 255, 65, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
-            opacity: 0.1;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 255, 65, 0.08) 50%, rgba(0, 0, 0, 0) 100%);
             position: fixed;
-            bottom: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            will-change: transform;
             animation: scanline 10s linear infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .scanline {
+                display: none;
+            }
         }
 
         .container {
@@ -198,11 +181,20 @@
             gap: 15px;
         }
 
+        .ports-filter {
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+            padding: 10px 12px;
+            font-size: 0.9rem;
+        }
+
         .port-card {
             border: 1px solid var(--dim);
             padding: 10px;
             position: relative;
-            transition: all 0.2s;
+            contain: layout style paint;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
 
         .port-card:hover {
@@ -222,6 +214,13 @@
             text-transform: lowercase;
         }
 
+        .port-cmd {
+            font-size: 0.65rem;
+            color: #7c9a7c;
+            margin-bottom: 8px;
+            word-break: break-all;
+        }
+
         .badge {
             font-size: 0.6rem;
             padding: 2px 4px;
@@ -229,6 +228,7 @@
         }
 
         .badge-certified { color: var(--glow); }
+        .badge-survived { color: #00d4aa; }
         .badge-tormented { color: #ff8c00; }
         .badge-unhinged { color: var(--danger); }
 
@@ -358,7 +358,8 @@
 
         <div class="section">
             <div class="section-title">ports</div>
-            <p style="margin-bottom: 20px;">sha257sum has been ported to 46 languages so far but to ensure kevin's containment across all known compute environments please help us write more (see github repo for open issues and howto)</p>
+            <p style="margin-bottom: 16px;">sha257sum has been ported to 46 languages so far but to ensure kevin's containment across all known compute environments please help us write more (see github repo for open issues and howto)</p>
+            <input type="text" id="ports-filter" class="ports-filter" placeholder="filter 46 languages (e.g. rust, verilog, forth)..." spellcheck="false" autocomplete="off">
             <div class="ports-grid" id="ports-list">
                 <!-- Port cards will be injected here -->
             </div>
@@ -421,9 +422,9 @@
             return h.map(x => x.toString(16).padStart(8, '0')).join('');
         }
 
+        const textEncoder = new TextEncoder();
         function stringToBytes(str) {
-            const encoder = new TextEncoder();
-            return encoder.encode(str);
+            return textEncoder.encode(str);
         }
 
         const SALTS = [
@@ -523,9 +524,16 @@
             { name: "Zig", cmd: "zig build-exe sha257sum.zig -O ReleaseSafe && ./sha257sum \"kevin\"", badge: "CERTIFIED" }
         ];
 
-        function renderPorts() {
-            const list = document.getElementById('ports-list');
-            ports.forEach(p => {
+        const portsList = document.getElementById('ports-list');
+        const portsFilter = document.getElementById('ports-filter');
+
+        function renderPorts(filter = '') {
+            const q = filter.trim().toLowerCase();
+            const frag = document.createDocumentFragment();
+            ports.forEach((p, idx) => {
+                if (q && !p.name.toLowerCase().includes(q) && !p.cmd.toLowerCase().includes(q) && !p.badge.toLowerCase().includes(q)) {
+                    return;
+                }
                 const card = document.createElement('div');
                 card.className = 'port-card';
                 card.innerHTML = `
@@ -533,36 +541,40 @@
                         <span class="port-name">${p.name}</span>
                         <span class="badge badge-${p.badge.toLowerCase()}">[${p.badge}]</span>
                     </div>
-                    <div style="font-size: 0.6rem; color: #555; margin-bottom: 8px; word-break: break-all;">${p.cmd}</div>
-                    <button class="copy-btn">COPY COMMAND</button>
+                    <div class="port-cmd">${p.cmd}</div>
+                    <button class="copy-btn" data-port-idx="${idx}">COPY COMMAND</button>
                 `;
-                
-                const btn = card.querySelector('.copy-btn');
-                btn.addEventListener('click', () => {
-                    copyToClipboard(p.cmd).then(() => {
-                        const original = btn.innerText;
-                        btn.innerText = "COPIED!";
-                        btn.style.background = "#00ff41";
-                        btn.style.color = "#000";
-                        setTimeout(() => {
-                            btn.innerText = original;
-                            btn.style.background = "";
-                            btn.style.color = "";
-                        }, 1000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
-                        btn.innerText = "FAILED";
-                        btn.style.background = "var(--danger)";
-                        setTimeout(() => {
-                            btn.innerText = "COPY COMMAND";
-                            btn.style.background = "";
-                        }, 1000);
-                    });
-                });
-                
-                list.appendChild(card);
+                frag.appendChild(card);
             });
+            portsList.replaceChildren(frag);
         }
+
+        portsList.addEventListener('click', (e) => {
+            const btn = e.target.closest('.copy-btn');
+            if (!btn) return;
+            const p = ports[Number(btn.dataset.portIdx)];
+            if (!p) return;
+            copyToClipboard(p.cmd).then(() => {
+                btn.innerText = "COPIED!";
+                btn.style.background = "#00ff41";
+                btn.style.color = "#000";
+                setTimeout(() => {
+                    btn.innerText = "COPY COMMAND";
+                    btn.style.background = "";
+                    btn.style.color = "";
+                }, 1000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                btn.innerText = "FAILED";
+                btn.style.background = "var(--danger)";
+                setTimeout(() => {
+                    btn.innerText = "COPY COMMAND";
+                    btn.style.background = "";
+                }, 1000);
+            });
+        });
+
+        portsFilter.addEventListener('input', () => renderPorts(portsFilter.value));
 
         async function copyToClipboard(text) {
             if (navigator.clipboard && window.isSecureContext) {
@@ -587,8 +599,9 @@
             }
         }
 
-        let lastVal = "";
-        function update() {
+        let lastVal = null;
+        let counterRaf = null;
+        function update(instant = false) {
             const val = input.value;
             if (val === lastVal) return;
             lastVal = val;
@@ -601,20 +614,35 @@
                 zone.setAttribute('data-status', 'UNSTABLE');
             }
 
-            let c = 0;
-            const itv = setInterval(() => {
-                counter.innerText = ++c;
-                if (c >= 35) {
-                    clearInterval(itv);
-                    const result = sha257sum(val);
-                    output.innerText = result;
+            if (counterRaf !== null) {
+                cancelAnimationFrame(counterRaf);
+                counterRaf = null;
+            }
+
+            output.innerText = sha257sum(val);
+
+            if (instant) {
+                counter.innerText = "35";
+                return;
+            }
+
+            const start = performance.now();
+            const duration = 180;
+            function step(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                counter.innerText = String(Math.max(1, Math.round(progress * 35)));
+                if (progress < 1) {
+                    counterRaf = requestAnimationFrame(step);
+                } else {
+                    counterRaf = null;
                 }
-            }, 10);
+            }
+            counterRaf = requestAnimationFrame(step);
         }
 
-        input.addEventListener('input', update);
+        input.addEventListener('input', () => update(false));
         renderPorts();
-        update();
+        update(true);
     </script>
 </body>
 </html>
