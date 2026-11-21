@@ -1,6 +1,0 @@
-# Exclude multi-language port implementations from GitHub's language statistics.
-# We mark them as vendored/documentation so that Linguist completely ignores them 
-# and the language bar doesn't get cluttered with a massive "Other" category.
-sha257/* linguist-vendored
-sha257/** linguist-vendored
-test.sh linguist-vendored
