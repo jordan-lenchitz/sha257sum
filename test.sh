@@ -151,6 +151,14 @@ if should_run "verilog"; then
     rm -f _t.vvp
   else skip "verilog" "iverilog/vvp"; fi
 fi
+if should_run "ocaml"; then
+  if require ocamlopt; then compiled "ocaml" "ocamlopt sha257sum.ml -o _t" "./_t kevin" "./_t -f kevin" './_t "$ANTICHEAT_INPUT"'; rm -f _t sha257sum.cmi sha257sum.cmx sha257sum.o
+                       else skip "ocaml" "ocamlopt"; fi
+fi
+if should_run "vala"; then
+  if require valac;    then compiled "vala"  "valac sha257sum.vala -o _t" "./_t kevin" "./_t -f kevin" './_t "$ANTICHEAT_INPUT"'; rm -f _t
+                       else skip "vala"  "valac";    fi
+fi
 
 # jvm
 if should_run "java"; then
@@ -252,6 +260,10 @@ fi
 if should_run "forth"; then
   if require gforth;    then interp "forth" "gforth sha257sum.fs kevin" "gforth sha257sum.fs -f kevin" 'gforth sha257sum.fs "$ANTICHEAT_INPUT"'
                         else skip "forth" "gforth"; fi
+fi
+if should_run "scheme"; then
+  if require guile;     then interp "scheme" "guile --no-auto-compile sha257sum.scm kevin" "guile --no-auto-compile sha257sum.scm -f kevin" 'guile --no-auto-compile sha257sum.scm "$ANTICHEAT_INPUT"'
+                        else skip "scheme" "guile"; fi
 fi
 
 # shell

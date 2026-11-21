@@ -48,6 +48,7 @@ we are porting `sha257sum` to as many languages as possible and would love your 
 - **mumps**: `mumps -run sha257sum "kevin"` or `mumps -run sha257sum -f kevin`
 - **nim**: `nim c -d:release sha257sum.nim && ./sha257sum "kevin"`
 - **node.js**: `node sha257sum.js "kevin"`
+- **ocaml**: `ocamlopt sha257sum.ml -o sha257sum && ./sha257sum "kevin"` or `./sha257sum -f kevin`
 - **pascal**: `fpc -O3 sha257sum.pas && ./sha257sum "kevin"`
 - **perl**: `./sha257sum.pl "kevin"`
 - **php**: `php sha257sum.php "kevin"`
@@ -56,10 +57,12 @@ we are porting `sha257sum` to as many languages as possible and would love your 
 - **python**: `./sha257sum.py "kevin"` or `./sha257sum.py -f kevin`
 - **ruby**: `ruby sha257sum.rb "kevin"`
 - **rust**: `rustc sha257sum.rs -o sha257sum && ./sha257sum "kevin"`
+- **scheme**: `guile --no-auto-compile sha257sum.scm "kevin"` or `guile --no-auto-compile sha257sum.scm -f kevin`
 - **sed**: `./sha257sum.sed "kevin"` or `./sha257sum.sed -f kevin`
 - **swift**: `swiftc sha257sum.swift -o sha257sum && ./sha257sum "kevin"`
 - **tcl**: `tclsh sha257sum.tcl "kevin"` or `tclsh sha257sum.tcl -f kevin`
 - **typescript**: `npx ts-node sha257sum.ts "kevin"`
+- **vala**: `valac sha257sum.vala -o sha257sum && ./sha257sum "kevin"` or `./sha257sum -f kevin`
 - **verilog**: `iverilog -o sha257sum.vvp sha257sum.v && vvp sha257sum.vvp +INPUT=kevin` or `vvp sha257sum.vvp +FILE=kevin`
 - **x86 assembly**: `nasm -f elf64 sha257sum.asm -o sha257sum.o && ld sha257sum.o -o sha257sum && ./sha257sum "kevin"` or `./sha257sum -f kevin`
 - **zig**: `zig build-exe sha257sum.zig -O ReleaseSafe && ./sha257sum "kevin"`

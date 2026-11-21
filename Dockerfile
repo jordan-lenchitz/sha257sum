@@ -43,6 +43,9 @@ RUN apt-get update && apt-get install -y \
     nasm \
     iverilog \
     gforth \
+    ocaml-nox \
+    guile-3.0 \
+    valac \
     vim \
     && rm -rf /var/lib/apt/lists/*
 
