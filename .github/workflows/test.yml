@@ -184,7 +184,7 @@ jobs:
       - name: install tools (macos)
         if: runner.os == 'macOS'
         run: |
-          brew install lua swi-prolog gcc php icarus-verilog gforth sqlite ghostscript wasmtime ghdl erlang
+          brew install lua swi-prolog gcc php icarus-verilog gforth sqlite ghostscript wasmtime erlang
           echo "$(brew --prefix sqlite)/bin" >> "$GITHUB_PATH"
           # gcc provides versioned gfortran (e.g. gfortran-14) — create bare symlink
           gf=$(ls /opt/homebrew/bin/gfortran-* 2>/dev/null | sort -V | tail -1)
@@ -229,8 +229,8 @@ jobs:
       - name: set required langs (macos)
         if: runner.os == 'macOS'
         run: |
-          # ksh/tclsh are pre-installed on macos runners; ada/mumps/octave excluded
-          echo "MUST_RUN=c,c++,fortran,rust,swift,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,tcl,forth,verilog,vhdl,erlang,jq,sqlite,llvm ir,webassembly,postscript,bash/awk,ksh,powershell,prolog" >> "$GITHUB_ENV"
+          # ksh/tclsh are pre-installed on macos runners; ada/mumps/octave/vhdl excluded (ghdl cask disabled by gatekeeper)
+          echo "MUST_RUN=c,c++,fortran,rust,swift,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,tcl,forth,verilog,erlang,jq,sqlite,llvm ir,webassembly,postscript,bash/awk,ksh,powershell,prolog" >> "$GITHUB_ENV"
 
       - name: set required langs (windows)
         if: runner.os == 'Windows'
