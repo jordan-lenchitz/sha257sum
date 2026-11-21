@@ -40,6 +40,9 @@ RUN apt-get update && apt-get install -y \
     gawk \
     tcl \
     yabasic \
+    nasm \
+    iverilog \
+    gforth \
     vim \
     && rm -rf /var/lib/apt/lists/*
 

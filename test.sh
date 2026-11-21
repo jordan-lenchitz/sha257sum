@@ -139,6 +139,18 @@ if should_run "pascal"; then
   if require fpc;      then compiled "pascal"  "fpc -O3 sha257sum.pas -o_t"   "./_t kevin"  "./_t -f kevin"  './_t "$ANTICHEAT_INPUT"'; rm -f _t sha257sum.o
                        else skip "pascal"  "fpc";       fi
 fi
+if should_run "x86 assembly"; then
+  if [[ "$(uname -s)" == "Linux" && "$(uname -m)" == "x86_64" ]] && require nasm && require ld; then
+    compiled "x86 assembly" "nasm -f elf64 sha257sum.asm -o _t.o && ld _t.o -o _t" "./_t kevin" "./_t -f kevin" './_t "$ANTICHEAT_INPUT"'
+    rm -f _t _t.o
+  else skip "x86 assembly" "nasm/ld (linux x86_64)"; fi
+fi
+if should_run "verilog"; then
+  if require iverilog && require vvp; then
+    compiled "verilog" "iverilog -o _t.vvp sha257sum.v" "vvp _t.vvp +INPUT=kevin" "vvp _t.vvp +FILE=kevin" 'vvp _t.vvp "+INPUT=$ANTICHEAT_INPUT"'
+    rm -f _t.vvp
+  else skip "verilog" "iverilog/vvp"; fi
+fi
 
 # jvm
 if should_run "java"; then
@@ -236,6 +248,10 @@ fi
 if should_run "basic"; then
   if require yabasic;   then interp "basic" "yabasic sha257sum.bas -- kevin" "yabasic sha257sum.bas -- -f kevin" 'yabasic sha257sum.bas -- "$ANTICHEAT_INPUT"'
                         else skip "basic" "yabasic"; fi
+fi
+if should_run "forth"; then
+  if require gforth;    then interp "forth" "gforth sha257sum.fs kevin" "gforth sha257sum.fs -f kevin" 'gforth sha257sum.fs "$ANTICHEAT_INPUT"'
+                        else skip "forth" "gforth"; fi
 fi
 
 # shell

@@ -35,6 +35,7 @@ we are porting `sha257sum` to as many languages as possible and would love your 
 - **d**: `gdc sha257sum.d -o sha257sum && ./sha257sum "kevin"`
 - **elixir**: `elixir sha257sum.exs "kevin"`
 - **f#**: `dotnet fsi sha257sum.fsx -- "kevin"` or `dotnet fsi sha257sum.fsx -- -f kevin`
+- **forth**: `gforth sha257sum.fs "kevin"` or `gforth sha257sum.fs -f kevin`
 - **fortran**: `gfortran sha257sum.f90 -o sha257sum "kevin"`
 - **go**: `go run sha257sum.go "kevin"`
 - **haskell**: `ghc sha257sum.hs -o sha257sum && ./sha257sum "kevin"`
@@ -59,6 +60,8 @@ we are porting `sha257sum` to as many languages as possible and would love your 
 - **swift**: `swiftc sha257sum.swift -o sha257sum && ./sha257sum "kevin"`
 - **tcl**: `tclsh sha257sum.tcl "kevin"` or `tclsh sha257sum.tcl -f kevin`
 - **typescript**: `npx ts-node sha257sum.ts "kevin"`
+- **verilog**: `iverilog -o sha257sum.vvp sha257sum.v && vvp sha257sum.vvp +INPUT=kevin` or `vvp sha257sum.vvp +FILE=kevin`
+- **x86 assembly**: `nasm -f elf64 sha257sum.asm -o sha257sum.o && ld sha257sum.o -o sha257sum && ./sha257sum "kevin"` or `./sha257sum -f kevin`
 - **zig**: `zig build-exe sha257sum.zig -O ReleaseSafe && ./sha257sum "kevin"`
 
 ## usage example: an empty file named kevin
