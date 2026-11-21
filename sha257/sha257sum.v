@@ -1,16 +1,5 @@
-// sha257sum in Verilog (RTL SHA-256 core + 35-round hardware FSM)
-// Build: iverilog -o sha257sum.vvp sha257sum.v
-// Usage: vvp sha257sum.vvp +INPUT=kevin
-//        vvp sha257sum.vvp +FILE=kevin
-
 `timescale 1ns/1ps
 
-// ============================================================================
-// Clocked RTL SHA-256 Compression Core
-//   - 16-word sliding message schedule shift register (64 cycles per block)
-//   - Assert `start` for 1 cycle with `block_in` valid (`init=1` for block 0)
-//   - Result available on `digest` once `busy` deasserts
-// ============================================================================
 module sha256_core (
     input  wire         clk,
     input  wire         rst,
@@ -170,14 +159,6 @@ module sha256_core (
     end
 endmodule
 
-
-// ============================================================================
-// Clocked RTL 35-Round sha257sum Salt-Interleaving Engine
-//   - Takes the initial 256-bit SHA-256 digest
-//   - Runs 35 rounds of: hex encode -> reverse last 8 chars -> interleave
-//     with SALT[round % 10] -> 3-block SHA-256 via `sha256_core`
-//   - Outputs final 64-byte ASCII hex string (with final 8 chars reversed)
-// ============================================================================
 module sha257_rounds (
     input  wire         clk,
     input  wire         rst,
@@ -387,13 +368,6 @@ module sha257_rounds (
     end
 endmodule
 
-
-// ============================================================================
-// Top-Level CLI Simulation Driver
-//   - Streams +INPUT=<string> or +FILE=<path> through hardware `sha256_core`
-//   - Feeds initial digest into hardware `sha257_rounds`
-//   - Prints 64-character lowercase hex digest to stdout
-// ============================================================================
 module sha257sum;
     localparam MAX_STR = 1024;
 

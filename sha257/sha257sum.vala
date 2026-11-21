@@ -1,8 +1,3 @@
-// sha257sum in Vala (pure native SHA-256)
-// Build: valac sha257sum.vala -o sha257sum
-// Usage: ./sha257sum "kevin"
-//        ./sha257sum -f kevin
-
 static inline uint32 rotr (uint32 x, uint32 n) {
     return (x >> n) | (x << (32 - n));
 }

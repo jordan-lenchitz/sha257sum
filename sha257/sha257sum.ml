@@ -1,9 +1,3 @@
-(* sha257sum in OCaml (pure native SHA-256)
- * Build: ocamlopt sha257sum.ml -o sha257sum
- * Usage: ./sha257sum "kevin"
- *        ./sha257sum -f kevin
- *)
-
 let ( +! ) = Int32.add
 let ( &! ) = Int32.logand
 let ( |! ) = Int32.logor

@@ -1,8 +1,5 @@
 #!/usr/bin/env guile
 !#
-;; sha257sum in Scheme (GNU Guile 3.0, pure native SHA-256)
-;; Usage: guile --no-auto-compile sha257sum.scm "kevin"
-;;        guile --no-auto-compile sha257sum.scm -f kevin
 
 (use-modules (rnrs bytevectors)
              (ice-9 binary-ports)

@@ -1,8 +1,3 @@
-; sha257sum in x86-64 Linux Assembly (NASM, zero libc, raw syscalls)
-; Build: nasm -f elf64 sha257sum.asm -o sha257sum.o && ld sha257sum.o -o sha257sum
-; Usage: ./sha257sum "kevin"
-;        ./sha257sum -f kevin
-
 bits 64
 default rel
 
@@ -255,40 +250,27 @@ _start:
     syscall
 
 
-; ============================================================================
-; reverse_suffix: reverse hex_buf[56..63] in-place
-; ============================================================================
 reverse_suffix:
     lea rax, [hex_buf + 56]
-    ; swap [0] <-> [7]
     mov dl, [rax]
     mov cl, [rax + 7]
     mov [rax], cl
     mov [rax + 7], dl
-    ; swap [1] <-> [6]
     mov dl, [rax + 1]
     mov cl, [rax + 6]
     mov [rax + 1], cl
     mov [rax + 6], dl
-    ; swap [2] <-> [5]
     mov dl, [rax + 2]
     mov cl, [rax + 5]
     mov [rax + 2], cl
     mov [rax + 5], dl
-    ; swap [3] <-> [4]
     mov dl, [rax + 3]
     mov cl, [rax + 4]
     mov [rax + 3], cl
     mov [rax + 4], dl
     ret
 
-
-; ============================================================================
-; interleave_with_hex: interleave hex_buf (len 64) with salt (rdi, len rsi)
-; Output written to inter_buf; total output length returned in rax
-; ============================================================================
 interleave_with_hex:
-    ; rdi = salt_ptr, rsi = salt_len
     lea r8, [hex_buf]
     lea r9, [inter_buf]
     xor rcx, rcx                ; k = 0
@@ -325,9 +307,6 @@ interleave_with_hex:
     ret
 
 
-; ============================================================================
-; sha256_init: initialize SHA-256 state
-; ============================================================================
 sha256_init:
     lea rsi, [SHA256_H0]
     lea rdi, [sha_state]
@@ -344,12 +323,6 @@ sha256_init:
     mov qword [sha_buf_len], 0
     ret
 
-
-; ============================================================================
-; sha256_update: feed bytes into streaming SHA-256 context
-;   rdi = data pointer
-;   rsi = data length (bytes)
-; ============================================================================
 sha256_update:
     push rbx
     push r12
@@ -390,9 +363,6 @@ sha256_update:
     ret
 
 
-; ============================================================================
-; sha256_final: pad, finalize, and write 64 lowercase hex chars to [rdi]
-; ============================================================================
 sha256_final:
     push rbx
     push r12
@@ -459,10 +429,6 @@ sha256_final:
     ret
 
 
-; ============================================================================
-; sha256_compress: compress a single 64-byte block at [rdi] into sha_state
-; All 8 working variables (a..h) stay in r8d..r15d throughout all 64 rounds.
-; ============================================================================
 sha256_compress:
     push rbx
     push rbp

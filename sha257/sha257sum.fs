@@ -1,11 +1,5 @@
 #! /usr/bin/env gforth
-\ sha257sum in Forth (GNU Forth / gforth, pure native SHA-256)
-\ Usage: gforth sha257sum.fs "kevin"
-\        gforth sha257sum.fs -f kevin
 
-\ ============================================================================
-\ 32-bit unsigned bitwise & arithmetic helpers (for 64-bit Forth cells)
-\ ============================================================================
 $ffffffff constant mask32
 
 : u32   ( u -- u32 )      mask32 and ;
@@ -20,9 +14,6 @@ $ffffffff constant mask32
 : sha-ch  ( e f g -- u )  >r over and swap invert u32 r> and xor ;
 : sha-maj ( a b c -- u )  >r 2dup and >r or r> swap r> and or ;
 
-\ ============================================================================
-\ SHA-256 constants & state buffers
-\ ============================================================================
 create sha-h0
   $6a09e667 , $bb67ae85 , $3c6ef372 , $a54ff53a ,
   $510e527f , $9b05688c , $1f83d9ab , $5be0cd19 ,
@@ -70,9 +61,6 @@ variable vt1 variable vt2
   over 2 + c@ 8 lshift or
   swap 3 + c@ or ;
 
-\ ============================================================================
-\ SHA-256 compression, streaming update, and hex finalization
-\ ============================================================================
 : sha256-compress ( -- )
   16 0 do
     i blk-be32@ i sha-w!
@@ -174,9 +162,6 @@ create hex-buf 64 allot
     drop
   loop ;
 
-\ ============================================================================
-\ sha257sum: 35 rounds of suffix-reversal & absurd salt interleaving
-\ ============================================================================
 : get-salt ( idx -- addr len )
   case
     0 of s" jordanlenchitz_absurd_salt_part1_stupid_stupid_stupid_1_LLOC_INCREASE_AA" endof
@@ -231,9 +216,6 @@ variable cur-slen
   loop
   reverse-suffix ;
 
-\ ============================================================================
-\ Streaming file hashing & CLI entry point
-\ ============================================================================
 create io-buf 4096 allot
 variable cur-fd
 
