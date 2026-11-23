@@ -1,0 +1,209 @@
+BEGIN
+  BITS mask32 = 16rffffffff;
+
+  PRIO UADD = 6, ROTR = 8;
+
+  OP UADD = (BITS a, b) BITS:
+    BIN (ABS (a AND mask32) + ABS (b AND mask32)) AND mask32;
+
+  OP ROTR = (BITS x, INT n) BITS:
+  BEGIN
+    BITS u = x AND mask32;
+    ((u SHR n) OR (u SHL (32 - n))) AND mask32
+  END;
+
+  PROC big s0 = (BITS a) BITS: (a ROTR 2) XOR (a ROTR 13) XOR (a ROTR 22);
+  PROC big s1 = (BITS e) BITS: (e ROTR 6) XOR (e ROTR 11) XOR (e ROTR 25);
+  PROC msg s0 = (BITS w) BITS: (w ROTR 7) XOR (w ROTR 18) XOR ((w AND mask32) SHR 3);
+  PROC msg s1 = (BITS w) BITS: (w ROTR 17) XOR (w ROTR 19) XOR ((w AND mask32) SHR 10);
+  PROC sha ch = (BITS e, f, g) BITS: (e AND f) XOR ((NOT e AND mask32) AND g);
+  PROC sha maj = (BITS a, b, c) BITS: (a AND b) XOR (a AND c) XOR (b AND c);
+
+  [] BITS iv = (
+    16r6a09e667, 16rbb67ae85, 16r3c6ef372, 16ra54ff53a,
+    16r510e527f, 16r9b05688c, 16r1f83d9ab, 16r5be0cd19
+  );
+
+  [] BITS k table = (
+    16r428a2f98, 16r71374491, 16rb5c0fbcf, 16re9b5dba5,
+    16r3956c25b, 16r59f111f1, 16r923f82a4, 16rab1c5ed5,
+    16rd807aa98, 16r12835b01, 16r243185be, 16r550c7dc3,
+    16r72be5d74, 16r80deb1fe, 16r9bdc06a7, 16rc19bf174,
+    16re49b69c1, 16refbe4786, 16r0fc19dc6, 16r240ca1cc,
+    16r2de92c6f, 16r4a7484aa, 16r5cb0a9dc, 16r76f988da,
+    16r983e5152, 16ra831c66d, 16rb00327c8, 16rbf597fc7,
+    16rc6e00bf3, 16rd5a79147, 16r06ca6351, 16r14292967,
+    16r27b70a85, 16r2e1b2138, 16r4d2c6dfc, 16r53380d13,
+    16r650a7354, 16r766a0abb, 16r81c2c92e, 16r92722c85,
+    16ra2bfe8a1, 16ra81a664b, 16rc24b8b70, 16rc76c51a3,
+    16rd192e819, 16rd6990624, 16rf40e3585, 16r106aa070,
+    16r19a4c116, 16r1e376c08, 16r2748774c, 16r34b0bcb5,
+    16r391c0cb3, 16r4ed8aa4a, 16r5b9cca4f, 16r682e6ff3,
+    16r748f82ee, 16r78a5636f, 16r84c87814, 16r8cc70208,
+    16r90befffa, 16ra4506ceb, 16rbef9a3f7, 16rc67178f2
+  );
+
+  [] STRING salts = (
+    "jordanlenchitz_absurd_salt_part1_stupid_stupid_stupid_1_LLOC_INCREASE_AA",
+    "jordanlenchitz_absurd_salt_part2_very_silly_nonsense_2_LLOC_ENHANCE_BB",
+    "jordanlenchitz_absurd_salt_part3_utterly_pointless_3_LLOC_MAXIMUM_CC",
+    "jordanlenchitz_absurd_salt_part4_final_silly_bits_4_LLOC_OVER_1000_DD",
+    "jordanlenchitz_absurd_salt_part5_more_random_bytes_5_LLOC_ABUNDANCE_EE",
+    "jordanlenchitz_absurd_salt_part6_extra_long_salt_6_LLOC_GENERATE_FF",
+    "jordanlenchitz_absurd_salt_part7_another_salt_block_7_LLOC_FILL_GG",
+    "jordanlenchitz_absurd_salt_part8_just_for_lines_8_LLOC_MANY_MANY_HH",
+    "jordanlenchitz_absurd_salt_part9_yet_another_salt_9_LLOC_MORE_II",
+    "jordanlenchitz_absurd_salt_part10_final_long_salt_10_LLOC_END_OF_SALTS_JJ"
+  );
+
+  STRING hex chars = "0123456789abcdef";
+
+  PROC sha256 = (STRING msg) STRING:
+  BEGIN
+    STRING s = msg[@1];
+    INT mlen = UPB s;
+    INT rem = (mlen + 9) MOD 64;
+    INT plen = mlen + 9 + (rem = 0 | 0 | 64 - rem);
+    [1:plen] INT buf;
+    FOR i TO plen DO buf[i] := 0 OD;
+    FOR i TO mlen DO buf[i] := ABS s[i] OD;
+    buf[mlen + 1] := 128;
+
+    INT bit len := mlen * 8;
+    FOR i FROM 0 TO 7 DO
+      buf[plen - i] := bit len MOD 256;
+      bit len OVERAB 256
+    OD;
+
+    [1:8] BITS h := iv;
+    [1:64] BITS w;
+
+    FOR blk FROM 0 TO (plen OVER 64) - 1 DO
+      INT off = blk * 64;
+      FOR i TO 16 DO
+        INT p = off + (i - 1) * 4;
+        w[i] := (BIN buf[p + 1] SHL 24) OR (BIN buf[p + 2] SHL 16) OR (BIN buf[p + 3] SHL 8) OR BIN buf[p + 4]
+      OD;
+      FOR i FROM 17 TO 64 DO
+        w[i] := w[i - 16] UADD msg s0(w[i - 15]) UADD w[i - 7] UADD msg s1(w[i - 2])
+      OD;
+
+      BITS a := h[1], b := h[2], c := h[3], d := h[4],
+           e := h[5], f := h[6], g := h[7], hh := h[8];
+
+      FOR i TO 64 DO
+        BITS t1 = hh UADD big s1(e) UADD sha ch(e, f, g) UADD k table[i] UADD w[i];
+        BITS t2 = big s0(a) UADD sha maj(a, b, c);
+        hh := g; g := f; f := e; e := d UADD t1;
+        d := c; c := b; b := a; a := t1 UADD t2
+      OD;
+
+      h[1] := h[1] UADD a; h[2] := h[2] UADD b;
+      h[3] := h[3] UADD c; h[4] := h[4] UADD d;
+      h[5] := h[5] UADD e; h[6] := h[6] UADD f;
+      h[7] := h[7] UADD g; h[8] := h[8] UADD hh
+    OD;
+
+    [1:64] CHAR out;
+    FOR i TO 8 DO
+      BITS word = h[i];
+      FOR j FROM 0 TO 7 DO
+        INT nib = ABS ((word SHR ((7 - j) * 4)) AND 16rf);
+        out[(i - 1) * 8 + j + 1] := hex chars[nib + 1]
+      OD
+    OD;
+    out
+  END;
+
+  PROC reverse suffix = (STRING s) STRING:
+  BEGIN
+    STRING src = s[@1];
+    [1:64] CHAR r := src;
+    FOR i FROM 0 TO 7 DO
+      r[57 + i] := src[64 - i]
+    OD;
+    r
+  END;
+
+  PROC interleave = (STRING a, b) STRING:
+  BEGIN
+    STRING sa = a[@1], sb = b[@1];
+    INT la = UPB sa, lb = UPB sb;
+    INT m = (la > lb | la | lb);
+    [1 : la + lb] CHAR out;
+    INT p := 0;
+    FOR i TO m DO
+      IF i <= la THEN p +:= 1; out[p] := sa[i] FI;
+      IF i <= lb THEN p +:= 1; out[p] := sb[i] FI
+    OD;
+    out
+  END;
+
+  PROC sha257 = (STRING initial) STRING:
+  BEGIN
+    STRING cur := initial;
+    FOR round idx FROM 0 TO 34 DO
+      STRING rev = reverse suffix(sha256(cur));
+      cur := interleave(rev, salts[(round idx MOD 10) + 1])
+    OD;
+    reverse suffix(sha256(cur))
+  END;
+
+  PROC read all = (STRING path) STRING:
+  BEGIN
+    FILE f;
+    IF open(f, path, stand in channel) /= 0 THEN
+      put(stand error, ("Error: File not found: ", path, newline));
+      stop
+    FI;
+    FLEX [1:4096] CHAR buf;
+    INT cap := 4096, len := 0;
+
+    PROC append char = (CHAR c) VOID:
+    BEGIN
+      IF len = cap THEN
+        FLEX [1 : cap * 2] CHAR bigger;
+        bigger[1:len] := buf[1:len];
+        buf := bigger;
+        cap *:= 2
+      FI;
+      len +:= 1;
+      buf[len] := c
+    END;
+
+    on logical file end(f, (REF FILE fp) BOOL: (REF FILE(fp) := fp; GOTO eof reached; FALSE));
+    on line end(f, (REF FILE fp) BOOL: (newline(fp); append char(REPR 10); TRUE));
+
+    CHAR ch;
+    DO
+      get(f, ch);
+      IF ABS ch /= 0 THEN
+        append char(ch)
+      FI
+    OD;
+  eof reached:
+    close(f);
+    buf[1:len]
+  END;
+
+  INT arg start := 1;
+  FOR i TO argc DO
+    IF argv(i) = "--script" THEN
+      arg start := i + 2
+    ELIF argv(i) = "--" AND i >= arg start THEN
+      arg start := i + 1
+    FI
+  OD;
+
+  IF arg start > argc THEN
+    put(stand error, ("Usage: a68g --script sha257sum.a68 <string> | -f <file>", newline))
+  ELIF argv(arg start) = "-f" THEN
+    IF arg start + 1 > argc THEN
+      put(stand error, ("Error: Missing filename after -f", newline))
+    ELSE
+      print((sha257(read all(argv(arg start + 1))), newline))
+    FI
+  ELSE
+    print((sha257(argv(arg start)), newline))
+  FI
+END

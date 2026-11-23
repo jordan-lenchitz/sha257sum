@@ -358,8 +358,8 @@
 
         <div class="section">
             <div class="section-title">ports</div>
-            <p style="margin-bottom: 16px;">sha257sum has been ported to 53 languages so far but to ensure kevin's containment across all known compute environments please help us write more (see github repo for open issues and howto)</p>
-            <input type="text" id="ports-filter" class="ports-filter" placeholder="filter 53 languages (e.g. rust, verilog, forth)..." spellcheck="false" autocomplete="off">
+            <p style="margin-bottom: 16px;">sha257sum has been ported to 56 languages so far but to ensure kevin's containment across all known compute environments please help us write more (see github repo for open issues and howto)</p>
+            <input type="text" id="ports-filter" class="ports-filter" placeholder="filter 56 languages (e.g. rust, verilog, forth)..." spellcheck="false" autocomplete="off">
             <div class="ports-grid" id="ports-list">
                 <!-- Port cards will be injected here -->
             </div>
@@ -477,6 +477,7 @@
 
         const ports = [
             { name: "Ada", cmd: "gnatmake sha257sum.adb -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
+            { name: "Algol 68", cmd: "a68g --script sha257sum.a68 \"kevin\"", badge: "UNHINGED" },
             { name: "Bash/Awk", cmd: "./sha257sum.sh \"kevin\"", badge: "SURVIVED" },
             { name: "BASIC", cmd: "yabasic sha257sum.bas -- \"kevin\"", badge: "UNHINGED" },
             { name: "C", cmd: "gcc sha257sum.c -o sha257sum && ./sha257sum \"kevin\"", badge: "TORMENTED" },
@@ -503,6 +504,7 @@
             { name: "LLVM IR", cmd: "clang -Wno-override-module sha257sum.ll -o sha257sum && ./sha257sum \"kevin\"", badge: "UNHINGED" },
             { name: "Lua", cmd: "./sha257sum.lua \"kevin\"", badge: "SURVIVED" },
             { name: "Matlab", cmd: "sha257sum_matlab('kevin')", badge: "UNHINGED" },
+            { name: "Modula-2", cmd: "gm2 -O2 sha257sum.mod -o sha257sum && ./sha257sum \"kevin\"", badge: "UNHINGED" },
             { name: "Mumps", cmd: "mumps -run sha257sum \"kevin\"", badge: "UNHINGED" },
             { name: "Nim", cmd: "nim c -d:release sha257sum.nim && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
             { name: "Node.js", cmd: "node sha257sum.js \"kevin\"", badge: "CERTIFIED" },
@@ -515,6 +517,7 @@
             { name: "PowerShell", cmd: "pwsh -File sha257sum.ps1 -InputString \"kevin\"", badge: "SURVIVED" },
             { name: "Prolog", cmd: "swipl -q sha257sum.pro -- \"kevin\"", badge: "UNHINGED" },
             { name: "Python", cmd: "./sha257sum.py \"kevin\"", badge: "CERTIFIED" },
+            { name: "RISC-V Assembly", cmd: "riscv64-linux-gnu-as sha257sum.s -o sha257sum.o && riscv64-linux-gnu-ld sha257sum.o -o sha257sum && qemu-riscv64 ./sha257sum \"kevin\"", badge: "UNHINGED" },
             { name: "Ruby", cmd: "ruby sha257sum.rb \"kevin\"", badge: "SURVIVED" },
             { name: "Rust", cmd: "rustc sha257sum.rs -o sha257sum && ./sha257sum \"kevin\"", badge: "CERTIFIED" },
             { name: "Scheme", cmd: "guile --no-auto-compile sha257sum.scm \"kevin\"", badge: "SURVIVED" },

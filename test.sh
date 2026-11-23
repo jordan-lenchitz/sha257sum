@@ -167,6 +167,16 @@ if should_run "vhdl"; then
   if require ghdl;     then compiled "vhdl" "ghdl -a sha257sum.vhd && ghdl -e sha257sum" "ghdl -r sha257sum -gINPUT=kevin" "ghdl -r sha257sum -gFILE_NAME=kevin" 'ghdl -r sha257sum "-gINPUT=$ANTICHEAT_INPUT"'; rm -f work-obj93.cf sha257sum sha257sum.o e~sha257sum.o
                        else skip "vhdl" "ghdl";      fi
 fi
+if should_run "risc-v assembly"; then
+  if require riscv64-linux-gnu-as && require riscv64-linux-gnu-ld && require qemu-riscv64; then
+    compiled "risc-v assembly" "riscv64-linux-gnu-as sha257sum.s -o _t.o && riscv64-linux-gnu-ld _t.o -o _t" "qemu-riscv64 ./_t kevin" "qemu-riscv64 ./_t -f kevin" 'qemu-riscv64 ./_t "$ANTICHEAT_INPUT"'
+    rm -f _t _t.o
+  else skip "risc-v assembly" "riscv64-linux-gnu-as/ld or qemu-riscv64"; fi
+fi
+if should_run "modula-2"; then
+  if require gm2;      then compiled "modula-2" "gm2 -O2 sha257sum.mod -o _t" "./_t kevin" "./_t -f kevin" './_t "$ANTICHEAT_INPUT"'; rm -f _t
+                       else skip "modula-2" "gm2";   fi
+fi
 
 # jvm
 if should_run "java"; then
@@ -293,6 +303,10 @@ fi
 if should_run "webassembly"; then
   if require wasmtime;  then interp "webassembly" "wasmtime --dir=. sha257sum.wat kevin" "wasmtime --dir=. sha257sum.wat -f kevin" 'wasmtime --dir=. sha257sum.wat "$ANTICHEAT_INPUT"'
                         else skip "webassembly" "wasmtime"; fi
+fi
+if should_run "algol 68"; then
+  if require a68g;      then interp "algol 68" "a68g --script sha257sum.a68 kevin" "a68g --script sha257sum.a68 -f kevin" 'a68g --script sha257sum.a68 "$ANTICHEAT_INPUT"'; rm -f .Random.seed
+                        else skip "algol 68" "a68g"; fi
 fi
 
 # shell

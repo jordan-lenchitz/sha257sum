@@ -52,6 +52,10 @@ RUN apt-get update && apt-get install -y \
     ghostscript \
     ghdl \
     erlang-base \
+    algol68g \
+    binutils-riscv64-linux-gnu \
+    qemu-user \
+    gm2 \
     vim \
     && rm -rf /var/lib/apt/lists/*
 

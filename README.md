@@ -22,6 +22,7 @@ we are porting `sha257sum` to as many languages as possible and would love your 
 **note: all source code is located in the `sha257/` directory of this repo**
 `cd sha257` then sudo
 - **ada**: `gnatmake sha257sum.adb -o sha257sum && ./sha257sum "kevin"`
+- **algol 68**: `a68g --script sha257sum.a68 "kevin"` or `a68g --script sha257sum.a68 -f kevin`
 - **bash and awk**: `./sha257sum.sh "kevin"` or `./sha257sum.sh -f kevin`
 - **basic**: `yabasic sha257sum.bas -- "kevin"` or `yabasic sha257sum.bas -- -f kevin`
 - **c**: `gcc sha257sum.c -o sha257sum && ./sha257sum "kevin"`
@@ -48,6 +49,7 @@ we are porting `sha257sum` to as many languages as possible and would love your 
 - **llvm ir**: `clang -Wno-override-module sha257sum.ll -o sha257sum && ./sha257sum "kevin"` or `./sha257sum -f kevin`
 - **lua**: `./sha257sum.lua "kevin"`
 - **matlab**: `sha257sum_matlab('kevin')` or `sha257sum_matlab('kevin', true)`
+- **modula-2**: `gm2 -O2 sha257sum.mod -o sha257sum && ./sha257sum "kevin"` or `./sha257sum -f kevin`
 - **mumps**: `mumps -run sha257sum "kevin"` or `mumps -run sha257sum -f kevin`
 - **nim**: `nim c -d:release sha257sum.nim && ./sha257sum "kevin"`
 - **node.js**: `node sha257sum.js "kevin"`
@@ -59,6 +61,7 @@ we are porting `sha257sum` to as many languages as possible and would love your 
 - **powershell**: `pwsh -File sha257sum.ps1 -InputString "kevin"` or `pwsh -File sha257sum.ps1 -InputString kevin -IsFile`
 - **prolog**: `swipl -q sha257sum.pro -- "kevin"` or `swipl -q sha257sum.pro -- -f kevin`
 - **python**: `./sha257sum.py "kevin"` or `./sha257sum.py -f kevin`
+- **risc-v assembly**: `riscv64-linux-gnu-as sha257sum.s -o sha257sum.o && riscv64-linux-gnu-ld sha257sum.o -o sha257sum && qemu-riscv64 ./sha257sum "kevin"` or `qemu-riscv64 ./sha257sum -f kevin`
 - **ruby**: `ruby sha257sum.rb "kevin"`
 - **rust**: `rustc sha257sum.rs -o sha257sum && ./sha257sum "kevin"`
 - **scheme**: `guile --no-auto-compile sha257sum.scm "kevin"` or `guile --no-auto-compile sha257sum.scm -f kevin`

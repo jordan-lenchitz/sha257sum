@@ -147,7 +147,7 @@ jobs:
             gfortran gnat gnucobol swi-prolog-nox lua5.4 php-cli octave \
             file ksh wget gdc fp-compiler nim crystal libgc-dev libevent-dev \
             sbcl elixir clojure tcl yabasic nasm iverilog gforth ocaml-nox guile-3.0 valac \
-            jq sqlite3 clang ghostscript ghdl
+            jq sqlite3 clang ghostscript ghdl algol68g binutils-riscv64-linux-gnu qemu-user gm2
           sudo ln -sf /usr/bin/lua5.4 /usr/local/bin/lua
           # Install PowerShell (only if not already pre-installed on runner)
           if ! command -v pwsh &>/dev/null; then
@@ -224,7 +224,7 @@ jobs:
       - name: set required langs (ubuntu)
         if: runner.os == 'Linux'
         run: |
-          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,tcl,basic,forth,x86 assembly,verilog,vhdl,ocaml,vala,scheme,erlang,jq,sqlite,llvm ir,webassembly,postscript,bash/awk,ksh,powershell,prolog,octave,mumps,cobol,d,zig,nim,pascal,julia,crystal,common lisp,elixir,clojure" >> "$GITHUB_ENV"
+          echo "MUST_RUN=c,c++,fortran,ada,rust,swift,haskell,java,kotlin,go,node.js,typescript,coffeescript,python,ruby,perl,php,lua,c#,f#,tcl,basic,forth,x86 assembly,verilog,vhdl,ocaml,vala,scheme,erlang,jq,sqlite,llvm ir,webassembly,postscript,bash/awk,ksh,powershell,prolog,octave,mumps,cobol,d,zig,nim,pascal,julia,crystal,common lisp,elixir,clojure,risc-v assembly,modula-2,algol 68" >> "$GITHUB_ENV"
 
       - name: set required langs (macos)
         if: runner.os == 'macOS'
